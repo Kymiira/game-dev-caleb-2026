@@ -211,27 +211,25 @@ a:focus-visible {
 
 .collapsible {
     max-width: fit-content;
-    margin: 0 auto 2rem;
+    margin: 0 auto 2.5rem;
+    border: 1px solid var(--color-accent);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--color-bg-alt);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--color-accent) 55%, transparent);
 }
 
 .collapsible-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--color-surface);
-    color: var(--color-text-strong);
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    padding: 0.75rem 1.25rem;
-    font: inherit;
-    font-weight: 600;
-    cursor: pointer;
-    transition: border-color 0.15s ease;
+    width: 100%;
+    justify-content: center;
+    background: var(--color-primary);
+    border: none;
+    padding: 0.9rem 1.5rem;
 }
 
 .collapsible-toggle:hover,
 .collapsible-toggle:focus-visible {
-    border-color: var(--color-accent);
+    background: var(--color-primary-light);
 }
 
 .collapsible-icon {
@@ -255,4 +253,5 @@ a:focus-visible {
 
 .collapsible-inner {
     overflow: hidden;
+    padding: 1.5rem;
 }
