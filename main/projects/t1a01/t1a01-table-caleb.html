@@ -1,109 +1,107 @@
 <!DOCTYPE html>
-<html lang=en>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Funky Tables</title>
-        <style>
-            body {font-family: 'Inter', sans-serif;}
-        </style>
-    </head>
-    <body>
-        <header>
-            <h1 align=center>Funky Tables</h1>
-        </header>
-        <hr>
-        <main>
-            <div align="center">
-                <table>
-                    <caption>
-                        1x2
-                    </caption>
-                    <thead>
-                        <tr>
-                            <td scope="col" style="border: 1px;">Tile 1</td>
-                            <td scope="col" style="border: 1px;">Tile 2</td>
-                        </tr>
-                    </thead>
-                </table>
+<html lang="en" data-theme="gothic">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funky Tables</title>
+    <link rel="stylesheet" href="../utils/styles.css">
+</head>
+<body>
+    <header>
+        <h1>T1A01 funky tables</h1>
+        <nav>
+            <a href="../../index-src/index.html">Index</a>
+        </nav>
+    </header>
 
-                <table>
-                    <caption>
-                        2x2
-                    </caption>
-                    <thead>
-                        <tr>
-                            <td scope="col" style="border: 1px;">Tile 1</td>
-                            <td scope="col" style="border: 1px;">Tile 2</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row" style="border: 1px;">Tile 3</td>
-                            <td style="border: 1px;">Tile 4</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <table>
-                    <caption>
-                        2x3
-                    </caption>
-                    <thead>
-                        <tr>
-                            <td scope="col" style="border: 1px;">Tile 1</td>
-                            <td scope="col" style="border: 1px;">Tile 2</td>
-                            <td scope="col" style="border: 1px;">Tile 3</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row" style="border: 1px;">Tile 4</td>
-                            <td style="border: 1px;">Tile 5</td>
-                            <td style="border: 1px;">Tile 6</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <main>
+        <table class="funky-table">
+            <caption>1x2</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Tile 1</th>
+                    <th scope="col">Tile 2</th>
+                </tr>
+            </thead>
+        </table>
 
-                <table>
-                    <caption>
-                        3x4
-                    </caption>
-                    <thead>
-                        <tr>
-                            <td style="border: 1px;">Tile 1</td>
-                            <td style="border: 1px;">Tile 2</td>
-                            <td style="border: 1px;">Tile 3</td>
-                            <td style="border: 1px;">Tile 4</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="border: 1px;">Tile 5</td>
-                            <td style="border: 1px;">Tile 6</td>
-                            <td style="border: 1px;">Tile 7</td>
-                            <td style="border: 1px;">Tile 8</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px;">Tile 9</td>
-                            <td style="border: 1px;">Tile 10</td>
-                            <td style="border: 1px;">Tile 11</td>
-                            <td style="border: 1px;">Tile 12</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <table class="funky-table">
+            <caption>2x2</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Tile 1</th>
+                    <th scope="col">Tile 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tile 3</td>
+                    <td>Tile 4</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table class="funky-table">
+            <caption>2x3</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Tile 1</th>
+                    <th scope="col">Tile 2</th>
+                    <th scope="col">Tile 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tile 4</td>
+                    <td>Tile 5</td>
+                    <td>Tile 6</td>
+                </tr>
+            </tbody>
+        </table>
 
-                <table style="border: 0px;">
-                    <caption>
-                        image
-                    </caption>
-                    <thead>
-                        <tr>
-                            <td style="border: 0px;"><a href="..."></a></td>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-        </main>
-    </body>
+        <table class="funky-table">
+            <caption>3x4</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Tile 1</th>
+                    <th scope="col">Tile 2</th>
+                    <th scope="col">Tile 3</th>
+                    <th scope="col">Tile 4</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tile 5</td>
+                    <td>Tile 6</td>
+                    <td>Tile 7</td>
+                    <td>Tile 8</td>
+                </tr>
+                <tr>
+                    <td>Tile 9</td>
+                    <td>Tile 10</td>
+                    <td>Tile 11</td>
+                    <td>Tile 12</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        ...
+
+
+        <table class="funky-table-borderless">
+            <caption>image</caption>
+            <tbody>
+                <tr><td><a href="...">...</a></td></tr>
+            </tbody>
+        </table>
+
+        <table class="funky-table-borderless">
+            <caption>link</caption>
+            <tbody>
+                <tr><td><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/table">the real link</a></td></tr>
+            </tbody>
+        </table>
+    </main>
+</body>
 </html>

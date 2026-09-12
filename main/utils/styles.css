@@ -58,6 +58,10 @@
   --color-border: #3D0000;
 }
 
+/*
+    index and general classes
+*/
+
 * {
     box-sizing: border-box;
 }
@@ -153,4 +157,35 @@ a:focus-visible {
 .project-list .pending {
   opacity: 0.6;
   border-style: dashed;
+}
+
+*/
+    t1a01 specific classes
+*/
+
+.funky-table,
+.funky-table-borderless {
+    border-collapse: collapse;
+    margin: 0 auto 1.5rem;
+}
+
+.funky-table caption,
+.funky-table-borderless caption {
+    caption-side: top;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--color-text-strong);
+}
+
+.funky-table th,
+.funky-table td {
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 0.9rem;
+  text-align: center;
+}
+
+.funky-table-borderless th,
+.funky-table-borderless td {
+  border: none;
+  padding: 0.5rem;
 }
