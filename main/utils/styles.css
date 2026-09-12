@@ -1,0 +1,156 @@
+/* 
+    styles.css
+    prolly just going to use this as a modular themebased stylesheet for the semester
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root,
+[data-theme="purple"] {
+    --color-bg: #10002B;
+    --color-bg-alt: #240046;
+    --color-surface: #3C096C;
+    --color-surface-alt: #5A189A;
+    --color-primary: #7B2CBF;
+    --color-primary-light: #9D4EDD;
+    --color-accent: #C77DFF;
+    --color-text: #E0AAFF;
+    --color-text-strong: #FFFFFF;
+    --color-border: #5A189A;
+}
+
+[data-theme="maroon"] {
+  --color-bg: #250902;
+  --color-bg-alt: #38040E;
+  --color-surface: #640D14;
+  --color-surface-alt: #800E13;
+  --color-primary: #AD2831;
+  --color-primary-light: #C9484F;
+  --color-accent: #E2777D;
+  --color-text: #F2D6D8;
+  --color-text-strong: #FFFFFF;
+  --color-border: #800E13;
+}
+
+[data-theme="earth"] {
+  --color-bg: #0A0908;
+  --color-bg-alt: #49111C;
+  --color-surface: #5E503F;
+  --color-surface-alt: #A9928D;
+  --color-primary: #A9928D;
+  --color-primary-light: #C9B8B1;
+  --color-accent: #F2F4F3;
+  --color-text: #F2F4F3;
+  --color-text-strong: #FFFFFF;
+  --color-border: #5E503F;
+}
+
+[data-theme="gothic"] {
+  --color-bg: #0D0D0D;
+  --color-bg-alt: #1C1C1C;
+  --color-surface: #2A2A2A;
+  --color-surface-alt: #3D0000;
+  --color-primary: #6B0F1A;
+  --color-primary-light: #8B1E2B;
+  --color-accent: #B22222;
+  --color-text: #D8D8D8;
+  --color-text-strong: #FFFFFF;
+  --color-border: #3D0000;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, var(--color-bg), var(--color-bg-alt));
+    color: var(--color-text);
+    line-height: 1.5;
+}
+
+header {
+    padding: 2.5rem 1.5rem 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--color-border);
+}
+
+header h1 {
+    margin: 0 0 0.75rem;
+    color: var(--color-text-strong);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
+  font-size: 0.95rem;
+}
+ 
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+ 
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--color-surface-alt);
+  border-top: 1px solid var(--color-border);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+ 
+a:hover,
+a:focus-visible {
+  color: var(--color-primary-light);
+  border-bottom-color: currentColor;
+}
+
+.project-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+ 
+.project-list li {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.85rem 1.1rem;
+}
+ 
+.project-list a {
+  display: block;
+  font-weight: 500;
+}
+
+.project-list .pending a {
+  color: var(--color-surface-alt);
+  cursor: default;
+  pointer-events: none;
+  border-bottom: none;
+}
+ 
+.project-list .pending {
+  opacity: 0.6;
+  border-style: dashed;
+}
