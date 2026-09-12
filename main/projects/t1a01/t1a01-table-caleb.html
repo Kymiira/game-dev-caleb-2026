@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Funky Tables</title>
     <link rel="stylesheet" href="../../utils/styles.css">
+    <script src="../../utils/scripts.js" defer></script>
 </head>
 <body>
     <header>
@@ -15,75 +16,84 @@
     </header>
 
     <main>
-        <table class="funky-table">
-            <caption>1x2</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Tile 1</th>
-                    <th scope="col">Tile 2</th>
-                </tr>
-            </thead>
-        </table>
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="grow-tables">
+                <span class="collapsible-icon">-</span> Increasingly Large Tables
+            </button>
+            <div class="collapsible-content" id="grow-tables">
+                <div class="collapsible-inner">
+                    <table class="funky-table">
+                        <caption>1x2</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Tile 1</th>
+                                <th scope="col">Tile 2</th>
+                            </tr>
+                        </thead>
+                    </table>
 
-        <table class="funky-table">
-            <caption>2x2</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Tile 1</th>
-                    <th scope="col">Tile 2</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Tile 3</td>
-                    <td>Tile 4</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <table class="funky-table">
-            <caption>2x3</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Tile 1</th>
-                    <th scope="col">Tile 2</th>
-                    <th scope="col">Tile 3</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Tile 4</td>
-                    <td>Tile 5</td>
-                    <td>Tile 6</td>
-                </tr>
-            </tbody>
-        </table>
+                    <table class="funky-table">
+                        <caption>2x2</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Tile 1</th>
+                                <th scope="col">Tile 2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tile 3</td>
+                                <td>Tile 4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <table class="funky-table">
+                        <caption>2x3</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Tile 1</th>
+                                <th scope="col">Tile 2</th>
+                                <th scope="col">Tile 3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tile 4</td>
+                                <td>Tile 5</td>
+                                <td>Tile 6</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-        <table class="funky-table">
-            <caption>3x4</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Tile 1</th>
-                    <th scope="col">Tile 2</th>
-                    <th scope="col">Tile 3</th>
-                    <th scope="col">Tile 4</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Tile 5</td>
-                    <td>Tile 6</td>
-                    <td>Tile 7</td>
-                    <td>Tile 8</td>
-                </tr>
-                <tr>
-                    <td>Tile 9</td>
-                    <td>Tile 10</td>
-                    <td>Tile 11</td>
-                    <td>Tile 12</td>
-                </tr>
-            </tbody>
-        </table>
+                    <table class="funky-table">
+                        <caption>3x4</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Tile 1</th>
+                                <th scope="col">Tile 2</th>
+                                <th scope="col">Tile 3</th>
+                                <th scope="col">Tile 4</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tile 5</td>
+                                <td>Tile 6</td>
+                                <td>Tile 7</td>
+                                <td>Tile 8</td>
+                            </tr>
+                            <tr>
+                                <td>Tile 9</td>
+                                <td>Tile 10</td>
+                                <td>Tile 11</td>
+                                <td>Tile 12</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
 
         <p class="table-divider">. . .</p>
 <!--        
