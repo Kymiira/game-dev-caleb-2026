@@ -220,11 +220,19 @@ a:focus-visible {
 }
 
 .collapsible-toggle {
-    width: 100%;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
     background: var(--color-primary);
+    color: var(--color-text-strong);
     border: none;
     padding: 0.9rem 1.5rem;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
 }
 
 .collapsible-toggle:hover,
