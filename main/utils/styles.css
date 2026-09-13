@@ -167,7 +167,7 @@ a:focus-visible {
 .funky-table-borderless {
     border-collapse: collapse;
     margin: 0 auto 2.5rem;
-    box-shadow: 0 0 16px color-mix(in srgb, var(--color-accent) 55%, transparent);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .funky-table caption,
@@ -216,7 +216,7 @@ a:focus-visible {
     border-radius: 10px;
     overflow: hidden;
     background: var(--color-bg-alt);
-    box-shadow: 0 0 16px color-mix(in srgb, var(--color-accent) 55%, transparent);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .collapsible-toggle {
@@ -262,4 +262,5 @@ a:focus-visible {
 .collapsible-inner {
     overflow: hidden;
     padding: 1.5rem;
+    min-height: 0;
 }
