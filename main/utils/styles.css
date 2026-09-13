@@ -251,12 +251,12 @@ a:focus-visible {
 
 .collapsible-content {
     display: grid;
-    grid-template-rows: 1fr;
+    grid-template-rows: minmax(0, 1fr);
     transition: grid-template-rows 0.25s ease;
 }
 
 .collapsible-content.is-collapsed {
-    grid-template-rows: 0fr;
+    grid-template-rows: minmax(0, 0fr);
 }
 
 .collapsible-inner {
