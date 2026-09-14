@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caleb Index Game Dev 2026</title>
     <link rel="stylesheet" href="../utils/styles.css">
+    <script src="../utils/scripts.js" defer></script>
 </head>
 <body>
     <header>
@@ -17,9 +18,12 @@
     </header>
 
     <main>
-        <table>
-            <tbody>
-                <td>
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="grow-tables">
+                <span class="collapsible-icon">-</span> Main Assignments
+            </button>
+            <div class="collapsible-content" id="grow-tables">
+                <div class="collapsible-inner">
                     <ol class="project-list">
                         <li><a href="../projects/t1a01/t1a01-table-caleb.html">t1a01-tables</a></li>
                         <li><a href="../projects/t1a02/t1a02-list-caleb.html">t1a02-lists</a></li>
@@ -32,8 +36,10 @@
                         <li class="pending"><a href="#">#</a></li>
                         <li class="pending"><a href="#">#</a></li>
                     </ol>  
-                </td>
-                <td>
+                </div>
+            </div>
+        </section>
+        <!--
                     <ol class="project-list">
                         <li><a href="../projects/t1x01/threejs-plotly-fred.html">t1x01-threejs-plotly</a></li>
                         <li class="pending"><a href="#">#</a></li>
@@ -46,9 +52,7 @@
                         <li class="pending"><a href="#">#</a></li>
                         <li class="pending"><a href="#">#</a></li>
                     </ol>
-                </td>
-            </tbody>
-        </table>
+        -->
     </main>
 
     <footer>

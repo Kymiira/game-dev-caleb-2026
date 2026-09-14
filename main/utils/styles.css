@@ -126,6 +126,10 @@ a:focus-visible {
     border-bottom-color: currentColor;
 }
 
+.project-table {
+    align: center;
+}
+
 .project-list {
     list-style: none;
     margin: 0;
