@@ -100,7 +100,7 @@ nav {
 }
  
 main {
-    max-width: 760px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 2rem 1.5rem 4rem;
 }
@@ -126,10 +126,6 @@ a:focus-visible {
     border-bottom-color: currentColor;
 }
 
-.project-table {
-    align: center;
-}
-
 .project-list {
     list-style: none;
     margin: 0;
@@ -137,7 +133,7 @@ a:focus-visible {
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
-    min-width: 350px;
+    min-width: 200px;
 }
  
 .project-list li {
@@ -268,4 +264,18 @@ a:focus-visible {
     overflow: hidden;
     padding: 1.5rem;
     min-height: 0;
+}
+
+.collapsible-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: start;
+    justify-content: center;
+}
+
+.collapsible-row .collapsible {
+    flex: 1 1 320px;
+    max-width: none;
+    margin-bottom: 0;
 }
