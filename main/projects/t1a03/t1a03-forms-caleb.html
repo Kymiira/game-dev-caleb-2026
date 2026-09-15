@@ -19,16 +19,16 @@
             <section class="centered">
                 The following are all form elements (add to them):<br>
                 <form>
-                    First Name:<input type="text" id="fName" value="Caleb"><br>
-                    Is this your name? <input type="checkbox">Yes <input type="checkbox">No<br>
-                    what is your age? <Input type="radio" name="age" value=""><br>
+                    Enter First Name:<input type="text" id="fName" placeholder="Caleb"><br>
+                    Is this your name? <input type="checkbox" id="yBox" onchange="{doSomething(c)}">Yes <input type="checkbox" id="nBox" onchange="{doSomething(d)}">No<br>
+                    You're 100% sure? <Input type="radio">Yes<input type="radio">No<br>
                     hidden:<input type="hidden"><br>
                     file:<input type="file"><br>
                     reset:<input type="reset"><br>
                     submit:<input type="submit"><br>
-                    button:<input type="button" value="submitagain" onclick="{doSomething(button);}"><br>
+                    button:<input type="button" id="button" value="click me i dare you" onclick="{doSomething(a);}"><br>
                     textArea:<textarea id="tArea" cols="1" rows="1">this works broski</textarea><br>
-                    selectBox:<select id="select" size="2" onchange="{doSomething(select)}"></select>
+                    selectBox:<select id="select" size="2" onchange="{doSomething(b)}"></select>
                     option:<option value="person">Person</option>
                 </form>
             </section>
