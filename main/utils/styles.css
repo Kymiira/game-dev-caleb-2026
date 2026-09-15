@@ -279,3 +279,78 @@ a:focus-visible {
     max-width: none;
     margin-bottom: 0;
 }
+
+/*
+t1a02 specific classes
+*/
+
+#whale-list {
+width: fit-content;
+min-width: 300px;
+margin: 2rem auto;
+padding-right: 2.5rem;
+}
+
+#whale-list li {
+background: var(--surf-color);
+border: 1px solid var(--border-color);
+border-radius: 6px;
+padding: 0.7rem 1rem;
+margin-bottom: 0.5rem;
+}
+
+#whale-list li:first-child {
+background: var(--prim-color);
+color: var(--text-color-2);
+text-align: center;
+list-style-position: inside;
+font-weight: 600;
+}
+
+#whale-list li:last-child {
+background: transparent;
+border: none;
+text-align: center;
+}
+
+#whale-list button,
+#answers button {
+background: var(--prim-color);
+color: var(--text-color-2);
+border: 1px solid var(--accent-color);
+border-radius: 6px;
+padding: 0.6rem 1.2rem;
+font: inherit;
+font-weight: 600;
+cursor: pointer;
+transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+#whale-list button:hover,
+#answers button:hover {
+background: var(--prim-color-2);
+}
+
+#whale-list button:active,
+#answers button:active {
+transform: scale(0.96);
+}
+
+#question {
+text-align: center;
+color: var(--text-color-2);
+font-size: 1.1rem;
+font-weight: 600;
+margin: 1rem 0;
+}
+
+#answers {
+display: flex;
+justify-content: center;
+gap: 0.5rem;
+margin-top: 1rem;
+}
+
+#answers button {
+min-width: 45px;
+}
