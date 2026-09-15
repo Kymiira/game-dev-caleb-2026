@@ -9,7 +9,7 @@ let b = false
 let c = false
 let d = false
 
-function doSomething(a, b) {
+function doSomething(a, b, c, d) {
     if (a) {
         dButton.value = "why did you do that?"
     }
