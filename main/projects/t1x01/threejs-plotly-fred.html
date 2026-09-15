@@ -10,6 +10,21 @@
     <section>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
       <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+      <script>
+        let myPlotlyDiv = null;
+        let myRenderer = null;
+        function loop() {
+          if (myPlotlyDiv) {
+            myPlotlyDiv.style.margin = '0 auto';
+          }
+          if (myRenderer) {
+            myRenderer.domElement.style.display = 'block';
+            myRenderer.domElement.style.margin = '0 auto';
+          }
+          requestAnimationFrame(loop);
+        }
+        loop();
+      </script>
     </section>
   </head>
   <body>
@@ -22,10 +37,10 @@
     <main>
       <input type=button value="Show Plotly" onclick="{
         this.remove();
-        let myPlotlyDiv = document.createElement('div');
+        myPlotlyDiv = document.createElement('div');
         myPlotlyDiv.style.width = '300px';
         myPlotlyDiv.style.height = '200px';
-        document.body.appendChild(myPlotlyDiv);
+        document.querySelector('main').appendChild(myPlotlyDiv);
         let mySocketX = [0, 1, 2];
         let mySocketY = [0, 2, 1];
         Plotly.newPlot(myPlotlyDiv, [{x: mySocketX, y: mySocketY, mode: 'lines+markers'}], {margin: {t:10, b:20, l:20, r:10}, paper_bgcolor:'transparent', plot_bgcolor:'transparent'});
@@ -34,9 +49,9 @@
         this.remove();
         let myScene = new THREE.Scene();
         let myCamera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-        let myRenderer = new THREE.WebGLRenderer();
+        myRenderer = new THREE.WebGLRenderer();
         myRenderer.setSize(200, 200);
-        document.body.appendChild(myRenderer.domElement);
+        document.querySelector('main').appendChild(myRenderer.domElement);
 
         let myPixel = new THREE.Points(
           new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0], 3)),
