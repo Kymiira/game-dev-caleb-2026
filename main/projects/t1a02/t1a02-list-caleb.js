@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initWhaleGame() {
     const whaleList = document.getElementById('whale-list');
-    const whales = WhaleList.querySelectoryAll('li');
+    const whales = whaleList.querySelectoryAll('li');
     whales[0].textContent = "Humpback"
     whales[1].textContent = "Blue Whale"
     whales[2].textContent = "Beluga"
