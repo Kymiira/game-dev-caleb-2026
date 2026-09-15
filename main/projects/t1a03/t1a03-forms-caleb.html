@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="gothic">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Freaky Forms</title>
+        <link rel="stylesheet" href="../../utils/styles.css">
+        <!-- <script src="../../utils/scripts.js" defer></script> -->
+    </head>
+    <body>
+        <header>
+            <h1>T1a03 Freaky Forms</h1>
+            <nav>
+                <a href="../../index-src/">Index</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="centered">
+                The following are all form elements (add to them):<br>
+                <form>
+                    First Name:<input type="text" id="fName" value="Caleb"><br>
+                    Is this your name? <input type="checkbox">Yes <input type="checkbox">No<br>
+                    what is your age? <Input type="radio" name="age" value=""><br>
+                    hidden:<input type="hidden"><br>
+                    file:<input type="file"><br>
+                    reset:<input type="reset"><br>
+                    submit:<input type="submit"><br>
+                    button:<input type="button" value="submitagain" onclick="{doSomething(button);}"><br>
+                    textArea:<textarea id="tArea" cols="1" rows="1">this works broski</textarea><br>
+                    selectBox:<select id="select" size="2" onchange="{doSomething(select)}"></select>
+                    option:<option value="person">Person</option>
+                </form>
+            </section>
+        </main>

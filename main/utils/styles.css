@@ -104,6 +104,16 @@ main {
     margin: 0 auto;
     padding: 2rem 1.5rem 4rem;
 }
+
+.centered section {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.6rem;
+
+}
  
 footer {
     text-align: center;
