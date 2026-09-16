@@ -6,9 +6,9 @@ function doSomething() {
     temp: 0
   };
   
-  let count = ((Math.random() / Math.random()) + (Math.random() / Math.random()) + (Math.random() / Math.random()) + (Math.random() / Math.random()));
+  let count = Math.round((Math.round(((Math.random() / Math.random()) + (Math.random() / Math.random()) + (Math.random() / Math.random()) + (Math.random() / Math.random())))*100));
   for (let i = 0; i < count; i++) {
-    x.array[i] = ((Math.random() / Math.random()) + (Math.random() / Math.random()) + (Math.random() / Math.random()) + (Math.random() / Math.random()));
+    x.array[i] = Math.round(((Math.random() / Math.random()) + (Math.random() / Math.random()) + (Math.random() / Math.random()) + (Math.random() / Math.random())));
   }
 
   function doSomethingElse(arr) {
