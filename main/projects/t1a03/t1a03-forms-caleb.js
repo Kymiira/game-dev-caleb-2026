@@ -4,10 +4,10 @@ dBox = document.getElementById('select');
 fName = document.getElementById('fName');
 yBox = document.getElementById('yBox');
 nBox = document.getElementById('nBox');
-let a = false
-let b = false
-let c = false
-let d = false
+let a = null;
+let b = null;
+let c = null;
+let d = null;
 
 function doSomething(a, b, c, d) {
     if (a) {
