@@ -1,7 +1,7 @@
 const img = document.getElementById('img');
 let direciton = 1;
 let position = 100;
-func move() {
+function move() {
     position += direction * 5;
     img.style.left = position + 'px';
     if (position >= 200) {
