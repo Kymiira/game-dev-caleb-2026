@@ -6,3 +6,16 @@ textarea {
     width:200;
     height:50;
 }
+
+@keyframes spin {
+from { transform: rotate(0deg); }
+to { transform: rotate(360deg); }
+}
+
+.rotate-inf {
+animation: spin 4s linear infinite;
+display: block;
+margin: 50px auto;
+width: 200px;
+height: auto;
+}
