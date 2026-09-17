@@ -21,7 +21,7 @@ function doSomething() {
   x.temp = doSomethingElse(x.array);
   
   console.log("Array:", x.array, "Max:", x.temp);
-  x.out.text = JSON.stringify(x.temp);
+  x.out.textContent = `Array: ${JSON.stringify(x.array)} | Max: ${x.temp}`;
     
   requestAnimationFrame(doSomething);
 }
