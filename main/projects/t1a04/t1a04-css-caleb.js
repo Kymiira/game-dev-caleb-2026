@@ -1,5 +1,4 @@
 const img = document.getElementById('img');
-img.style.position = relative;
 let directon = 1;
 let position = 100;
 function move() {
