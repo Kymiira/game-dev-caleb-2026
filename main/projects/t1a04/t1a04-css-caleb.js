@@ -1,5 +1,5 @@
 const img = document.getElementById('img');
-let directon = 1;
+let direction = 1;
 let position = 100;
 function move() {
     position += direction * 5;
