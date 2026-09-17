@@ -1,4 +1,5 @@
 const img = document.getElementById('img');
+img.style.position = relative;
 let directon = 1;
 let position = 100;
 function move() {
@@ -7,7 +8,7 @@ function move() {
     if (position >= 200) {
         direction = -1;
     } else if (position <= -200) {
-        direction 1;
+        direction = 1;
     } requestAnimationFrame(move);
 }
 move();
