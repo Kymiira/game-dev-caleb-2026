@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" data-sheet="gothic">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cranky CSS</title>
+        <link rel="stylesheet" href="../../utils/styles.css">
+        <link rel="stylesheet" href="t1a04-css-caleb.css">
+        <script src="t1a04-css-caleb.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <h1>i love css so much (T1a04)</h1>
+            <nav>
+                <a href="../../index-src/">Index</a>
+            </nav>
+        </header>
+        <main>
+            Reference Link: <a href="https://www.w3schools.com/cssref/default.asp">w3schools</a><br>
+            CSS is properly done with a .css file listing all css commands for your website.<br>
+            Another way to do CSS is using the style tag at the top head part of a webpage, or linking a .css file to your .html<br>
+            Here is inline styling:
+            <pre>
+                b {
+                    color: #000000;
+                };
+            </pre><br>
+
+            I typically utilize .css files as it leaves your .html looking nice and clean.<br><br>
+            <i> This is italic</i><br>
+            <i id="myB1" style="color:#000000; background-color:#ff0000"> This is italic with inline CSS.</i><br>
+            <input type="button" value="change" onclick="{
+                let v = document.getElementById('myB1');
+                v.style.color = 'red';
+                v.style.backgroundColor = 'yellow';
+            }"><br><br>
+            <textarea>
+                (this is being styled by an external .css) The image down below is moving!
+            </textarea>
+            <br><br><br><br><br><br>
+            <img id="img" src="https://th.bing.com/th/id/OIP.1wApEJQvwcEZIVWuvaSwlAHaE8?w=299&h=200&c=7&r=0&o=7&pid=1.7&rm=3" width="200" style="border-radius:200px">
+        </main>
+    </body>
+</html>
