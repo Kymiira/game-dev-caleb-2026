@@ -15,7 +15,8 @@ calculator = {
     buttonDecimal: document.getElementById('decimalButton'),
     buttonSubmit: document.getElementById('submitButton'),
     buttonDivide: document.getElementById('divideButton'),
-    spanOutput: document.getElementById('outputSpan')
+    spanOutput: document.getElementById('outputSpan'),
+    calculatorContainer: document.querySelector('.funky-table')
 };
 
 document.addEventListener("DOMContentLoaded", init);
@@ -37,4 +38,17 @@ function init() {
     calculator.buttonSubmit.textContent = 'Enter'
     calculator.buttonDivide.textContent = '/'
     calculator.spanOutput.textContent = "Please create an equation."
+}
+
+calculator.calculatorContainer.addEventListener('click', function(event) {
+    if (event.target.tagName === 'BUTTON') {
+        const buttonText = event.target.textContent;
+        handleButtonPress(buttonText);
+    }
+});
+
+function handleButtonPress(value) {
+    console.log(value);
+    
+    calculator.spanOutput.textContent = `${value}`;
 }
