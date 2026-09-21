@@ -19,7 +19,7 @@ calculator = {
 };
 
 document.addEventListener("DOMContentLoaded", init);
-init() {
+function init() {
     calculator.button1.value = '1'
     calculator.button2.value = '2'
     calculator.button3.value = '3'
