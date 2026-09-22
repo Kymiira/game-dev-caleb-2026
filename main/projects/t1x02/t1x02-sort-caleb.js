@@ -1,3 +1,4 @@
+let out = document.getElementById('finalOutput');
 let chaosHistory = []; 
 
 function getExtremeChaosNumber() {
@@ -10,19 +11,15 @@ function getExtremeChaosNumber() {
 function doSomething() {
     let chaosBase = getExtremeChaosNumber();
     let count = Math.round(chaosBase / 100) + 1; 
-
     for (let i = 0; i < count; i++) {
         chaosHistory.push(getExtremeChaosNumber());
     }
-
     let maxVal = 0;
     for (let i = 0; i < chaosHistory.length; i++) {
         if (chaosHistory[i] > maxVal) { maxVal = chaosHistory[i]; }
     }
-    
     console.log(`Total Flooding Array Size: ${chaosHistory.length} | Max: ${maxVal}`);
-    
+    out.textContent = `Total Flooding Array Size: ${chaosHistory.length} | Max: ${maxVal} | Array: ${JSON.stringify(chaosHistory)}`;
     requestAnimationFrame(doSomething); 
 }
-
 doSomething();
