@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Loose Lists</title>
         <link rel="stylesheet" href="../../utils/styles.css">
+        <link rel="stylesheet" href="t1a02-list-caleb.css">
         <script src="./t1a02-list-caleb.js" defer></script>
     </head>
     <body>
@@ -17,11 +18,27 @@
 
         <main>
             <div class="whale-game-layout">
-                <section class="whale-info">
-                    <a href="https://happywhales.com">happy whales</a>
-                    <img src="https://th.bing.com/th/id/OIP.1wApEJQvwcEZIVWuvaSwlAHaE8?w=299&h=200&c=7&r=0&o=7&pid=1.7&rm=3" alt="Whale">
+                <section class="info-panel">
+                    <div class="list-container">
+                        <h3>How to Play</h3>
+                        <ul class="fact-list">
+                            <li><strong>1.</strong> Memorize positions</li>
+                            <li><strong>2.</strong> Wait for "BEGIN"</li>
+                            <li><strong>3.</strong> Guess before time runs out!</li>
+                        </ul>
+                    </div>
+                    <div class="list-container">
+                        <h3>Dev Resources</h3>
+                        <ul class="resource-list">
+                            <li><strong>MDN Web Docs:</strong>
+                                <ul>
+                                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol" target="_blank">HTML Ordered Lists</a></li>
+                                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" target="_blank">JS Arrays</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </section>
-
                 <section class="whale-game">
                     <ol id="whale-list">
                         <li>...</li>
@@ -42,6 +59,12 @@
                         <button class="answer-button">4</button>
                         <button class="answer-button">5</button>
                     </div>
+                </section>
+                <section class="history-section">
+                    <h3>Round History</h3>
+                    <ul id="history-list">
+                        <li class="history-placeholder">No games played yet...</li>
+                    </ul>
                 </section>
             </div>
         </main>
