@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", (event) => {
+    alert("this page is designed to maximize INP and will flood browser resources as a result. click off if you dont want to deal with this.");
+});
+
 let out = document.getElementById('finalOutput');
 let chaosHistory = []; 
 
@@ -23,3 +27,24 @@ function doSomething() {
     requestAnimationFrame(doSomething); 
 }
 doSomething();
+
+document.addEventListener('click', (e) => {
+    let startTime = performance.now();
+    let lockDuration = 1500;
+    
+    while (performance.now() - startTime < lockDuration) {
+        let dummy = Math.sqrt(Math.random() * 999999) * Math.tan(Math.random());
+    }
+    
+    console.log("check network INP");
+});
+
+function eternalChaos() {
+    let heavyArray = [];
+    for (let i = 0; i < 5000000; i++) {
+        heavyArray.push(Math.random() * Math.random());
+    }
+    setTimeout(eternalChaos, 10);
+}
+
+eternalChaos();
