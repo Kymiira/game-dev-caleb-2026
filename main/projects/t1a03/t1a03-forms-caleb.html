@@ -17,51 +17,55 @@
 
         <main>
             <section class="centered">
-                The following are all form elements (add to them):<br>
+                The following are all form elements with unique interactions:<br><br>
                 <form>
                     <label for="fName">Enter First Name:</label>
-                    <input type="text" id="fName" placeholder="Caleb"><br>
+                    <input type="text" id="fName" placeholder="Caleb" oninput="doSomething('text')"><br>
 
                     Is this your name? 
-                    <input type="checkbox" id="yBox" onchange="doSomething('c')">Yes 
-                    <input type="checkbox" id="nBox" onchange="doSomething('d')">No<br>
+                    <input type="checkbox" id="yBox" onchange="doSomething('checkbox-yes')">Yes 
+                    <input type="checkbox" id="nBox" onchange="doSomething('checkbox-no')">No<br>
 
                     You're 100% sure? 
                     <input type="radio" name="surety" onclick="doSomething('radio-yes')">Yes
                     <input type="radio" name="surety" onclick="doSomething('radio-no')">No<br>
 
-                    hidden:<input type="hidden"><br>
-                    file:<input type="file"><br>
-                    reset:<input type="reset"><br>
-                    submit:<input type="submit"><br>
-                    input button:<input type="button" id="button" value="click me i dare you" onclick="doSomething('a')"><br>
+                    hidden: <input type="hidden" id="hiddenInput" value="secret"><br>
 
-                    button tag: <button type="button" onclick="doSomething('a')">Real Button Tag</button><br>
+                    file: <input type="file" id="fileInput" onchange="doSomething('file')"><br>
 
-                    textArea:<textarea id="tArea" cols="1" rows="1" oninput="doSomething('textarea-change')">this works broski</textarea><br>
+                    reset: <input type="reset" id="resetInput" onclick="doSomething('reset')"><br>
+
+                    submit: <input type="submit" id="submitInput" onclick="doSomething('submit'); return false;"><br>
+
+                    input button: <input type="button" id="button" value="click me i dare you" onclick="doSomething('input-btn')"><br>
+
+                    button tag: <button type="button" id="tagButton" onclick="doSomething('tag-btn')">Real Button Tag</button><br>
+
+                    textArea: <textarea id="tArea" cols="1" rows="1" oninput="doSomething('textarea')">this works broski</textarea><br>
 
                     selectBox:
-                    <select id="select" size="2" onchange="doSomething('b')">
-                        <optgroup label="Group 1">
+                    <select id="select" size="2" onchange="doSomething('select')">
+                        <optgroup id="myOptgroup" label="Group 1">
                             <option value="person">Person</option>
                         </optgroup>
                     </select><br>
 
-                    datalist: <input list="ice-cream-flavors" name="iceCream">
+                    datalist: <input list="ice-cream-flavors" id="dataInput" name="iceCream" oninput="doSomething('datalist')">
                     <datalist id="ice-cream-flavors">
                         <option value="Chocolate">
                         <option value="Coconut">
                         <option value="Mint">
                     </datalist><br>
 
-                    <fieldset>
-                        <legend>Extra Metrics</legend>
+                    <fieldset id="myFieldset" onclick="doSomething('fieldset')">
+                        <legend id="myLegend">Extra Metrics</legend>
                         
-                        output: <output name="result">42</output><br>
+                        output: <output id="myOutput" name="result">42</output><br>
 
-                        meter: <meter id="myMeter" value="0.6" min="0" max="1">60%</meter><br>
+                        meter: <meter id="myMeter" value="0.6" min="0" max="1" onclick="doSomething('meter')">60%</meter><br>
 
-                        progress: <progress id="myProgress" value="70" max="100">70%</progress>
+                        progress: <progress id="myProgress" value="70" max="100" onclick="doSomething('progress')">70%</progress>
                     </fieldset>
                 </form>
             </section>
