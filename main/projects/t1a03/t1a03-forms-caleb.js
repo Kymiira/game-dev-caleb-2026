@@ -1,36 +1,50 @@
 // t1a03 scripts
-dButton = document.getElementById('button');
-dBox = document.getElementById('select');
-fName = document.getElementById('fName');
-yBox = document.getElementById('yBox');
-nBox = document.getElementById('nBox');
-let a = null;
-let b = null;
-let c = null;
-let d = null;
+const dButton = document.getElementById('button');
+const dBox = document.getElementById('select');
+const fName = document.getElementById('fName');
+const yBox = document.getElementById('yBox');
+const nBox = document.getElementById('nBox');
+const progressBar = document.getElementById('myProgress');
+const chaosMeter = document.getElementById('myMeter');
+const tArea = document.getElementById('tArea');
 
-function doSomething(a, b, c, d) {
-    if (a) {
-        dButton.value = "why did you do that?"
+function doSomething(action) {
+    if (action === 'a') {
+        dButton.value = "why did you do that?";
         console.log("test a");
     }
 
-    if (b) {
-        dBox.value = "STOP CLICKING ME"
+    if (action === 'b') {
+        dBox.value = "STOP CLICKING ME";
         console.log("test b");
     }
 
-    if (c) {
-        fName.value = "Kruschev"
-        yBox.type = "text"
-        yBox.value = "NO ITS NOT"
+    if (action === 'c') {
+        fName.value = "Kruschev";
+        yBox.type = "text";
+        yBox.value = "NO ITS NOT";
         console.log("test c");
     }
 
-    if (d) {
-        fName.value = "Stalin"
-        yBox.type = "text"
-        yBox.value = "w capitalist AMIRITE"
+    if (action === 'd') {
+        fName.value = "Stalin";
+        yBox.type = "text";
+        yBox.value = "w capitalist AMIRITE";
         console.log("test d");
+    }
+
+    if (action === 'radio-yes') {
+        progressBar.value = 100;
+        console.log("test radio-yes");
+    }
+
+    if (action === 'radio-no') {
+        chaosMeter.value = 1.0;
+        console.log("test radio-no");
+    }
+
+    if (action === 'textarea-change') {
+        tArea.value = "ERROR: Textarea has been hijacked by the Politburo.";
+        console.log("test textarea-change");
     }
 }
