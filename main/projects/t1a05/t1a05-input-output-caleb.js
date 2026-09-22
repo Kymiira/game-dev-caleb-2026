@@ -1,3 +1,5 @@
+let currentEquation = "";
+
 calculator = {
     button1: document.getElementById('1Button'),
     button2: document.getElementById('2Button'),
@@ -49,6 +51,20 @@ calculator.calculatorContainer.addEventListener('click', function(event) {
 
 function handleButtonPress(value) {
     console.log(value);
-    
-    calculator.spanOutput.textContent = `${value}`;
+    if (value === 'Enter') {
+        try {
+            let result = eval(currentEquation);
+            calculator.spanOutput.textContent = result;
+            currentEquation = String(result);
+        } catch (error) {
+            calculator.spanOutput.textContent = "error";
+            currentEquation = "";
+        }
+    } else {
+        if (calculator.spanOutput.textContent === "Please create an equation." || calculator.spanOutput.textContent === "error") {
+            currentEquation = "";
+        }
+        currentEquation += value;
+        calculator.spanOutput.textContent = currentEquation;
+    }
 }
