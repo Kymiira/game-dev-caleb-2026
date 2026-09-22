@@ -17,6 +17,7 @@ calculator = {
     buttonDecimal: document.getElementById('decimalButton'),
     buttonSubmit: document.getElementById('submitButton'),
     buttonDivide: document.getElementById('divideButton'),
+    buttonClear: document.getElementById('clearButton'),
     spanOutput: document.getElementById('outputSpan'),
     calculatorContainer: document.querySelector('.funky-table')
 };
@@ -39,6 +40,7 @@ function init() {
     calculator.buttonDecimal.textContent = '.'
     calculator.buttonSubmit.textContent = 'Enter'
     calculator.buttonDivide.textContent = '/'
+    calculator.buttonClear.textContent = 'C'
     calculator.spanOutput.textContent = "Please create an equation."
 }
 
@@ -46,6 +48,21 @@ calculator.calculatorContainer.addEventListener('click', function(event) {
     if (event.target.tagName === 'BUTTON') {
         const buttonText = event.target.textContent;
         handleButtonPress(buttonText);
+    }
+});
+
+document.addEventListener('keydown', function(event) {
+    const key = event.key;
+    if (!isNaN(key) || ['+', '-', '*', '.', '/'].includes(key)) {
+        handleButtonPress(key);
+    } else if (key === 'Enter' || key === '=') {
+        event.preventDefault();
+        handleButtonPress('Enter');
+    } else if (key === 'Backspace') {
+        currentEquation = currentEquation.slice(0, -1);
+        calculator.spanOutput.textContent = currentEquation || "Please create an equation.";
+    } else if (key === 'Escape' || key.toLowerCase() === 'c') {
+        handleButtonPress('C');
     }
 });
 
@@ -60,6 +77,9 @@ function handleButtonPress(value) {
             calculator.spanOutput.textContent = "error";
             currentEquation = "";
         }
+    } else if (value === 'C') {
+        currentEquation = "";
+        calculator.spanOutput.textContent = "Please create an equation.";
     } else {
         if (calculator.spanOutput.textContent === "Please create an equation." || calculator.spanOutput.textContent === "error") {
             currentEquation = "";
