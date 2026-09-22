@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="gothic">
+<html lang="en" data-theme="purple">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Funky Tables</title>
     <link rel="stylesheet" href="../../utils/styles.css">
     <script src="../../utils/scripts.js" defer></script>
+    <script src="t1a01-table-caleb.js" defer></script>
 </head>
 <body>
     <header>
@@ -17,6 +18,37 @@
 
     <main>
         <div class="collapsible-row">
+            <section class="collapsible">
+                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="ticTacToeGame">
+                    <span class="collapsible-icon">-</span> Tic-Tac-Toe vs AI
+                </button>
+                <div class="collapsible-content" id="ticTacToeGame">
+                    <div class="collapsible-inner" style="text-align: center;">
+                        <div id="ttt-status" style="margin-bottom: 10px; font-weight: bold; color: var(--text-color-2);">Your turn (X)</div>
+                        
+                        <table class="funky-table" id="tictactoe-board">
+                            <caption>3x3 Grid</caption>
+                            <tr>
+                                <td onclick="makeMove(0)" style="cursor: pointer;"></td>
+                                <td onclick="makeMove(1)" style="cursor: pointer;"></td>
+                                <td onclick="makeMove(2)" style="cursor: pointer;"></td>
+                            </tr>
+                            <tr>
+                                <td onclick="makeMove(3)" style="cursor: pointer;"></td>
+                                <td onclick="makeMove(4)" style="cursor: pointer;"></td>
+                                <td onclick="makeMove(5)" style="cursor: pointer;"></td>
+                            </tr>
+                            <tr>
+                                <td onclick="makeMove(6)" style="cursor: pointer;"></td>
+                                <td onclick="makeMove(7)" style="cursor: pointer;"></td>
+                                <td onclick="makeMove(8)" style="cursor: pointer;"></td>
+                            </tr>
+                        </table>
+                        <button type="button" class="collapsible-toggle" style="margin: 0 auto; padding: 0.5rem 1rem; width: auto;" onclick="resetGame()">Reset Game</button>
+                    </div>
+                </div>
+            </section>
+
             <section class="collapsible">
                 <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="incTables">
                     <span class="collapsible-icon">-</span> Increasingly Large Tables
@@ -95,6 +127,7 @@
                     </div>
                 </div>
             </section>
+
             <section class="collapsible">
                 <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="otherTables">
                     <span class="collapsible-icon">-</span> Other Tables
@@ -114,7 +147,7 @@
                             <caption>Image</caption>
                             <thead>
                                 <tr>
-                                    <th scope="col"><img src="https://th.bing.com/th/id/OIP.1wApEJQvwcEZIVWuvaSwlAHaE8?w=299&h=200&c=7&r=0&o=7&pid=1.7&rm=3" alt="Whale"></th>
+                                    <th scope="col"><img src="https://th.bing.com/th/id/OIP.1wApEJQvwcEZIVWuvaSwlAHaE8?w=299&h=200&c=7&r=0&o=7&pid=1.7&rm=3" alt="Whale" style="max-width: 100%; height: auto;"></th>
                                 </tr>
                             </thead>
                         </table>
