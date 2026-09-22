@@ -34,6 +34,7 @@ document.addEventListener('click', (e) => {
     
     while (performance.now() - startTime < lockDuration) {
         let dummy = Math.sqrt(Math.random() * 999999) * Math.tan(Math.random());
+        console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);console.log(dummy);
     }
     
     console.log("check network INP");
@@ -45,6 +46,7 @@ function eternalChaos() {
         heavyArray.push(Math.random() * Math.random());
     }
     setTimeout(eternalChaos, 10);
+    console.log(heavyArray);console.log(heavyArray);console.log(heavyArray);console.log(heavyArray);console.log(heavyArray);console.log(heavyArray);console.log(heavyArray);console.log(heavyArray);console.log(heavyArray);console.log(heavyArray);console.log(heavyArray);
 }
 
 eternalChaos();
