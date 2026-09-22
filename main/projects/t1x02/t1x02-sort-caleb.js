@@ -1,40 +1,28 @@
+let chaosHistory = []; 
+
 function getExtremeChaosNumber() {
     let numerator = Math.random();
-    let denominator = Math.random();
+    let denominator = Math.random() * 0.005; 
     if (denominator < 0.001) denominator = 0.001;
-    let chaoticVal = (numerator / denominator) * (Math.random() > 0.5 ? 100 : 1);
-    return Math.min(Math.round(chaoticVal), 10000000);
+    return Math.min(Math.round((numerator / denominator) * 100), 10000000);
 }
 
 function doSomething() {
-    let x = {
-        out: document.getElementById('finalOutput'),
-        array: [],
-        temp: 0
-    };
-    
     let chaosBase = getExtremeChaosNumber();
-
     let count = Math.round(chaosBase / 100) + 1; 
 
     for (let i = 0; i < count; i++) {
-        x.array[i] = getExtremeChaosNumber();
+        chaosHistory.push(getExtremeChaosNumber());
     }
 
-    function doSomethingElse(arr) {
-        let maxVal = 0;
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i] > maxVal) { maxVal = arr[i]; }
-        }
-        return maxVal;
+    let maxVal = 0;
+    for (let i = 0; i < chaosHistory.length; i++) {
+        if (chaosHistory[i] > maxVal) { maxVal = chaosHistory[i]; }
     }
-
-    x.temp = doSomethingElse(x.array);
     
-    console.log(`Array Size: ${count} | Max Value: ${x.temp}`);
-    if(x.out) x.out.textContent = `Array Size: ${count} | Max: ${x.temp}`;
+    console.log(`Total Flooding Array Size: ${chaosHistory.length} | Max: ${maxVal}`);
     
-    setTimeout(doSomething, 1); 
+    requestAnimationFrame(doSomething); 
 }
 
 doSomething();
