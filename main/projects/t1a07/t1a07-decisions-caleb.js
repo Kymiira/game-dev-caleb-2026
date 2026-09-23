@@ -1,4 +1,5 @@
 function doTime() {
+    const now = new Date();
     let hours = now.getHours();
     let minutes = now.getMinutes();
     let currentTime = hours + minutes / 60;
