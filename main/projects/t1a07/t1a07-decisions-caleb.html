@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" data-sheet="purple">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>im making big decisions right here</title>
+        <link rel="stylesheet" href="../../utils/styles.css">
+        <link rel="stylesheet" href="t1a07-decisions-caleb.css">
+        <script src="t1a07-decisions-caleb.js" defer></script>
+        <script src="../../utils/scripts.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <h1>t1a07-decisions-caleb</h1>
+            <nav>
+                <a href="../../index-src/">Index</a>
+            </nav>
+        </header>
+        <main>
+            <section>
+                <pre>
+                    const output1 = document.getElementById('output1');
+                    const output2 = document.getElementById('output2');
+                    const now = new Date();
+                    const hours = now.getHours();
+                    const minutes = now.getMinutes();
+                    const currentTime = hours + minutes / 60;
+                    switch (true) {
+                        case currentTime >= 6 && currentTime < 12:
+                            console.log("good morning");
+                            output2.textContent="good morning";
+                            break;
+                        case currentTime >= 12 && currentTime < 17:
+                            console.log("good afternoon");
+                            output2.textContent="good afternoon";
+                            break;
+                        case currentTime >= 17 && currentTime < 22:
+                            console.log("good evening");
+                            output2.textContent="good evening";
+                            break;
+                        default:
+                            console.log("good night");
+                            output2.textContent="good night";
+                            break
+                    }
+                    console.log(currentTime);
+                    output1.textContent = currentTime + 'formatted in /100, to get currentTime in standard please do x/100 = y/60 where x = currentTime and y is your standard time.'
+                </pre>                
+            </section>
+            <section>
+                example of working code<br>
+                <div id="output1"></div>
+                <div id="output2"></div>
+                <button id="output3" onclick={doTime();}>clickme</button>
+            </section>
