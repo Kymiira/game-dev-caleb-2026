@@ -30,6 +30,6 @@ function doTime() {
         }
         console.log(currentTime);
     output1.innerHTML = standardTime + '<br>' + 
-            currentTime.toFixed(2) + ' formatted in /100, to get currentTime in standard please do x/100 = y/60 where x = currentTime and y is your standard time.';
+            currentTime.toFixed(2);
     }
 setInterval(doTime, 1);
