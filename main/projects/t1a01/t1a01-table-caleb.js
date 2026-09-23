@@ -13,19 +13,19 @@ function makeMove(index) {
     updateBoardUI();
     
     if (checkWin('X')) {
-        document.getElementById('ttt-status').innerText = 'You win!';
+        document.getElementById('ttt-status').innerText = 'you win';
         isGameActive = false;
         return;
     }
     if (checkTie()) {
-        document.getElementById('ttt-status').innerText = "It's a tie!";
+        document.getElementById('ttt-status').innerText = "tie";
         isGameActive = false;
         return;
     }
 
-    document.getElementById('ttt-status').innerText = "AI's turn (O)...";
+    document.getElementById('ttt-status').innerText = "opponents turn";
     
-    setTimeout(aiMove, 400);
+    setTimeout(aiMove, 500);
 }
 
 function aiMove() {
@@ -53,17 +53,17 @@ function aiMove() {
         updateBoardUI();
 
         if (checkWin('O')) {
-            document.getElementById('ttt-status').innerText = 'AI wins!';
+            document.getElementById('ttt-status').innerText = 'ai won';
             isGameActive = false;
             return;
         }
         if (checkTie()) {
-            document.getElementById('ttt-status').innerText = "It's a tie!";
+            document.getElementById('ttt-status').innerText = "tied";
             isGameActive = false;
             return;
         }
 
-        document.getElementById('ttt-status').innerText = 'Your turn (X)';
+        document.getElementById('ttt-status').innerText = 'your turn';
     }
 }
 
@@ -100,6 +100,6 @@ function checkTie() {
 function resetGame() {
     board = ['', '', '', '', '', '', '', '', ''];
     isGameActive = true;
-    document.getElementById('ttt-status').innerText = 'Your turn (X)';
+    document.getElementById('ttt-status').innerText = 'your turn';
     updateBoardUI();
 }

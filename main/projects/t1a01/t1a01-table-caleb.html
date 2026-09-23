@@ -20,11 +20,11 @@
         <div class="collapsible-row">
             <section class="collapsible">
                 <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="ticTacToeGame">
-                    <span class="collapsible-icon">-</span> Tic-Tac-Toe vs AI
+                    <span class="collapsible-icon">-</span> tic tac toe board - please click a cell
                 </button>
                 <div class="collapsible-content" id="ticTacToeGame">
                     <div class="collapsible-inner" style="text-align: center;">
-                        <div id="ttt-status" style="margin-bottom: 10px; font-weight: bold; color: var(--text-color-2);">Your turn (X)</div>
+                        <div id="ttt-status" style="margin-bottom: 10px; font-weight: bold; color: var(--text-color-2);">your turn</div>
                         
                         <table class="funky-table" id="tictactoe-board">
                             <caption>3x3 Grid</caption>
@@ -44,7 +44,7 @@
                                 <td onclick="makeMove(8)" style="cursor: pointer;"></td>
                             </tr>
                         </table>
-                        <button type="button" class="collapsible-toggle" style="margin: 0 auto; padding: 0.5rem 1rem; width: auto;" onclick="resetGame()">Reset Game</button>
+                        <button type="button" class="collapsible-toggle" style="margin: 0 auto; padding: 0.5rem 1rem; width: auto;" onclick="resetGame()">reset board</button>
                     </div>
                 </div>
             </section>
@@ -130,7 +130,7 @@
 
             <section class="collapsible">
                 <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="otherTables">
-                    <span class="collapsible-icon">-</span> Other Tables
+                    <span class="collapsible-icon">-</span> other tables
                 </button>
                 <div class="collapsible-content" id="otherTables">
                     <div class="collapsible-inner">
@@ -144,7 +144,7 @@
                         </table>
 
                         <table class="funky-table">
-                            <caption>Image</caption>
+                            <caption>image</caption>
                             <thead>
                                 <tr>
                                     <th scope="col"><img src="https://th.bing.com/th/id/OIP.1wApEJQvwcEZIVWuvaSwlAHaE8?w=299&h=200&c=7&r=0&o=7&pid=1.7&rm=3" alt="Whale" style="max-width: 100%; height: auto;"></th>
