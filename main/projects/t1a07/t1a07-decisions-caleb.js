@@ -24,6 +24,6 @@ function doTime() {
             break
     }
     console.log(currentTime);
-    output1.textContent = currentTime + '<br' + ' formatted in /100, to get currentTime in standard please do x/100 = y/60 where x = currentTime and y is your standard time.'
+    output1.textContent = currentTime + '<br>' + ' formatted in /100, to get currentTime in standard please do x/100 = y/60 where x = currentTime and y is your standard time.'
     setInterval(doTime, 1000);
 }
