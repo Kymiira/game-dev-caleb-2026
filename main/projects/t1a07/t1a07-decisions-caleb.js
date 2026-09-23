@@ -1,4 +1,6 @@
 function doTime() {
+    const output1 = document.getElementById('output1');
+    const output2 = document.getElementById('output2');
     const now = new Date();
     let hours = now.getHours();
     let minutes = now.getMinutes();
