@@ -7,7 +7,7 @@ function doTime() {
     let minutes = now.getMinutes();
 
     let formattedMinutes = String(minutes).padStart(2, '0');
-    let standardTime = hours = ":" + formattedMinutes;
+    let standardTime = hours + ":" + formattedMinutes;
 
     let currentTime = hours + minutes / 60;
     switch (true) {
