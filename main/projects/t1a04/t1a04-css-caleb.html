@@ -42,3 +42,168 @@
         </main>
     </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en" data-theme="purple">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Showcase & Modular Masterclass</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Collapsible masterclass widgets */
+        /* Tables */
+        pre {
+            background: var(--bg-color);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            border-top: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>CSS Masterclass & Interactive Showcase (T1a04)</h1>
+        <nav>
+            <a href="#top">Top</a>
+            <a href="https://www.w3schools.com/cssref/default.asp" target="_blank">W3Schools Reference</a>
+            
+            <div class="theme-selector" role="group" aria-label="Theme Switcher">
+                <button class="theme-btn active" onclick="setTheme('purple')">Purple</button>
+                <button class="theme-btn" onclick="setTheme('red')">Red</button>
+                <button class="theme-btn" onclick="setTheme('velvet')">Velvet</button>
+                <button class="theme-btn" onclick="setTheme('gothic')">Gothic</button>
+            </div>
+        </nav>
+    </header>
+    <div class="teacher-banner">
+        <p>Active Theme: <strong id="current-theme-name">Purple</strong></p>
+    </div>
+    <main id="top">
+        <div class="collapsible">
+            <button class="collapsible-toggle" aria-expanded="true" aria-controls="section-1">
+                <span>syntax, methods, styling</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div id="section-1" class="collapsible-content">
+                <div class="collapsible-inner">
+                    <p>CSS can be applied via external .css files, internal <code>&lt;style&gt;</code> tags, or inline via the <code>style</code> attribute</p>
+                    <pre>b { color: #000000; }</pre>
+                    <p><i>This is italic text</i></p>
+                    <p><i id="myB1" style="color:#000000; background-color:var(--accent-color)">this is italic with inline CSS.</i></p>
+                    <button class="theme-btn" style="background:var(--prim-color); padding: 0.5rem 1rem; font-size:0.9rem; cursor:pointer;" onclick="{
+                        let v = document.getElementById('myB1');
+                        v.style.color = '#ffffff';
+                        v.style.backgroundColor = 'var(--prim-color-2)';
+                    }">change inline style with JS</button>
+                </div>
+            </div>
+        </div>
+        <div class="collapsible">
+            <button class="collapsible-toggle" aria-expanded="true" aria-controls="section-2">
+                <span>textarea with background img</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div id="section-2" class="collapsible-content">
+                <div class="collapsible-inner">
+                    <label for="demo-textarea" style="display:block; margin-bottom: 0.5rem; font-weight:600;">Textarea styled by external CSS rule with fixed pixel dimensions:</label>
+                    <textarea id="demo-textarea">(this is being styled by an external .css)</textarea>
+                    <pre style="margin-top: 1rem;">textarea {
+    background-image: url('https://picsum.photos/300/200');
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 90px;
+}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="collapsible">
+            <button class="collapsible-toggle" aria-expanded="true" aria-controls="section-3">
+                <span>funky table layouts</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div id="section-3" class="collapsible-content">
+                <div class="collapsible-inner">
+                    <table class="funky-table">
+                        <caption>css property ref table</caption>
+                        <thead>
+                            <tr>
+                                <th>property</th>
+                                <th>use case</th>
+                                <th>default</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>display</code></td>
+                               <td>Defines block/flex/grid behavior</td>
+                               <td><code>inline</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>position</code></td>
+                                <td>Controls static, relative, absolute placement</td>
+                                <td><code>static</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>animation</code></td>
+                                <td>Applies continuous keyframes</td>
+                                <td><code>none</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="collapsible">
+            <button class="collapsible-toggle" aria-expanded="true" aria-controls="section-4">
+                <span>keyframe spin w/ js anim loop</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div id="section-4" class="collapsible-content">
+                <div class="collapsible-inner" style="text-align: center;">
+                    <p>Demonstrating continuous keyframe rotation combined with <code>requestAnimationFrame</code> translation script:</p>
+                    <img class="rotate-inf" id="img" src="https://picsum.photos/200/200" alt="Moving and spinning dynamic element">
+                    <pre style="text-align: left; margin-top: 1rem;">/* css.js movement loop snippet */
+const img = document.getElementById('img');
+let direction = 1;
+let position = 0;
+function move() {
+    position += direction * 3;
+    img.style.left = position + 'px';
+    if (position >= 100) {
+        direction = -1;
+    } else if (position <= -100) {
+        direction = 1;
+    } 
+    requestAnimationFrame(move);
+}
+move();</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>:3 <a href="../../index-src/index.html">Index</a></p>
+    </footer>
+</body>
+</html>
