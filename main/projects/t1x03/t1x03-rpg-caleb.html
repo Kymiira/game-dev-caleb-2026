@@ -1,22 +1,109 @@
 <!DOCTYPE html>
-<html lang="en" data-sheet="purple">
+<html lang="en" data-theme="purple">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>fun RPG project</title>
+        <title>Random RPG (RRPG)</title>
         <link rel="stylesheet" href="../../utils/styles.css">
         <link rel="stylesheet" href="t1x03-rpg-caleb.css">
-        <script src="t1x03-rpg-caleb.js" defer></script>
         <script src="../../utils/scripts.js" defer></script>
+        <script src="t1x03-rpg-caleb.js" defer></script>
     </head>
     <body>
         <header>
-            <h1>t1a07-decisions-caleb</h1>
+            <h1>Random RPG (RRPG)</h1>
             <nav>
                 <a href="../../index-src/">Index</a>
             </nav>
         </header>
         <main>
+            <section id="char-creation-screen" class="rpg-card">
+                <h2>Create Your Hero</h2>
+                <p>Choose your class and distribute your <strong>21 Stat Points</strong> across your S.P.E.C.I.A.L. traits.</p>
+                
+                <div class="class-selector">
+                    <label><strong>Class:</strong></label>
+                    <select id="hero-class">
+                        <option value="Warrior">Warrior (+Strength & Endurance)</option>
+                        <option value="Ranger">Ranger (+Perception & Agility)</option>
+                        <option value="Mage">Mage (+Intelligence & Luck)</option>
+                    </select>
+                </div>
+
+                <div class="stat-pool-banner">
+                    Points Remaining: <span id="points-remaining">21</span>
+                </div>
+
+                <div class="stats-allocation-grid">
+                    <div class="stat-row">
+                        <label>Strength (STR):</label>
+                        <button class="stat-btn" onclick="adjustStat('str', -1)">-</button>
+                        <span id="stat-str">1</span>
+                        <button class="stat-btn" onclick="adjustStat('str', 1)">+</button>
+                    </div>
+                    <div class="stat-row">
+                        <label>Perception (PER):</label>
+                        <button class="stat-btn" onclick="adjustStat('per', -1)">-</button>
+                        <span id="stat-per">1</span>
+                        <button class="stat-btn" onclick="adjustStat('per', 1)">+</button>
+                    </div>
+                    <div class="stat-row">
+                        <label>Endurance (END):</label>
+                        <button class="stat-btn" onclick="adjustStat('end', -1)">-</button>
+                        <span id="stat-end">1</span>
+                        <button class="stat-btn" onclick="adjustStat('end', 1)">+</button>
+                    </div>
+                    <div class="stat-row">
+                        <label>Charisma (CHA):</label>
+                        <button class="stat-btn" onclick="adjustStat('cha', -1)">-</button>
+                        <span id="stat-cha">1</span>
+                        <button class="stat-btn" onclick="adjustStat('cha', 1)">+</button>
+                    </div>
+                    <div class="stat-row">
+                        <label>Intelligence (INT):</label>
+                        <button class="stat-btn" onclick="adjustStat('int', -1)">-</button>
+                        <span id="stat-int">1</span>
+                        <button class="stat-btn" onclick="adjustStat('int', 1)">+</button>
+                    </div>
+                    <div class="stat-row">
+                        <label>Agility (AGI):</label>
+                        <button class="stat-btn" onclick="adjustStat('agi', -1)">-</button>
+                        <span id="stat-agi">1</span>
+                        <button class="stat-btn" onclick="adjustStat('agi', 1)">+</button>
+                    </div>
+                    <div class="stat-row">
+                        <label>Luck (LCK):</label>
+                        <button class="stat-btn" onclick="adjustStat('lck', -1)">-</button>
+                        <span id="stat-lck">1</span>
+                        <button class="stat-btn" onclick="adjustStat('lck', 1)">+</button>
+                    </div>
+                </div>
+
+                <button id="start-game-btn" class="rpg-main-btn" onclick="startGame()">Begin Adventure</button>
+            </section>
+
+            <section id="game-dashboard" class="rpg-card hidden">
+                <div class="dashboard-header">
+                    <div><strong>Class:</strong> <span id="display-class">Warrior</span></div>
+                    <div><strong>HP:</strong> <span id="display-hp">100</span>/<span id="display-max-hp">100</span></div>
+                    <div><strong>Gold:</strong> <span id="display-gold">0</span></div>
+                    <div><strong>Level:</strong> <span id="display-level">1</span></div>
+                </div>
+
+                <div id="adventure-log" class="adventure-log">
+                    <p>You step foot into the foggy, dangerous realms of the Random RPG...</p>
+                </div>
+
+                <div id="exploration-controls" class="action-panel">
+                    <button class="rpg-main-btn" onclick="triggerExplore()">Explore Wasteland</button>
+                    <button class="rpg-main-btn secondary" onclick="restCamp()">Rest at Camp</button>
+                </div>
+
+                <div id="combat-controls" class="action-panel hidden">
+                    <button class="rpg-main-btn combat" onclick="combatAction('attack')">Attack</button>
+                    <button class="rpg-main-btn secondary" onclick="combatAction('flee')">Flee</button>
+                </div>
+            </section>
         </main>
     </body>
 </html>
