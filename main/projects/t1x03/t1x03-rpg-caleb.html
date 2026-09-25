@@ -90,18 +90,40 @@
                     <div><strong>Level:</strong> <span id="display-level">1</span></div>
                 </div>
 
-                <div id="adventure-log" class="adventure-log">
-                    <p>You step foot into the foggy, dangerous realms of the Random RPG...</p>
-                </div>
+                <div class="game-main-grid">
+                    <div class="adventure-pane">
+                        <div id="adventure-log" class="adventure-log">
+                            <p>You step foot into the foggy, dangerous realms of the Random RPG...</p>
+                        </div>
 
-                <div id="exploration-controls" class="action-panel">
-                    <button class="rpg-main-btn" onclick="triggerExplore()">Explore Wasteland</button>
-                    <button class="rpg-main-btn secondary" onclick="restCamp()">Rest at Camp</button>
-                </div>
+                        <div id="exploration-controls" class="action-panel">
+                            <button class="rpg-main-btn" onclick="triggerExplore()">Explore Wasteland</button>
+                            <button class="rpg-main-btn secondary" onclick="restCamp()">Rest at Camp</button>
+                        </div>
 
-                <div id="combat-controls" class="action-panel hidden">
-                    <button class="rpg-main-btn combat" onclick="combatAction('attack')">Attack</button>
-                    <button class="rpg-main-btn secondary" onclick="combatAction('flee')">Flee</button>
+                        <div id="combat-controls" class="action-panel hidden">
+                            <button class="rpg-main-btn combat" onclick="combatAction('attack')">Attack</button>
+                            <button class="rpg-main-btn secondary" onclick="combatAction('flee')">Flee</button>
+                        </div>
+                    </div>
+
+                    <div class="inventory-pane">
+                        <div class="panel-box">
+                            <h3>Equipped Gear (16 Slots)</h3>
+                            <div class="equipment-grid" id="equipment-grid">
+                            </div>
+                        </div>
+
+                        <div class="panel-box inventory-box">
+                            <div class="inv-header">
+                                <h3>Inventory Bag</h3>
+                                <span id="capacity-indicator">Capacity: 0/10</span>
+                            </div>
+                            <div id="inventory-list" class="inventory-list">
+                                <p class="empty-inv">Your bag is empty.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
