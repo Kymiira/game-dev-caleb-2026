@@ -1,1 +1,8 @@
-b { color: blue; }
+b { 
+    color: var(--accent-color); 
+    font-weight: 600;
+}
+
+#personally-provided-content pre {
+    max-height: 400px;
+}

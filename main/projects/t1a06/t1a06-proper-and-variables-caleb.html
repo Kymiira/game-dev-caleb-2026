@@ -3,20 +3,69 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>t1a06</title>
+        <title>t1a06 - Variables & Data Types</title>
         <link rel="stylesheet" href="../../utils/styles.css">
         <link rel="stylesheet" href="t1a06-proper-and-variables-caleb.css">
         <script src="t1a06-proper-and-variables-caleb.js" defer></script>
     </head>
     <body>
         <header>
-            <h1>T1a06</h1>
+            <h1>T1a06: Variables & Data Types</h1>
             <nav>
                 <a href="../../index-src/">Index</a>
             </nav>
         </header>
         <main>
-            <p>This is <b>bold</b> text.</p>
-            <button onclick="sayHello()">ClickMe</button>
-            <div id="myDiv01">...</div>
+            <section id="teacher-provided-content" class="collapsible">
+                <button class="collapsible-toggle" aria-expanded="true" aria-controls="content-01">
+                    <span>Interactive Demo</span>
+                    <span class="collapsible-icon">-</span>
+                </button>
+                <div id="content-01" class="collapsible-content">
+                    <div class="collapsible-inner" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <p>This is <b>bold</b> text demonstrating string combination and type coercion.</p>
+                        <button onclick="sayHello()" style="padding: 0.6rem 1.2rem; background: var(--prim-color); color: var(--text-color-2); border: 1px solid var(--accent-color); border-radius: 6px; cursor: pointer; font-weight: 600; width: fit-content;">Click Me</button>
+                        <div id="myDiv01" style="padding: 1rem; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 6px; font-family: monospace; color: var(--accent-color);">...</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="personally-provided-content">
+                <h3 style="margin-bottom: 0.5rem; color: var(--text-color-2);">Code Implementation Reference</h3>
+                <pre><code>
+                    const appName = "DashboardPro";
+                    const maxUsers = 100;
+                    const isProduction = false;
+                    const apiVersion = undefined;
+                    const currentUser = null;
+                    const globalId = 9007199254740991n;
+                    const uniqueKey = Symbol("id");
+
+                    const userProfile = {
+                        username: "johndoe",
+                        age: 30,
+                    };
+
+                    const allowedRoles = ["admin", "editor", "viewer"];
+
+                    let sessionAttempts = 3;
+                    sessionAttempts = 4;
+
+                    let lastLoginTime = new Date();
+                    var legacyModeEnabled = true;
+
+                    console.log(`App: ${appName} (v${apiVersion})`);
+                    console.log("Max Users:", maxUsers);
+                    console.log("Is Production:", isProduction);
+                    console.log("Current User:", currentUser);
+                    console.log("Global ID:", globalId);
+                    console.log("Unique Symbol:", uniqueKey);
+                    console.log("User Profile Object:", userProfile);
+                    console.log("Allowed Roles Array:", allowedRoles);
+                    console.log("Session Attempts:", sessionAttempts);
+                    console.log("Legacy Mode:", legacyModeEnabled);
+                </code></pre>
+            </section>
         </main>
+    </body>
+</html>
