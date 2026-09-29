@@ -115,6 +115,22 @@ function loadSavedPlayer() {
     }
     return null;
 }
+function applyPlayerData(data) {
+    player.name = data.name || player.name;
+    player.wins = data.wins || player.wins;
+    player.bestScore = data.bestScore !== undefined ? data.bestScore : player.bestScore;
+    player.difficulty = data.difficulty || player.difficulty;
+    player.maxTries = data.maxTries || player.maxTries;
+    player.hints = data.hints !== undefined ? data.hints : player.hints;
+    difficultySelect.value = player.difficulty;
+    triesRange.value = player.maxTries;
+    triesRangeOut.textContent = player.maxTries;
+    hintsCheck.checked = player.hints;
+    updateStats();
+    autoSave();
+    startGame();
+    console.log('loaded player from file:', data);
+}
 function triesWord(count) {
     return count === 1 ? 'try' : 'tries';
 }
@@ -183,15 +199,21 @@ function drawThermo(val) {
     thermoCtx.clearRect(0, 0, thermoCanvas.width, thermoCanvas.height);
     thermoCtx.fillStyle = 'rgba(255,255,255,0.1)';
     thermoCtx.fillRect(60, 20, 30, 140);
+    if (val === 0) return;
     let ratio = val / game.max;
     let h = Math.max(10, Math.min(140, ratio * 140));
-    thermoCtx.fillStyle = '#c77dff';
+    
+    let distance = Math.abs(val - game.secret);
+    let maxDist = Math.max(game.secret - 1, game.max - game.secret);
+    let hotness = maxDist === 0 ? 1 : 1 - (distance / maxDist);
+    let r = Math.round(hotness * 255);
+    let b = Math.round((1 - hotness) * 255);
+    
+    thermoCtx.fillStyle = `rgb(${r}, 0, ${b})`;
     thermoCtx.fillRect(60, 160 - h, 30, h);
 }
 function handleGuess() {
-    if (game.over) {
-        return;
-    }
+    if (game.over) return;
     const text = guessInput.value.trim();
     const guess = text === '' ? NaN : Number(text);
     const result = game.check(guess);
@@ -208,9 +230,7 @@ function handleGuess() {
     guessInput.value = '';
     guessInput.focus();
     autoSave();
-    if (game.over) {
-        endGame(result === 'correct');
-    }
+    if (game.over) endGame(result === 'correct');
 }
 function showHint(result) {
     const left = game.triesLeft();
@@ -235,14 +255,10 @@ function showHint(result) {
 }
 function labelFor(result) {
     switch (result) {
-        case 'correct':
-            return 'correct';
-        case 'low':
-            return hintsCheck.checked ? 'too low' : 'wrong';
-        case 'high':
-            return hintsCheck.checked ? 'too high' : 'wrong';
-        default:
-            return '';
+        case 'correct': return 'correct';
+        case 'low': return hintsCheck.checked ? 'too low' : 'wrong';
+        case 'high': return hintsCheck.checked ? 'too high' : 'wrong';
+        default: return '';
     }
 }
 function renderHistory() {
@@ -308,26 +324,35 @@ function loadPlayerFile(event) {
     reader.onload = function(e) {
         try {
             let data = JSON.parse(e.target.result);
-            player.name = data.name || player.name;
-            player.wins = data.wins || player.wins;
-            player.bestScore = data.bestScore !== undefined ? data.bestScore : player.bestScore;
-            player.difficulty = data.difficulty || player.difficulty;
-            player.maxTries = data.maxTries || player.maxTries;
-            player.hints = data.hints !== undefined ? data.hints : player.hints;
-            difficultySelect.value = player.difficulty;
-            triesRange.value = player.maxTries;
-            triesRangeOut.textContent = player.maxTries;
-            hintsCheck.checked = player.hints;
-            updateStats();
-            autoSave();
-            startGame();
-            console.log('loaded player from file:', data);
+            applyPlayerData(data);
         } catch (err) {
             alert('invalid json file');
         }
     };
     reader.readAsText(file);
 }
+
+document.addEventListener('dragover', function(e) {
+    e.preventDefault();
+});
+document.addEventListener('drop', function(e) {
+    e.preventDefault();
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        const file = e.dataTransfer.files[0];
+        if (file.name.endsWith('.json')) {
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    applyPlayerData(JSON.parse(evt.target.result));
+                } catch (err) {
+                    alert('invalid json drag drop');
+                }
+            };
+            reader.readAsText(file);
+        }
+    }
+});
+
 guessButton.addEventListener('click', handleGuess);
 newGameButton.addEventListener('click', startGame);
 saveButton.addEventListener('click', savePlayer);
@@ -365,9 +390,7 @@ if (thermoCanvas) {
     });
 }
 guessInput.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        handleGuess();
-    }
+    if (event.key === 'Enter') handleGuess();
 });
 difficultySelect.addEventListener('change', function () {
     player.difficulty = difficultySelect.value;

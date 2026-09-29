@@ -52,8 +52,8 @@
 
                         <p>
                             <button type="button" id="saveButton">save player (json)</button>
-                            <label for="fileInput" class="file-label" style="display:inline-block;background:var(--prim-color);color:var(--text-color-2);border:1px solid var(--accent-color);border-radius:6px;padding:0.5rem 1rem;font:inherit;font-weight:600;cursor:pointer;margin-top:0.5rem;">load json</label>
-                            <input type="file" id="fileInput" accept=".json" style="display:none;">
+                            <label for="fileInput" class="file-btn">load json</label>
+                            <input type="file" id="fileInput" accept=".json" class="hidden-input">
                         </p>
                     </div>
                 </div>
@@ -92,16 +92,16 @@
                 </div>
             </section>
 
-            <section class="collapsible">
+            <section class="collapsible" id="advancedDropZone">
                 <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="advancedPanel">
                     <span>advanced i/o</span>
                     <span class="collapsible-icon">-</span>
                 </button>
                 <div class="collapsible-content" id="advancedPanel">
-                    <div class="collapsible-inner">
+                    <div class="collapsible-inner text-center">
                         <p>click thermometer to guess:</p>
-                        <canvas id="thermoCanvas" width="150" height="180" style="background:var(--bg-color);border:1px solid var(--border-color);border-radius:8px;cursor:pointer;display:block;margin:0 auto;"></canvas>
-                        <p style="text-align:center;margin-top:0.75rem;"><button type="button" id="speakButton">speak hint</button></p>
+                        <canvas id="thermoCanvas" width="150" height="180" class="game-canvas"></canvas>
+                        <p class="mt-1"><button type="button" id="speakButton">speak hint</button></p>
                     </div>
                 </div>
             </section>
@@ -109,9 +109,9 @@
         </div>
     </main>
 
-    <dialog id="winDialog" style="background:var(--surf-color);color:var(--text-color-2);border:1px solid var(--accent-color);border-radius:8px;padding:1.5rem;max-width:300px;">
-        <div class="collapsible-inner" style="background:transparent;padding:0;">
-            <h3 style="margin-top:0;">you won!</h3>
+    <dialog id="winDialog" class="game-dialog">
+        <div class="collapsible-inner dialog-inner">
+            <h3 class="mt-0">you won!</h3>
             <p id="dialogMsg"></p>
             <button type="button" id="closeDialog">play again</button>
         </div>
