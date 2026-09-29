@@ -1,96 +1,130 @@
 <!DOCTYPE html>
-<html lang="en" data-sheet="purple">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>idek anymore man</title>
-        <link rel="stylesheet" href="../../utils/styles.css">
-        <link rel="stylesheet" href="t1a05-input-output-caleb.css">
-        <script src="t1a05-input-output-caleb.js" defer></script>
-        <script src="../../utils/scripts.js" defer></script>
-    </head>
-    <body>
-        <header>
-            <h1>t1a05-input-output-caleb</h1>
-            <nav>
-                <a href="../../index-src/">Index</a>
-            </nav>
-        </header>
-        <main>
-            <div class="collapsible-row">
-                <section class="collapsible">
-                    <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="incTables">
-                        <span class="collapsible-icon">-</span> Standard Calculator
-                    </button>
+<html lang="en" data-theme="purple">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number - Inputs and Outputs</title>
+    <link rel="stylesheet" href="../../utils/styles.css">
+    <link rel="stylesheet" href="t1a05-input-output-caleb.css">
+    <script src="t1a05-input-output-caleb.js" defer></script>
+    <script src="../../utils/scripts.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>t1a05-input-output-caleb</h1>
+        <nav>
+            <a href="../../index-src/">Index</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="collapsible-row">
+
+            <section class="collapsible">
+                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="setupPanel">
+                    <span>Setup</span>
+                    <span class="collapsible-icon">-</span>
+                </button>
+                <div class="collapsible-content" id="setupPanel">
                     <div class="collapsible-inner">
-                        <table class="funky-table">
-                            <caption>Calculator - Try typing with your keyboard</caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        <button type="button" id="1Button"></button>
-                                    </th>
-                                    <th scope="col">
-                                        <button type="button" id="2Button"></button>
-                                    </th>
-                                    <th scope="col">
-                                        <button type="button" id="3Button"></button>
-                                    </th>
-                                    <th scope="col">
-                                        <button type="button" id="additionButton"></button>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <button type="button" id="4Button"></button>
-                                    </th>
-                                    <th>
-                                        <button type="button" id="5Button"></button>
-                                    </th>
-                                    <th>
-                                        <button type="button" id="6Button"></button>
-                                    </th>
-                                    <th>
-                                        <button type="button" id="subtractionButton"></button>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <button type="button" id="7Button"></button>
-                                    </th>
-                                    <th>
-                                        <button type="button" id="8Button"></button>
-                                    </th>
-                                    <th>
-                                        <button type="button" id="9Button"></button>
-                                    </th>
-                                    <th>
-                                        <button type="button" id="multiplyButton"></button>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <button type="button" id="0Button"></button>
-                                    </th>
-                                    <th>
-                                        <button type="button" id="decimalButton"></button>
-                                    </th>
-                                    <th>
-                                        <button type="button" id="submitButton"></button>
-                                    </th>
-                                    <th>
-                                        <button type="button" id="divideButton"></button>
-                                    </th>
-                                    <th>
-                                        <button type="button" id="clearButton"></button>
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <span id="outputSpan">placeholderText</span>
+                        <p>Player: <output id="playerNameOut">?</output></p>
+                        <p>Wins: <output id="winsOut">0</output> | Best score: <output id="bestOut">-</output></p>
+
+                        <fieldset>
+                            <legend>Game settings</legend>
+                            <p>
+                                <label for="difficultySelect">Difficulty:</label>
+                                <select id="difficultySelect">
+                                    <option value="easy">Easy (1-10)</option>
+                                    <option value="medium">Medium (1-50)</option>
+                                    <option value="hard">Hard (1-100)</option>
+                                </select>
+                            </p>
+                            <p>
+                                <label for="triesRange">Max tries: <output id="triesRangeOut">7</output></label>
+                                <input type="range" id="triesRange" min="3" max="15" value="7">
+                            </p>
+                            <p>
+                                <input type="checkbox" id="hintsCheck" checked>
+                                <label for="hintsCheck">Show hints</label>
+                            </p>
+                        </fieldset>
+
+                        <button type="button" id="saveButton">Save player (JSON)</button>
                     </div>
-                </section>
-            </div>
-        </main>
-    </body>
+                </div>
+            </section>
+
+            <section class="collapsible">
+                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="gamePanel">
+                    <span>Game</span>
+                    <span class="collapsible-icon">-</span>
+                </button>
+                <div class="collapsible-content" id="gamePanel">
+                    <div class="collapsible-inner">
+                        <p>I'm thinking of a number from <output id="rangeOut">1 to 10</output>.</p>
+
+                        <p>
+                            <label for="guessInput">Your guess:</label>
+                            <input type="number" id="guessInput" min="1" max="10" step="1">
+                            <button type="button" id="guessButton">Guess</button>
+                        </p>
+
+                        <p><output id="hintOut" for="guessInput" aria-live="polite">Make a guess!</output></p>
+
+                        <p>
+                            <label for="triesProgress">Tries left:</label>
+                            <progress id="triesProgress" value="7" max="7">7</progress>
+                        </p>
+
+                        <h3>Guess history</h3>
+                        <ol id="historyList"></ol>
+
+                        <button type="button" id="newGameButton">New game</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="collapsible">
+                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="showcasePanel">
+                    <span>I/O showcase</span>
+                    <span class="collapsible-icon">-</span>
+                </button>
+                <div class="collapsible-content" id="showcasePanel">
+                    <div class="collapsible-inner">
+                        <h3>Inputs</h3>
+                        <ul>
+                            <li><code>prompt()</code> asks for your name</li>
+                            <li><code>&lt;input type="number"&gt;</code> takes your guess</li>
+                            <li><code>&lt;select&gt;</code> picks the difficulty</li>
+                            <li><code>&lt;input type="range"&gt;</code> sets max tries</li>
+                            <li><code>&lt;input type="checkbox"&gt;</code> toggles hints</li>
+                            <li>Button clicks and the Enter key submit a guess</li>
+                            <li><code>confirm()</code> asks to play again</li>
+                        </ul>
+
+                        <h3>Outputs</h3>
+                        <ul>
+                            <li><code>&lt;output&gt;</code> with <code>textContent</code> shows hints and stats</li>
+                            <li><code>innerHTML</code> builds the guess history</li>
+                            <li><code>&lt;progress&gt;</code> shows tries left</li>
+                            <li><code>alert()</code> announces a win</li>
+                            <li><code>console.log</code> and <code>document.title</code> give quiet extras</li>
+                            <li>CSS class changes color the hint box</li>
+                            <li><code>createElement</code> and <code>appendChild</code> build the footer list</li>
+                            <li>A JSON file download saves the player</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <h2>VIDEOFLAC in this page</h2>
+        <ul id="conceptList"></ul>
+        <p><a href="../../index-src/index.html">Index</a></p>
+    </footer>
+</body>
 </html>

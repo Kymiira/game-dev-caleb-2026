@@ -1,36 +1,181 @@
-.funky-table button {
-    width: 100%;
-    padding: 1rem 0.5rem;
-    background-color: var(--prim-color);
+ .collapsible-inner p {
+    margin: 0 0 1rem;
+}
+
+.collapsible-inner h3 {
+    margin: 1.5rem 0 0.5rem;
+    color: var(--accent-color);
+    font-size: 1.05rem;
+}
+
+.collapsible-inner ul {
+    margin: 0 0 1rem;
+    padding-left: 1.25rem;
+}
+
+.collapsible-inner li {
+    margin-bottom: 0.4rem;
+}
+
+.collapsible-inner code {
+    color: var(--accent-color);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85em;
+}
+
+.collapsible-inner label {
+    font-weight: 600;
+    color: var(--text-color-2);
+}
+
+.collapsible-inner input[type="number"],
+.collapsible-inner select {
+    background: var(--bg-color);
     color: var(--text-color-2);
     border: 1px solid var(--accent-color);
     border-radius: 6px;
-    font-size: 1.1rem;
+    padding: 0.4rem 0.6rem;
+    font: inherit;
+}
+
+.collapsible-inner input[type="number"] {
+    width: 6rem;
+    margin: 0 0.5rem;
+}
+
+.collapsible-inner input[type="range"] {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    accent-color: var(--prim-color-2);
+}
+
+.collapsible-inner input[type="checkbox"] {
+    accent-color: var(--prim-color-2);
+}
+
+.collapsible-inner fieldset {
+    margin: 0 0 1rem;
+    padding: 0.75rem 1rem 0.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.collapsible-inner legend {
+    padding: 0 0.5rem;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.collapsible-inner button {
+    background: var(--prim-color);
+    color: var(--text-color-2);
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font: inherit;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
-.funky-table button:hover {
-    background-color: var(--prim-color-2);
+.collapsible-inner button:hover {
+    background: var(--prim-color-2);
 }
 
-.funky-table button:active {
-    transform: scale(0.95);
+.collapsible-inner button:active {
+    transform: scale(0.96);
 }
 
-#outputSpan {
-    display: block;
-    width: 100%;
-    margin-top: 1rem;
-    padding: 1rem;
-    background-color: var(--bg-color);
+.collapsible-inner button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.collapsible-inner input:focus-visible,
+.collapsible-inner select:focus-visible,
+.collapsible-inner button:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+output {
     color: var(--text-color-2);
+    font-weight: 600;
+}
+
+#hintOut {
+    display: block;
+    padding: 0.75rem 1rem;
+    background: var(--bg-color);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    font-family: monospace;
-    font-size: 1.3rem;
-    text-align: right;
-    word-break: break-all;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+#hintOut.hint-low,
+#hintOut.hint-high {
+    border-color: var(--accent-color);
+}
+
+#hintOut.hint-correct {
+    background: var(--prim-color);
+    border-color: var(--accent-color);
+}
+
+#hintOut.hint-invalid,
+#hintOut.hint-repeat {
+    border-style: dashed;
+    border-color: var(--accent-color);
+}
+
+#hintOut.hint-lost {
+    background: var(--surf-color-2);
+}
+
+progress {
+    display: block;
+    width: 100%;
+    height: 1rem;
+    margin-top: 0.5rem;
+    accent-color: var(--prim-color-2);
+}
+
+#historyList {
+    margin: 0 0 1rem;
+    padding-left: 1.5rem;
+}
+
+#historyList li {
+    padding: 0.25rem 0;
+}
+
+#historyList:empty {
+    padding-left: 0;
+}
+
+#historyList:empty::before {
+    content: "No guesses yet.";
+    opacity: 0.7;
+}
+
+footer h2 {
+    margin: 0 0 1rem;
+    color: var(--text-color-2);
+    font-size: 1.1rem;
+}
+
+#conceptList {
+    display: grid;
+    gap: 0.4rem;
+    max-width: 800px;
+    margin: 0 auto 1rem;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+#conceptList strong {
+    color: var(--accent-color);
 }
