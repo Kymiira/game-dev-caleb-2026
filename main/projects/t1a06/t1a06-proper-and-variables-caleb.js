@@ -1,39 +1,43 @@
-let myNum = 3;
-let myString = ' Hello ';
-let myFloat = 17.5;
-let myBool = true;
-function sayHello() {
-    let myOut = document.getElementById('myDiv01');
-    if (!myOut) return;
-    
-    myOut.innerHTML = myNum + myString + myFloat + ', ' + myBool;
-    if (myBool) {
-        myOut.innerHTML += ', WOW';
-    }
-}
-const appName = "DashboardPro";
-const maxUsers = 100;
-const isProduction = false;
-const apiVersion = undefined;
-const currentUser = null;
-const globalId = 9007199254740991n;
-const uniqueKey = Symbol("id");
-const userProfile = {
-    username: "johndoe",
-    age: 30,
+let playerName = "PixelHero";
+let playerLevel = 3;
+let playerGold = 150.75;
+let isBuffed = true;
+let inventory = ["Health Potion", "Iron Dagger"];
+let playerStats = {
+    attack: 25,
+    defense: 15
 };
-const allowedRoles = ["admin", "editor", "viewer"];
-let sessionAttempts = 3;
-sessionAttempts = 4;
-let lastLoginTime = new Date();
-var legacyModeEnabled = true;
-console.log(`App: ${appName} (v${apiVersion})`);
-console.log("Max Users:", maxUsers);
-console.log("Is Production:", isProduction);
-console.log("Current User:", currentUser);
-console.log("Global ID:", globalId);
-console.log("Unique Symbol:", uniqueKey);
-console.log("User Profile Object:", userProfile);
-console.log("Allowed Roles Array:", allowedRoles);
-console.log("Session Attempts:", sessionAttempts);
-console.log("Legacy Mode:", legacyModeEnabled);
+
+function renderVariables() {
+    let screen = document.getElementById('var-output-screen');
+    if (!screen) return;
+
+    screen.innerHTML = `
+        <strong>Player Name (String):</strong> ${playerName} <br>
+        <strong>Level (Number):</strong> ${playerLevel} <br>
+        <strong>Gold (Float):</strong> $${playerGold.toFixed(2)} <br>
+        <strong>Buff Active (Boolean):</strong> ${isBuffed} <br>
+        <strong>Inventory (Array):</strong> ${inventory.join(", ")} <br>
+        <strong>Stats (Object):</strong> ATK: ${playerStats.attack} | DEF: ${playerStats.defense}
+    `;
+}
+
+function gainGold() {
+    playerGold += 10.50;
+    playerStats.attack += 2;
+    renderVariables();
+}
+
+function toggleStatus() {
+    isBuffed = !isBuffed;
+    renderVariables();
+}
+
+function addItemToInventory(item) {
+    inventory.push(item);
+    renderVariables();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderVariables();
+});

@@ -1,8 +1,14 @@
-b { 
-    color: var(--accent-color); 
-    font-weight: 600;
+#var-output-screen {
+    padding: 1rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    line-height: 1.6;
 }
 
-#personally-provided-content pre {
-    max-height: 400px;
+#var-output-screen strong {
+    color: var(--text-color-2);
 }
