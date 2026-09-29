@@ -14,19 +14,7 @@ const hintOut = document.getElementById('hintOut');
 const triesProgress = document.getElementById('triesProgress');
 const historyList = document.getElementById('historyList');
 const newGameButton = document.getElementById('newGameButton');
-const conceptList = document.getElementById('conceptList');
 const difficultyMax = { easy: 10, medium: 50, hard: 100 };
-const concepts = [
-    { name: 'Variables', where: 'const page elements at the top, let player and let game for state' },
-    { name: 'Input/Output', where: 'prompt(), confirm(), alert(), form inputs, <output>, <progress>, JSON download' },
-    { name: 'Decisions', where: 'if / else if in Game.check(), switch in showHint() and labelFor(), ternaries in messages' },
-    { name: 'Events', where: 'click on buttons, keydown for Enter, input and change on the settings' },
-    { name: 'Objects', where: 'the difficultyMax lookup, plus the player and game objects made from the classes' },
-    { name: 'Functions', where: 'startGame(), handleGuess(), showHint(), renderHistory() and more' },
-    { name: 'Loops', where: 'while in askForName(), for in renderHistory() and Game.hasGuessed(), for...of in renderConcepts()' },
-    { name: 'Arrays', where: 'game.guesses stores every guess, and concepts builds this list' },
-    { name: 'Classes', where: 'Player and Game' }
-];
 class Player {
     constructor(name) {
         this.name = name;
@@ -102,18 +90,18 @@ class Game {
         return result;
     }
 }
-let player = new Player('Player');
+let player = new Player('player');
 let game = new Game(difficultyMax.easy, 7);
 function triesWord(count) {
     return count === 1 ? 'try' : 'tries';
 }
 function askForName() {
-    let name = prompt('What is your name?', 'Player');
+    let name = prompt('what is your name?', 'player');
     while (name !== null && name.trim() === '') {
-        name = prompt('Your name can\'t be empty. What is your name?', 'Player');
+        name = prompt('your name can\'t be empty. what\'s your name?', 'player');
     }
     if (name === null) {
-        name = 'Player';
+        name = 'player';
     }
     return name.trim();
 }
@@ -133,7 +121,7 @@ function startGame() {
     guessInput.disabled = false;
     guessButton.disabled = false;
     hintOut.className = '';
-    hintOut.textContent = 'Make a guess';
+    hintOut.textContent = 'make a guess';
 
     renderHistory();
     updateProgress();
@@ -173,17 +161,17 @@ function showHint(result) {
 
     switch (result) {
         case 'invalid':
-            message = `Enter a whole number from ${game.min} to ${game.max}.`;
+            message = `enter a whole number from ${game.min} to ${game.max}.`;
             break;
         case 'repeat':
-            message = 'You already tried that one. Pick a different number.';
+            message = 'you already tried that one, pick a different number';
             break;
         case 'correct':
-            message = 'You got it!';
+            message = 'you got it';
             break;
         default:
-            message = hintsCheck.checked ? `Too ${result}!` : 'Not it.';
-            message += ` ${left} ${triesWord(left)} left.`;
+            message = hintsCheck.checked ? `too ${result}` : 'not it';
+            message += ` ${left} ${triesWord(left)} left`;
     }
 
     hintOut.className = `hint-${result}`;
@@ -192,7 +180,7 @@ function showHint(result) {
 function labelFor(result) {
     switch (result) {
         case 'correct':
-            return 'correct!';
+            return 'correct';
         case 'low':
             return hintsCheck.checked ? 'too low' : 'wrong';
         case 'high':
@@ -214,7 +202,7 @@ function updateProgress() {
     triesProgress.max = game.maxTries;
     triesProgress.value = left;
     triesProgress.textContent = left;
-    document.title = `Guess the Number - ${left} ${triesWord(left)} left`;
+    document.title = `guess the Number - ${left} ${triesWord(left)} left`;
 }
 function updateStats() {
     playerNameOut.textContent = player.name;
@@ -229,7 +217,7 @@ function endGame(won) {
     if (won) {
         player.recordWin(used);
         updateStats();
-        hintOut.textContent = `You got it in ${used} ${triesWord(used)}!`;
+        hintOut.textContent = `you got it in ${used} ${triesWord(used)}`;
     } else {
         hintOut.className = 'hint-lost';
         hintOut.textContent = `Out of tries. The number was ${game.secret}.`;
@@ -237,9 +225,9 @@ function endGame(won) {
 
     setTimeout(function () {
         if (won) {
-            alert(`Nice one, ${player.name}! ${used} ${triesWord(used)}.`);
+            alert(`nice one,${player.name} ${used} ${triesWord(used)}`);
         }
-        if (confirm('Play again?')) {
+        if (confirm('want to play again?')) {
             startGame();
         }
     }, 100);
@@ -257,16 +245,6 @@ function savePlayer() {
     URL.revokeObjectURL(url);
 
     console.log('saved player:', json);
-}
-function renderConcepts() {
-    for (const concept of concepts) {
-        const item = document.createElement('li');
-        const label = document.createElement('strong');
-        label.textContent = `${concept.name}: `;
-        item.appendChild(label);
-        item.appendChild(document.createTextNode(concept.where));
-        conceptList.appendChild(item);
-    }
 }
 guessButton.addEventListener('click', handleGuess);
 newGameButton.addEventListener('click', startGame);
@@ -291,5 +269,4 @@ hintsCheck.addEventListener('change', function () {
     player.hints = hintsCheck.checked;
     renderHistory();
 });
-renderConcepts();
 setTimeout(startPage, 100);
