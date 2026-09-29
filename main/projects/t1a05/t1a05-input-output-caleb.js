@@ -23,6 +23,7 @@ const winDialog = document.getElementById('winDialog');
 const dialogMsg = document.getElementById('dialogMsg');
 const closeDialog = document.getElementById('closeDialog');
 const difficultyMax = { easy: 10, medium: 50, hard: 100 };
+let audioCtx = null;
 class Player {
     constructor(name) {
         this.name = name;
@@ -176,20 +177,35 @@ function startGame() {
 }
 function playBeep(type) {
     try {
-        let ctx = new (window.AudioContext || window.webkitAudioContext)();
-        let osc = ctx.createOscillator();
-        let gain = ctx.createGain();
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        let osc = audioCtx.createOscillator();
+        let gain = audioCtx.createGain();
+        
         osc.type = 'sine';
         osc.frequency.value = type === 'low' ? 150 : (type === 'high' ? 600 : 880);
-        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+        
         osc.connect(gain);
-        gain.connect(ctx.destination);
+        gain.connect(audioCtx.destination);
+        
         osc.start();
-        osc.stop(ctx.currentTime + 0.15);
-    } catch (e) {}
+        osc.stop(audioCtx.currentTime + 0.15);
+    } catch (e) {
+        console.warn('Audio playback failed:', e);
+    }
 }
 function speakHint(text) {
     if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); 
+        
         let u = new SpeechSynthesisUtterance(text);
         window.speechSynthesis.speak(u);
     }
@@ -332,11 +348,16 @@ function loadPlayerFile(event) {
     reader.readAsText(file);
 }
 
-document.addEventListener('dragover', function(e) {
-    e.preventDefault();
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    document.addEventListener(eventName, preventDefaults, false);
 });
-document.addEventListener('drop', function(e) {
+
+function preventDefaults(e) {
     e.preventDefault();
+    e.stopPropagation();
+}
+
+document.addEventListener('drop', function(e) {
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
         const file = e.dataTransfer.files[0];
         if (file.name.endsWith('.json')) {
@@ -349,6 +370,8 @@ document.addEventListener('drop', function(e) {
                 }
             };
             reader.readAsText(file);
+        } else {
+            alert('please drop a valid .json player file');
         }
     }
 });
