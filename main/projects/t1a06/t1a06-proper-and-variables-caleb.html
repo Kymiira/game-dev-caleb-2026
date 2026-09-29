@@ -3,77 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>t1a06 - Advanced Variables & Game State Engine</title>
+    <title>t1a06-proper-and-variables-caleb</title>
     <link rel="stylesheet" href="../../utils/styles.css">
     <link rel="stylesheet" href="t1a06-proper-and-variables-caleb.css">
     <script src="../../utils/scripts.js" defer></script>
     <script src="t1a06-proper-and-variables-caleb.js" defer></script>
 </head>
+
 <body>
     <header>
-        <h1>T1a06: Advanced Game Variables & State Engine</h1>
+        <h1>OVERRIDE // NEXUS</h1>
         <nav>
             <a href="../../index-src/">Index</a>
+            <a href="#terminal">Terminal</a>
+            <a href="#memory">Memory</a>
         </nav>
     </header>
 
-    <main>
-        <div class="collapsible-row">
+    <div class="teacher-banner">
+        <p>
+            <strong>t1a06-proper-and-variables</strong> //
+            Netrunner Operations Terminal
+        </p>
+    </div>
+
+    <main id="terminal">
+
+        <section class="terminal-title">
+            <div>
+                <p class="terminal-label">SECURE CONNECTION // NIGHT CITY</p>
+                <h2>t1a06-proper-and-variables-caleb</h2>
+                <p id="system-message">Connection established. Awaiting operator input...</p>
+            </div>
+
+            <div class="connection-status">
+                <span class="status-dot"></span>
+                <span id="connection-status">ONLINE</span>
+            </div>
+        </section>
+
+        <section class="collapsible-row">
+
             <section class="collapsible">
-                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="gameEnginePanel">
-                    <span class="collapsible-icon">-</span> RPG State & Inventory Engine
+                <button class="collapsible-toggle" type="button"
+                    aria-expanded="true" aria-controls="player-terminal">
+                    <span class="collapsible-icon">-</span>
+                    NETRUNNER PROFILE
                 </button>
-                <div class="collapsible-content" id="gameEnginePanel">
+
+                <div class="collapsible-content" id="player-terminal">
                     <div class="collapsible-inner">
-                        <div id="player-hud" class="hud-box">
+
+                        <div class="profile-grid">
+
+                            <div class="profile-input">
+                                <label for="alias-input">Netrunner Alias</label>
+                                <input id="alias-input" type="text" maxlength="20"
+                                    placeholder="enter alias">
+                                <button id="alias-button" class="cyber-button" type="button">
+                                    Update Alias
+                                </button>
+                            </div>
+
+                            <div class="profile-card">
+                                <span class="card-label">ALIAS</span>
+                                <strong id="alias-output">UNKNOWN</strong>
+                            </div>
+
+                            <div class="profile-card">
+                                <span class="card-label">CREDITS</span>
+                                <strong id="credits-output">€$ 500</strong>
+                            </div>
+
+                            <div class="profile-card">
+                                <span class="card-label">RAM</span>
+                                <strong id="ram-output">8 / 8 GB</strong>
+                            </div>
+
+                            <div class="profile-card">
+                                <span class="card-label">CYBERPSYCHOSIS</span>
+                                <strong id="psychosis-output">0%</strong>
+                            </div>
+
+                            <div class="profile-card">
+                                <span class="card-label">BOG LEVEL</span>
+                                <strong id="borg-output">0%</strong>
+                            </div>
+
                         </div>
-                        <div class="action-button-group">
-                            <button type="button" class="collapsible-toggle" onclick="earnGold()">Mine Gold (+25.5)</button>
-                            <button type="button" class="collapsible-toggle" onclick="buyItem('Health Elixir', 50)">Buy Elixir (50G)</button>
-                            <button type="button" class="collapsible-toggle" onclick="toggleGodMode()">Toggle God Mode</button>
-                            <button type="button" class="collapsible-toggle" onclick="triggerQuest()">Advance Quest</button>
-                        </div>
-                        <div id="inventory-grid" class="inventory-container">
-                        </div>
+
                     </div>
                 </div>
             </section>
 
             <section class="collapsible">
-                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="inspectorPanel">
-                    <span class="collapsible-icon">-</span> Live Variable Inspector
+                <button class="collapsible-toggle" type="button"
+                    aria-expanded="true" aria-controls="biometric-terminal">
+                    <span class="collapsible-icon">-</span>
+                    BIOMETRIC FEEDBACK
                 </button>
-                <div class="collapsible-content" id="inspectorPanel">
+
+                <div class="collapsible-content" id="biometric-terminal">
                     <div class="collapsible-inner">
-                        <table class="funky-table" id="variable-inspector-table">
-                            <caption>Runtime Memory Map</caption>
-                            <thead>
-                                <tr>
-                                    <th>Variable Name</th>
-                                    <th>Data Type</th>
-                                    <th>Current Value</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+
+                        <div class="meter-block">
+                            <div class="meter-heading">
+                                <span>CYBERPSYCHOSIS</span>
+                                <span id="psychosis-meter-text">0%</span>
+                            </div>
+
+                            <div class="meter">
+                                <div id="psychosis-bar" class="meter-fill psychosis-fill"></div>
+                            </div>
+                        </div>
+
+                        <div class="meter-block">
+                            <div class="meter-heading">
+                                <span>HUMANITY</span>
+                                <span id="humanity-meter-text">100%</span>
+                            </div>
+
+                            <div class="meter">
+                                <div id="humanity-bar" class="meter-fill humanity-fill"></div>
+                            </div>
+                        </div>
+
+                        <div class="biometric-grid">
+                            <div>
+                                <span>HEART RATE</span>
+                                <strong id="heart-rate-output">72 BPM</strong>
+                            </div>
+
+                            <div>
+                                <span>NEURAL LOAD</span>
+                                <strong id="neural-load-output">10%</strong>
+                            </div>
+
+                            <div>
+                                <span>STRESS</span>
+                                <strong id="stress-output">LOW</strong>
+                            </div>
+
+                            <div>
+                                <span>SYNC</span>
+                                <strong id="sync-output">100%</strong>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
-        </div>
+
+        </section>
 
         <section class="collapsible">
-            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="terminalPanel">
-                <span class="collapsible-icon">-</span> Engine Terminal Output
+            <button class="collapsible-toggle" type="button"
+                aria-expanded="true" aria-controls="target-terminal">
+                <span class="collapsible-icon">-</span>
+                CORPORATE TARGET MATRIX
             </button>
-            <div class="collapsible-content" id="terminalPanel">
+
+            <div class="collapsible-content" id="target-terminal">
                 <div class="collapsible-inner">
-                    <div id="terminal-log" class="terminal-screen">
-                        [System] Engine initialized successfully...<br>
+
+                    <p class="section-description">
+                        Select a corporate node and attempt a breach.
+                        Better hardware and exploits unlock higher-value targets.
+                    </p>
+
+                    <div id="target-grid" class="target-grid"></div>
+
+                    <div class="action-row">
+                        <button id="hack-button" class="cyber-button primary-button" type="button">
+                            EXECUTE BREACH
+                        </button>
+
+                        <button id="recover-button" class="cyber-button" type="button">
+                            BREATHING EXERCISE
+                        </button>
                     </div>
+
                 </div>
             </div>
         </section>
+
+        <section class="collapsible-row">
+
+            <section class="collapsible">
+                <button class="collapsible-toggle" type="button"
+                    aria-expanded="true" aria-controls="exploit-terminal">
+                    <span class="collapsible-icon">-</span>
+                    EXPLOIT PAYLOAD MANAGER
+                </button>
+
+                <div class="collapsible-content" id="exploit-terminal">
+                    <div class="collapsible-inner">
+
+                        <div id="exploit-list" class="item-list"></div>
+
+                        <div class="shop-box">
+                            <h3>Purchase Payload</h3>
+
+                            <select id="exploit-select"></select>
+
+                            <button id="exploit-buy-button" class="cyber-button" type="button">
+                                BUY EXPLOIT
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="collapsible">
+                <button class="collapsible-toggle" type="button"
+                    aria-expanded="true" aria-controls="implant-terminal">
+                    <span class="collapsible-icon">-</span>
+                    BLACK MARKET IMPLANTS
+                </button>
+
+                <div class="collapsible-content" id="implant-terminal">
+                    <div class="collapsible-inner">
+
+                        <div id="implant-list" class="item-list"></div>
+
+                        <div class="shop-box">
+                            <h3>Available Hardware</h3>
+
+                            <select id="implant-select"></select>
+
+                            <button id="implant-buy-button" class="cyber-button" type="button">
+                                INSTALL IMPLANT
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button"
+                aria-expanded="true" aria-controls="console-terminal">
+                <span class="collapsible-icon">-</span>
+                EXECUTION STREAM
+            </button>
+
+            <div class="collapsible-content" id="console-terminal">
+                <div class="collapsible-inner">
+
+                    <div id="console-output" class="console-output"></div>
+
+                    <div class="console-input-row">
+                        <input id="console-input" type="text"
+                            placeholder="type a command...">
+                        <button id="console-button" class="cyber-button" type="button">
+                            SEND
+                        </button>
+                    </div>
+
+                    <p class="command-help">
+                        commands: help, status, targets, exploits, implants, clear
+                    </p>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="collapsible" id="memory">
+            <button class="collapsible-toggle" type="button"
+                aria-expanded="true" aria-controls="memory-terminal">
+                <span class="collapsible-icon">-</span>
+                RUNTIME MEMORY INSPECTOR
+            </button>
+
+            <div class="collapsible-content" id="memory-terminal">
+                <div class="collapsible-inner">
+
+                    <p class="section-description">
+                        Live JavaScript runtime state. Values change as the
+                        netrunner interacts with the terminal.
+                    </p>
+
+                    <table class="funky-table memory-table">
+                        <caption>Active Variable Registry</caption>
+
+                        <thead>
+                            <tr>
+                                <th scope="col">Identifier</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Current Value</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="memory-table-body"></tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+
     </main>
+
+    <footer>
+        t1a06-proper-and-variables-caleb
+    </footer>
 </body>
 </html>
