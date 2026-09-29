@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess the Number - Inputs and Outputs</title>
+    <title>guess the number - inputs and outputs</title>
     <link rel="stylesheet" href="../../utils/styles.css">
     <link rel="stylesheet" href="t1a05-input-output-caleb.css">
     <script src="t1a05-input-output-caleb.js" defer></script>
@@ -13,7 +13,7 @@
     <header>
         <h1>t1a05-input-output-caleb</h1>
         <nav>
-            <a href="../../index-src/">Index</a>
+            <a href="../../index-src/">index</a>
         </nav>
     </header>
 
@@ -22,98 +22,86 @@
 
             <section class="collapsible">
                 <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="setupPanel">
-                    <span>Setup</span>
+                    <span>setup</span>
                     <span class="collapsible-icon">-</span>
                 </button>
                 <div class="collapsible-content" id="setupPanel">
                     <div class="collapsible-inner">
-                        <p>Player: <output id="playerNameOut">?</output></p>
-                        <p>Wins: <output id="winsOut">0</output> | Best score: <output id="bestOut">-</output></p>
+                        <p>player: <output id="playerNameOut">?</output></p>
+                        <p>wins: <output id="winsOut">0</output> | best score: <output id="bestOut">-</output></p>
 
                         <fieldset>
-                            <legend>Game settings</legend>
+                            <legend>game settings</legend>
                             <p>
-                                <label for="difficultySelect">Difficulty:</label>
+                                <label for="difficultySelect">difficulty:</label>
                                 <select id="difficultySelect">
-                                    <option value="easy">Easy (1-10)</option>
-                                    <option value="medium">Medium (1-50)</option>
-                                    <option value="hard">Hard (1-100)</option>
+                                    <option value="easy">easy (1-10)</option>
+                                    <option value="medium">medium (1-50)</option>
+                                    <option value="hard">hard (1-100)</option>
                                 </select>
                             </p>
                             <p>
-                                <label for="triesRange">Max tries: <output id="triesRangeOut">7</output></label>
+                                <label for="triesRange">max tries: <output id="triesRangeOut">7</output></label>
                                 <input type="range" id="triesRange" min="3" max="15" value="7">
                             </p>
                             <p>
                                 <input type="checkbox" id="hintsCheck" checked>
-                                <label for="hintsCheck">Show hints</label>
+                                <label for="hintsCheck">show hints</label>
                             </p>
                         </fieldset>
 
-                        <button type="button" id="saveButton">Save player (JSON)</button>
+                        <p>
+                            <button type="button" id="saveButton">save player (json)</button>
+                            <label for="fileInput" class="file-label" style="display:inline-block;background:var(--prim-color);color:var(--text-color-2);border:1px solid var(--accent-color);border-radius:6px;padding:0.5rem 1rem;font:inherit;font-weight:600;cursor:pointer;margin-top:0.5rem;">load json</label>
+                            <input type="file" id="fileInput" accept=".json" style="display:none;">
+                        </p>
                     </div>
                 </div>
             </section>
 
             <section class="collapsible">
                 <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="gamePanel">
-                    <span>Game</span>
+                    <span>game</span>
                     <span class="collapsible-icon">-</span>
                 </button>
                 <div class="collapsible-content" id="gamePanel">
                     <div class="collapsible-inner">
-                        <p>I'm thinking of a number from <output id="rangeOut">1 to 10</output>.</p>
+                        <p>i'm thinking of a number from <output id="rangeOut">1 to 10</output>.</p>
 
                         <p>
-                            <label for="guessInput">Your guess:</label>
+                            <label for="guessInput">your guess:</label>
                             <input type="number" id="guessInput" min="1" max="10" step="1">
-                            <button type="button" id="guessButton">Guess</button>
+                            <button type="button" id="guessButton">guess</button>
                         </p>
 
-                        <p><output id="hintOut" for="guessInput" aria-live="polite">Make a guess!</output></p>
+                        <p><output id="hintOut" for="guessInput" aria-live="polite">make a guess!</output></p>
 
                         <p>
-                            <label for="triesProgress">Tries left:</label>
+                            <label for="triesProgress">tries left:</label>
                             <progress id="triesProgress" value="7" max="7">7</progress>
                         </p>
 
-                        <h3>Guess history</h3>
+                        <h3>guess history</h3>
                         <ol id="historyList"></ol>
 
-                        <button type="button" id="newGameButton">New game</button>
+                        <p>
+                            <button type="button" id="newGameButton">new game</button>
+                            <button type="button" id="copyButton">copy score</button>
+                        </p>
                     </div>
                 </div>
             </section>
 
             <section class="collapsible">
-                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="showcasePanel">
-                    <span>I/O guideline or whatever</span>
+                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="advancedPanel">
+                    <span>advanced i/o</span>
                     <span class="collapsible-icon">-</span>
                 </button>
-                <div class="collapsible-content" id="showcasePanel">
+                <div class="collapsible-content" id="advancedPanel">
                     <div class="collapsible-inner">
-                        <h3>Inputs</h3>
-                        <ul>
-                            <li><code>prompt()</code> asks for your name</li>
-                            <li><code>&lt;input type="number"&gt;</code> takes your guess</li>
-                            <li><code>&lt;select&gt;</code> picks the difficulty</li>
-                            <li><code>&lt;input type="range"&gt;</code> sets max tries</li>
-                            <li><code>&lt;input type="checkbox"&gt;</code> toggles hints</li>
-                            <li>Button clicks and the Enter key submit a guess</li>
-                            <li><code>confirm()</code> asks to play again</li>
-                        </ul>
-
-                        <h3>Outputs</h3>
-                        <ul>
-                            <li><code>&lt;output&gt;</code> with <code>textContent</code> shows hints and stats</li>
-                            <li><code>innerHTML</code> builds the guess history</li>
-                            <li><code>&lt;progress&gt;</code> shows tries left</li>
-                            <li><code>alert()</code> announces a win</li>
-                            <li><code>console.log</code> and <code>document.title</code> give quiet extras</li>
-                            <li>CSS class changes color the hint box</li>
-                            <li><code>createElement</code> makes the link that downloads the save file</li>
-                            <li>A JSON file download saves the player</li>
-                        </ul>
+                        <p>click thermometer to guess:</p>
+                        <canvas id="thermoCanvas" width="150" height="180" style="background:var(--bg-color);border:1px solid var(--border-color);border-radius:8px;cursor:pointer;display:block;margin:0 auto;"></canvas>
+                        <p style="text-align:center;margin-top:0.75rem;"><button type="button" id="speakButton">speak hint</button></p>
                     </div>
                 </div>
             </section>
@@ -121,8 +109,16 @@
         </div>
     </main>
 
+    <dialog id="winDialog" style="background:var(--surf-color);color:var(--text-color-2);border:1px solid var(--accent-color);border-radius:8px;padding:1.5rem;max-width:300px;">
+        <div class="collapsible-inner" style="background:transparent;padding:0;">
+            <h3 style="margin-top:0;">you won!</h3>
+            <p id="dialogMsg"></p>
+            <button type="button" id="closeDialog">play again</button>
+        </div>
+    </dialog>
+
     <footer>
-        <p><a href="../../index-src/index.html">Index</a></p>
+        <p><a href="../../index-src/index.html">index</a></p>
     </footer>
 </body>
 </html>
