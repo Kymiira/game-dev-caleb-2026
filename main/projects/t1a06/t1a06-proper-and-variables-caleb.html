@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>t1a06 - Variables & Data Types</title>
+    <title>t1a06 - Advanced Variables & Game State Engine</title>
     <link rel="stylesheet" href="../../utils/styles.css">
     <link rel="stylesheet" href="t1a06-proper-and-variables-caleb.css">
     <script src="../../utils/scripts.js" defer></script>
@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <h1>T1a06: Variables & Data Types</h1>
+        <h1>T1a06: Advanced Game Variables & State Engine</h1>
         <nav>
             <a href="../../index-src/">Index</a>
         </nav>
@@ -20,42 +20,60 @@
     <main>
         <div class="collapsible-row">
             <section class="collapsible">
-                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="varDemoPanel">
-                    <span class="collapsible-icon">-</span> Interactive Character Stats (Variables Demo)
+                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="gameEnginePanel">
+                    <span class="collapsible-icon">-</span> RPG State & Inventory Engine
                 </button>
-                <div class="collapsible-content" id="varDemoPanel">
-                    <div class="collapsible-inner" style="display: flex; flex-direction: column; gap: 1rem;">
-                        <p>Click buttons to mutate variables and watch the DOM update live.</p>
-                        <div id="var-output-screen">...</div>
-                        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                            <button type="button" class="collapsible-toggle" style="width: auto; padding: 0.5rem 1rem;" onclick="gainGold()">Gain Gold (+10.5)</button>
-                            <button type="button" class="collapsible-toggle" style="width: auto; padding: 0.5rem 1rem;" onclick="toggleStatus()">Toggle Buff</button>
-                            <button type="button" class="collapsible-toggle" style="width: auto; padding: 0.5rem 1rem;" onclick="addItemToInventory('Magic Key')">Loot Item</button>
+                <div class="collapsible-content" id="gameEnginePanel">
+                    <div class="collapsible-inner">
+                        <div id="player-hud" class="hud-box">
+                        </div>
+                        <div class="action-button-group">
+                            <button type="button" class="collapsible-toggle" onclick="earnGold()">Mine Gold (+25.5)</button>
+                            <button type="button" class="collapsible-toggle" onclick="buyItem('Health Elixir', 50)">Buy Elixir (50G)</button>
+                            <button type="button" class="collapsible-toggle" onclick="toggleGodMode()">Toggle God Mode</button>
+                            <button type="button" class="collapsible-toggle" onclick="triggerQuest()">Advance Quest</button>
+                        </div>
+                        <div id="inventory-grid" class="inventory-container">
                         </div>
                     </div>
                 </div>
             </section>
 
             <section class="collapsible">
-                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="codeRefPanel">
-                    <span class="collapsible-icon">-</span> Code Implementation Reference
+                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="inspectorPanel">
+                    <span class="collapsible-icon">-</span> Live Variable Inspector
                 </button>
-                <div class="collapsible-content" id="codeRefPanel">
+                <div class="collapsible-content" id="inspectorPanel">
                     <div class="collapsible-inner">
-                        <pre><code>
-// Data types implemented in JS:
-// - Strings, Numbers (Int/Float), Booleans, Arrays, Objects
-let playerName = "PixelHero";
-let playerLevel = 3;
-let playerGold = 150.75;
-let isBuffed = true;
-let inventory = ["Health Potion", "Iron Dagger"];
-let playerStats = { attack: 25, defense: 15 };
-                        </code></pre>
+                        <table class="funky-table" id="variable-inspector-table">
+                            <caption>Runtime Memory Map</caption>
+                            <thead>
+                                <tr>
+                                    <th>Variable Name</th>
+                                    <th>Data Type</th>
+                                    <th>Current Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </section>
         </div>
+
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="terminalPanel">
+                <span class="collapsible-icon">-</span> Engine Terminal Output
+            </button>
+            <div class="collapsible-content" id="terminalPanel">
+                <div class="collapsible-inner">
+                    <div id="terminal-log" class="terminal-screen">
+                        [System] Engine initialized successfully...<br>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 </body>
 </html>

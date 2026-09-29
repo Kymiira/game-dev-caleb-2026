@@ -1,4 +1,21 @@
-#var-output-screen {
+.collapsible-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.action-button-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.action-button-group .collapsible-toggle {
+    width: auto;
+    padding: 0.5rem 1rem;
+}
+
+.hud-box {
     padding: 1rem;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
@@ -9,6 +26,50 @@
     line-height: 1.6;
 }
 
-#var-output-screen strong {
+.hud-highlight {
     color: var(--text-color-2);
+    font-weight: 600;
+}
+
+.inventory-container {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    min-height: 40px;
+    padding: 0.5rem;
+    background: var(--bg-color-2);
+    border: 1px dashed var(--border-color);
+    border-radius: 6px;
+}
+
+.inventory-item {
+    background: var(--surf-color-2);
+    color: var(--text-color-2);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    border: 1px solid var(--accent-color);
+}
+
+.inventory-empty-msg {
+    color: var(--text-color);
+    font-size: 0.85rem;
+    padding: 0.3rem;
+}
+
+.inspector-type-col {
+    color: var(--accent-color);
+}
+
+.terminal-screen {
+    background: #080014;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: #00ffcc;
+    max-height: 200px;
+    overflow-y: auto;
+    line-height: 1.4;
 }
