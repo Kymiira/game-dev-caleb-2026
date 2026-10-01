@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" data-sheet="purple">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>big loops here pal</title>
+        <link rel="stylesheet" href="../../utils/styles.css">
+        <link rel="stylesheet" href="t1a08-loops-caleb.css">
+        <script src="../../utils/scripts.js" defer>
+        </script>
+        <script src="t1a08-loops-caleb.js" defer>
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>t1a08-loops-caleb</h1>
+            <nav>
+                <a href="../../index-src/">Index</a>
+            </nav>
+        </header>
+        <main>
+            <section>
+                <pre>
+                    for (let myLoop = 0; myLoop < myMax; myLoop++) {
+                        // your code here
+                    }
+                </pre>
+                insert max loop: <input id="maxLoop" value="100000000000"><br>
+                print-out: <textarea id="out" style="max-width: 400px; max-height: 400px;"></textarea><br>
+                <input type="button" value="click for result of simple loop" onclick="simpleLoop()"><br>
+                <input type="button" value="pull the trigger..." onclick="pullTrigger()">
+                <input type="button" value="spin the cyllinder and reset..." onclick="spinCylinder()">
+                <input type="button" value="spin the cyllinder and reset..." onclick="simulateRR()">
+                <div id="outRussianRoulette">this is russian roulette.</div>
+            </section>
+        </main>
+    </body>
+</html>
