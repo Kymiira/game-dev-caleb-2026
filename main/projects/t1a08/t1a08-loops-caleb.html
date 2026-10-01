@@ -19,19 +19,53 @@
             </nav>
         </header>
         <main>
-            <section>
-                <pre>
+            <section class="card-section">
+                <h2>terminal loop thing</h2>
+                <pre class="code-preview">
                     for (let myLoop = 0; myLoop < myMax; myLoop++) {
                         // your code here
                     }
                 </pre>
-                insert max loop: <input id="maxLoop" value="100000000000"><br>
-                print-out: <textarea id="out" style="max-width: 400px; max-height: 400px;"></textarea><br>
-                <input type="button" value="click for result of simple loop" onclick="simpleLoop()"><br>
-                <input type="button" value="pull the trigger..." onclick="pullTrigger()">
-                <input type="button" value="spin the cyllinder and reset..." onclick="spinCylinder()">
-                <input type="button" value="simulate wild # of iterations via loops" onclick="simulateRR()">
-                <div id="outRussianRoulette">this is russian roulette.</div>
+                <div class="input-group">
+                    <label for="maxLoop">max loop (1-100,000):</label>
+                    <input id="maxLoop" type="number" value="1000">
+                </div>
+                
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="terminal-title">loop</span>
+                    </div>
+                    <div class="terminal-body">
+                        <textarea id="out" readonly placeholder="System ready... Click run to stream output."></textarea>
+                    </div>
+                </div>
+
+                <button class="btn-terminal" onclick="simpleLoop()">create loop</button>
+            </section>
+            <section class="card-section">
+                <h2> russian roulette.</h2>
+                
+                <div class="rr-dashboard">
+                    <div class="cylinder-visual">
+                        <div class="chamber-slot" id="slot-1">1</div>
+                        <div class="chamber-slot" id="slot-2">2</div>
+                        <div class="chamber-slot" id="slot-3">3</div>
+                        <div class="chamber-slot" id="slot-4">4</div>
+                        <div class="chamber-slot" id="slot-5">5</div>
+                        <div class="chamber-slot" id="slot-6">6</div>
+                    </div>
+
+                    <div id="outRussianRoulette" class="rr-status">this is russian roulette.</div>
+
+                    <div class="btn-group">
+                        <button class="btn-danger" onclick="pullTrigger()">pull trigger</button>
+                        <button class="btn-secondary" onclick="spinCylinder()">spin cylinder</button>
+                        <button class="btn-primary" onclick="simulateRR()">simulate russian roulette</button>
+                    </div>
+                </div>
             </section>
         </main>
     </body>
