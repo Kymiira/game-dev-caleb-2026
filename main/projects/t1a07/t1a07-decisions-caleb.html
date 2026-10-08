@@ -1,54 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" data-sheet="purple">
+<html lang="en" data-theme="purple">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>im making big decisions right here</title>
+        <title>Advanced Decisions</title>
         <link rel="stylesheet" href="../../utils/styles.css">
-        <link rel="stylesheet" href="t1a07-decisions-caleb.css">
-        <script src="t1a07-decisions-caleb.js" defer></script>
-        <script src="../../utils/scripts.js" defer></script>
+        <link rel="stylesheet" href="../t1a02/t1a02-list-caleb.css">
+        <script src="./t1a07-decisions-caleb.js" defer></script>
     </head>
     <body>
         <header>
             <h1>t1a07-decisions-caleb</h1>
             <nav>
-                <a href="../../index-src/">Index</a>
+                <a href="../../index-src/index.html">Index</a>
             </nav>
         </header>
+
         <main>
-            <section>
-                <pre>
-                    const output1 = document.getElementById('output1');
-                    const output2 = document.getElementById('output2');
-                    const now = new Date();
-                    const hours = now.getHours();
-                    const minutes = now.getMinutes();
-                    const currentTime = hours + minutes / 60;
-                    switch (true) {
-                        case currentTime >= 6 && currentTime < 12:
-                            console.log("good morning");
-                            output2.textContent="good morning";
-                            break;
-                        case currentTime >= 12 && currentTime < 17:
-                            console.log("good afternoon");
-                            output2.textContent="good afternoon";
-                            break;
-                        case currentTime >= 17 && currentTime < 22:
-                            console.log("good evening");
-                            output2.textContent="good evening";
-                            break;
-                        default:
-                            console.log("good night");
-                            output2.textContent="good night";
-                            break
-                    }
-                    console.log(currentTime);
-                    output1.textContent = currentTime + 'formatted in /100, to get currentTime in standard please do x/100 = y/60 where x = currentTime and y is your standard time.'
-                </pre>                
-            </section>
-            <section>
-                example of working code<br>
-                <div id="output1"></div>
-                <div id="output2"></div>
-            </section>
+            <div class="whale-game-layout">
+                <section class="info-panel">
+                    <div class="list-container">
+                        <h3>Conditional Guide</h3>
+                        <ul class="fact-list">
+                            <li>Multi-branch if else if else</li>
+                            <li>Switch statement branching</li>
+                            <li>Nested condition evaluation</li>
+                        </ul>
+                    </div>
+                    <div class="list-container">
+                        <h3>Dev Resources</h3>
+                        <ul class="resource-list">
+                            <li><strong>MDN Web Docs:</strong>
+                                <ul>
+                                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else" target="_blank">If Else Statements</a></li>
+                                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch" target="_blank">Switch Statements</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="whale-game">
+                    <ol id="whale-list">
+                        <li>Decision Engine Ready</li>
+                        <li>Score Input: <input id="scoreInput" type="number" value="85" style="width:60px;"></li>
+                        <li>If / Else If Result: <span id="ifOut">...</span></li>
+                        <li>Switch Result: <span id="switchOut">...</span></li>
+                        <li>Nested Logic Result: <span id="nestedOut">...</span></li>
+                        <li>System Operational</li>
+                        <li>
+                            <button id="runBtn">Run Decisions</button>
+                        </li>
+                    </ol>
+                    <p id="question">Enter a value or click run to test conditional paths</p>
+                    <div id="answers">
+                        <button class="answer-button" onclick="setVal(25)">25</button>
+                        <button class="answer-button" onclick="setVal(50)">50</button>
+                        <button class="answer-button" onclick="setVal(75)">75</button>
+                        <button class="answer-button" onclick="setVal(100)">100</button>
+                    </div>
+                </section>
+                <section class="history-section">
+                    <h3>Decision History</h3>
+                    <ul id="history-list">
+                        <li class="history-placeholder">No evaluations run yet...</li>
+                    </ul>
+                </section>
+            </div>
+        </main>
+    </body>
+</html>
