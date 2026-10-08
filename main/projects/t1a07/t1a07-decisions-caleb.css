@@ -1,0 +1,56 @@
+/* Custom tweaks matching t1a05 style rules */
+.collapsible-inner p {
+    margin: 0 0 1rem;
+}
+
+.collapsible-inner fieldset {
+    margin: 0 0 1rem;
+    padding: 0.75rem 1rem 0.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.collapsible-inner legend {
+    padding: 0 0.5rem;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.collapsible-inner input[type="number"],
+.collapsible-inner select {
+    background: var(--bg-color);
+    color: var(--text-color-2);
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    font: inherit;
+    width: 7rem;
+    margin: 0 0.5rem;
+}
+
+.collapsible-inner button {
+    background: var(--prim-color);
+    color: var(--text-color-2);
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.collapsible-inner button:hover {
+    background: var(--prim-color-2);
+}
+
+output {
+    display: block;
+    padding: 0.75rem 1rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color-2);
+    font-weight: 600;
+    margin-top: 0.5rem;
+}

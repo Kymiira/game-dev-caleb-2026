@@ -1,86 +1,107 @@
-document.addEventListener('DOMContentLoaded', () => {
-    initDecisions()
-})
+'use strict';
 
-function initDecisions() {
-    const runBtn = document.getElementById('runBtn')
-    const scoreInput = document.getElementById('scoreInput')
-    runBtn.addEventListener('click', evaluateDecisions)
-    scoreInput.addEventListener('input', evaluateDecisions)
-    evaluateDecisions()
-}
+// --- Example 1: Multi-branch if / else if / else ---
+const ticketsInput = document.getElementById('ticketsInput');
+const ticketButton = document.getElementById('ticketButton');
+const ticketOutput = document.getElementById('ticketOutput');
 
-function setVal(v) {
-    document.getElementById('scoreInput').value = v
-    evaluateDecisions()
-}
+function checkTickets() {
+    const tickets = Number(ticketsInput.value);
 
-function evaluateDecisions() {
-    let score = Number(document.getElementById('scoreInput').value) || 0
-    let ifOut = document.getElementById('ifOut')
-    let switchOut = document.getElementById('switchOut')
-    let nestedOut = document.getElementById('nestedOut')
-    let question = document.getElementById('question')
-
-    let ifResult = ''
-    if (score >= 90) {
-        ifResult = 'Grade: A - Excellent'
-    } else if (score >= 80) {
-        ifResult = 'Grade: B - Good'
-    } else if (score >= 70) {
-        ifResult = 'Grade: C - Average'
-    } else if (score >= 60) {
-        ifResult = 'Grade: D - Passing'
-    } else {
-        ifResult = 'Grade: F - Failing'
+    // Error handling decision
+    if (isNaN(tickets) || tickets < 0) {
+        ticketOutput.textContent = 'Invalid input! Please enter a positive number of tickets.';
+        return;
     }
-    ifOut.textContent = ifResult
 
-    let switchResult = ''
-    switch (true) {
-        case (score === 100):
-            switchResult = 'Switch: Perfect Score'
-            break
-        case (score >= 75):
-            switchResult = 'Switch: Upper Bracket'
-            break
-        case (score >= 50):
-            switchResult = 'Switch: Mid Bracket'
-            break
+    let prize = '';
+
+    // Multi-branch conditional logic
+    if (tickets >= 500) {
+        prize = 'Grand Prize: Nintendo Switch / Console!';
+    } else if (tickets >= 250) {
+        prize = 'Medium Prize: Giant Plush Toy!';
+    } else if (tickets >= 100) {
+        prize = 'Small Prize: Board Game or Toy!';
+    } else if (tickets >= 50) {
+        prize = 'Basic Prize: Candy and Stickers!';
+    } else {
+        prize = 'No prize yet. Keep playing to earn more tickets!';
+    }
+
+    ticketOutput.textContent = `With ${tickets} tickets -> ${prize}`;
+    console.log(`Evaluated ${tickets} tickets -> ${prize}`);
+}
+
+if (ticketButton) {
+    ticketButton.addEventListener('click', checkTickets);
+}
+
+// --- Example 2: Switch Statement ---
+const classSelect = document.getElementById('classSelect');
+const classButton = document.getElementById('classButton');
+const classOutput = document.getElementById('classOutput');
+
+function handleClassSelection() {
+    const choice = classSelect.value;
+    let description = '';
+
+    // Switch statement decision structure
+    switch (choice) {
+        case 'warrior':
+            description = 'Class: Warrior | HP: 150 | Weapon: Greatsword | Role: Frontline Tank';
+            break;
+        case 'mage':
+            description = 'Class: Mage | HP: 80 | Weapon: Staff | Role: Elemental DPS';
+            break;
+        case 'rogue':
+            description = 'Class: Rogue | HP: 100 | Weapon: Daggers | Role: Stealth Crit';
+            break;
+        case 'healer':
+            description = 'Class: Healer | HP: 90 | Weapon: Wand | Role: Support & Recovery';
+            break;
         default:
-            switchResult = 'Switch: Lower Bracket'
-            break
+            description = 'Unknown class selected.';
     }
-    switchOut.textContent = switchResult
 
-    let nestedResult = ''
-    if (score >= 50) {
-        if (score % 2 === 0) {
-            nestedResult = 'Nested: Passing Even'
-        } else {
-            nestedResult = 'Nested: Passing Odd'
-        }
-    } else {
-        if (score === 0) {
-            nestedResult = 'Nested: Absolute Zero'
-        } else {
-            nestedResult = 'Nested: Failing Score'
-        }
-    }
-    nestedOut.textContent = nestedResult
-
-    question.textContent = `Evaluated score value: ${score}`
-    recordHistory(score, ifResult)
+    classOutput.textContent = description;
+    console.log(`Switch statement picked class: ${choice}`);
 }
 
-function recordHistory(val, res) {
-    const historyList = document.getElementById('history-list')
-    const placeholder = historyList.querySelector('.history-placeholder')
-    if (placeholder) {
-        placeholder.remove()
+if (classButton) {
+    classButton.addEventListener('click', handleClassSelection);
+}
+
+// --- Example 3: Nested If & Ternary Operator ---
+const vipCheck = document.getElementById('vipCheck');
+const levelInput = document.getElementById('levelInput');
+const vipButton = document.getElementById('vipButton');
+const vipOutput = document.getElementById('vipOutput');
+
+function verifyVIPAccess() {
+    const isVip = vipCheck.checked;
+    const level = Number(levelInput.value);
+
+    let accessMessage = '';
+
+    // Nested If Decision Structure
+    if (isVip) {
+        if (level >= 10) {
+            accessMessage = 'Elite VIP Access Granted: Full server privileges unlocked!';
+        } else {
+            accessMessage = 'Standard VIP Access Granted: Level up to 10 for full perks.';
+        }
+    } else {
+        // Ternary operator decision for non-VIPs
+        accessMessage = (level >= 20) 
+            ? 'Access Granted via High Level Grinding (Level 20+).' 
+            : 'Access Denied: Requires VIP pass or Level 20+.';
     }
-    const newLi = document.createElement('li')
-    newLi.textContent = `Score: ${val} | ${res}`
-    newLi.style.backgroundColor = val >= 70 ? 'var(--prim-color)' : 'var(--surf-color)'
-    historyList.prepend(newLi)
+
+    vipOutput.textContent = accessMessage;
+    console.log(`VIP Checked: ${isVip}, Level: ${level} -> ${accessMessage}`);
+}
+
+if (vipButton) {
+    vipButton.addEventListener('click', verifyVIPAccess);
 }
