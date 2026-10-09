@@ -114,17 +114,17 @@ const macroOut = document.getElementById('macroOut');
 let isRecording = false;
 let recordedEvents = [];
 
-const trackedTypes = ['click', 'input', 'change', 'keydown'];
+const trackedTypes = ['click', 'input', 'change'];
 trackedTypes.forEach((type) => {
     document.addEventListener(type, (e) => {
         if (!isRecording) return;
         if (e.target.closest('#macroPanel')) return;
+        if (!e.target.id) return; // ensure element has an ID to target during replay
+
         recordedEvents.push({
             type: e.type,
-            tag: e.target.tagName.toLowerCase(),
-            id: e.target.id || null,
-            value: e.target.value || null,
-            time: Date.now()
+            id: e.target.id,
+            value: e.target.value !== undefined ? e.target.value : null
         });
         recStatus.textContent = `recording... (${recordedEvents.length} events captured)`;
     });
@@ -154,19 +154,22 @@ btnPlay.addEventListener('click', () => {
     
     recordedEvents.forEach((ev, idx) => {
         setTimeout(() => {
-            if (ev.id) {
-                const el = document.getElementById(ev.id);
-                if (el) {
-                    el.classList.add('flash-box');
-                    setTimeout(() => el.classList.remove('flash-box'), 300);
-                    if (ev.value !== null && 'value' in el) {
-                        el.value = ev.value;
-                    }
+            const el = document.getElementById(ev.id);
+            if (el) {
+                el.classList.add('flash-box');
+                setTimeout(() => el.classList.remove('flash-box'), 300);
+
+                if (ev.type === 'click') {
+                    el.click();
+                } else if ((ev.type === 'input' || ev.type === 'change') && 'value' in el) {
+                    el.value = ev.value;
+                    el.dispatchEvent(new Event('input', { bubbles: true }));
+                    el.dispatchEvent(new Event('change', { bubbles: true }));
                 }
             }
             if (idx === recordedEvents.length - 1) {
                 recStatus.textContent = 'playback complete';
             }
-        }, idx * 400);
+        }, idx * 500);
     });
 });
