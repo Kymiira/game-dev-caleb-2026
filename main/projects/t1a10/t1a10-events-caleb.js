@@ -1,4 +1,6 @@
+
 'use strict';
+
 const flashTimers = new WeakMap();
 const outputTimers = new WeakMap();
 
@@ -212,6 +214,7 @@ const trackedTypes = [
     'pointerup', 'submit', 'reset', 'animationstart', 'animationend',
     'transitionstart', 'transitionend', 'toggle'
 ];
+
 const trackableSelector = '.sandbox-box, .sandbox-input, button, details, summary, form';
 
 const shouldSkipTarget = (target) => {
@@ -299,24 +302,57 @@ const makeReplayEvent = (ev) => {
         };
         return new MouseEvent(ev.type, options);
     }
+
     if (ev.type === 'wheel') {
-        return new WheelEvent('wheel', { bubbles: true, cancelable: true, deltaX: ev.deltaX || 0, deltaY: ev.deltaY || 0 });
+        return new WheelEvent('wheel', {
+            bubbles: true,
+            cancelable: true,
+            deltaX: ev.deltaX || 0,
+            deltaY: ev.deltaY || 0
+        });
     }
+
     if (ev.type === 'keydown' || ev.type === 'keyup') {
-        return new KeyboardEvent(ev.type, { bubbles: true, cancelable: true, key: ev.key || '', code: ev.code || '' });
+        return new KeyboardEvent(ev.type, {
+            bubbles: true,
+            cancelable: true,
+            key: ev.key || '',
+            code: ev.code || ''
+        });
     }
+
     if (pointerTypes.includes(ev.type) && typeof PointerEvent !== 'undefined') {
-        return new PointerEvent(ev.type, { bubbles: true, cancelable: true, clientX: ev.clientX ?? 0, clientY: ev.clientY ?? 0, pointerType: ev.pointerType || 'mouse', button: ev.button || 0, buttons: ev.buttons || 0 });
+        return new PointerEvent(ev.type, {
+            bubbles: true,
+            cancelable: true,
+            clientX: ev.clientX ?? 0,
+            clientY: ev.clientY ?? 0,
+            pointerType: ev.pointerType || 'mouse',
+            button: ev.button || 0,
+            buttons: ev.buttons || 0
+        });
     }
+
     if (touchTypes.includes(ev.type)) {
         return new Event(ev.type, { bubbles: true, cancelable: true });
     }
+
     if (ev.type === 'input' && typeof InputEvent !== 'undefined') {
-        return new InputEvent('input', { bubbles: true, cancelable: false, inputType: 'insertText', data: null });
+        return new InputEvent('input', {
+            bubbles: true,
+            cancelable: false,
+            inputType: 'insertText',
+            data: null
+        });
     }
+
     const nonBubbling = ['focus', 'blur', 'invalid', 'toggle'];
     const cancelable = ['submit', 'reset', 'dragstart', 'dragenter', 'dragover', 'drop', 'copy', 'paste'];
-    return new Event(ev.type, { bubbles: !nonBubbling.includes(ev.type), cancelable: cancelable.includes(ev.type) });
+
+    return new Event(ev.type, {
+        bubbles: !nonBubbling.includes(ev.type),
+        cancelable: cancelable.includes(ev.type)
+    });
 };
 
 const waitForPlayback = (ms) => new Promise((resolve) => {
@@ -326,23 +362,27 @@ const waitForPlayback = (ms) => new Promise((resolve) => {
 
 const replayMacro = async () => {
     if (isRecording || isPlaying || !recordedEvents.length) return;
+
     isPlaying = true;
     updateRecorderControls();
-    if (recStatus) recStatus.textContent = 'replaying recorded events...';
+
+    if (recStatus) recStatus.textContent = 'replaying recorded events in real time...';
     if (macroOut) macroOut.textContent = 'replaying event sequence...';
     if (macroCursor) macroCursor.classList.add('active');
 
-    let previousTime = 0;
+    const playbackStartedAt = performance.now();
     let replayed = 0;
     let skipped = 0;
 
     try {
         for (const ev of recordedEvents) {
-            const delay = Math.min(5000, Math.max(0, (ev.t || 0) - previousTime));
-            if (delay) await waitForPlayback(delay);
-            previousTime = ev.t || previousTime;
+            const eventTime = Number.isFinite(ev.t) ? ev.t : 0;
+            const delay = Math.max(0, playbackStartedAt + eventTime - performance.now());
+
+            if (delay > 0) await waitForPlayback(delay);
 
             const el = ev.id ? getElement(ev.id) : null;
+
             if (!el) {
                 skipped += 1;
                 continue;
@@ -358,11 +398,14 @@ const replayMacro = async () => {
 
             const card = el.closest('.pair-card');
             const outEl = card ? card.querySelector('.pair-out') : null;
+
             if (ev.value !== null && 'value' in el && ['keydown', 'keyup', 'input', 'change', 'focus', 'blur'].includes(ev.type)) {
                 el.value = ev.value;
             }
+
             if (ev.checked !== null && 'checked' in el) el.checked = ev.checked;
             if (ev.open !== null && el instanceof HTMLDetailsElement) el.open = ev.open;
+
             if (ev.type === 'click' && el instanceof HTMLElement) {
                 el.click();
             } else if (ev.type === 'focus' && typeof el.focus === 'function') {
@@ -384,11 +427,14 @@ const replayMacro = async () => {
         playbackTimers.forEach((timer) => clearTimeout(timer));
         playbackTimers = [];
         isPlaying = false;
+
         if (macroCursor) {
             macroCursor.classList.remove('ripple');
             macroCursor.classList.remove('active');
         }
+
         if (recStatus) recStatus.textContent = `playback complete (${replayed} replayed, ${skipped} skipped)`;
+
         renderRecordedEvents();
     }
 };
