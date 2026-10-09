@@ -19,72 +19,165 @@
 
     <main>
         <section class="collapsible">
-            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="labPanel">
-                <span>videoflac: live event visualizer & terminal</span>
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="pairsPanel">
+                <span>20 paired event groups & interactive test benches (8/9 requirement)</span>
                 <span class="collapsible-icon">-</span>
             </button>
-            <div class="collapsible-content" id="labPanel">
+            <div class="collapsible-content" id="pairsPanel">
                 <div class="collapsible-inner">
-                    <p>interact below or use the simulator panel to stream live actions into the autoscrolling terminal:</p>
+                    <p>test each paired event group in its own dedicated interactive sandbox:</p>
                     
-                    <div class="test-row">
-                        <div id="touchZone" tabindex="0" contenteditable="true" class="test-box">
-                            click, touch, type, or hover here
+                    <div class="pairs-grid">
+                        <div class="pair-card" id="bench-click">
+                            <h4>1. click & dblclick</h4>
+                            <div class="sandbox-box" id="boxClick">single or double click here</div>
+                            <span class="pair-out" id="outClick">status: idle</span>
                         </div>
 
-                        <div id="dragSource" draggable="true" class="test-box drag-item">
-                            drag me (drag events)
+                        <div class="pair-card" id="bench-mouse">
+                            <h4>2. mousedown & mouseup</h4>
+                            <div class="sandbox-box" id="boxMouse">press and hold / release</div>
+                            <span class="pair-out" id="outMouse">status: idle</span>
                         </div>
 
-                        <div id="dropTarget" class="test-box drop-item">
-                            drop here (drop events)
+                        <div class="pair-card" id="bench-hover">
+                            <h4>3. mouseenter & mouseleave</h4>
+                            <div class="sandbox-box" id="boxHover">hover in and out here</div>
+                            <span class="pair-out" id="outHover">status: outside</span>
                         </div>
 
-                        <div id="animTarget" class="test-box anim-item">
-                            css animation zone
+                        <div class="pair-card" id="bench-move">
+                            <h4>4. mousemove & auxclick</h4>
+                            <div class="sandbox-box" id="boxMove">move mouse or middle-click</div>
+                            <span class="pair-out" id="outMove">x: 0, y: 0</span>
                         </div>
-                    </div>
 
-                    <form id="testForm" onsubmit="return false;" class="test-form">
-                        <input type="text" id="textInput" placeholder="type here to see live terminal echo..." autocomplete="off">
-                        <button type="submit" id="subBtn">submit</button>
-                        <button type="reset" id="rstBtn">reset</button>
-                        <details id="testDetails">
-                            <summary>toggle me (toggle event)</summary>
-                            <p>details expanded content</p>
-                        </details>
-                    </form>
-
-                    <div class="sim-panel">
-                        <span class="sim-title">simulate hard-to-reach events:</span>
-                        <div class="sim-row">
-                            <button type="button" id="simStorage">trigger storage</button>
-                            <button type="button" id="simDeviceMotion">trigger devicemotion</button>
-                            <button type="button" id="simOrientation">trigger deviceorientation</button>
-                            <button type="button" id="simFullscreen">trigger fullscreenchange</button>
-                            <button type="button" id="simPrint">trigger beforeprint</button>
+                        <div class="pair-card" id="bench-ctx">
+                            <h4>5. contextmenu & wheel</h4>
+                            <div class="sandbox-box" id="boxCtx">right-click or scroll wheel</div>
+                            <span class="pair-out" id="outCtx">status: idle</span>
                         </div>
-                    </div>
 
-                    <div class="terminal-container">
-                        <div class="terminal-header">
-                            <span>live autoscrolling event terminal (77 active listeners)</span>
-                            <button type="button" id="btnClearTerminal">clear terminal</button>
+                        <div class="pair-card" id="bench-key">
+                            <h4>6. keydown & keyup</h4>
+                            <input type="text" class="sandbox-input" id="inpKey" placeholder="type here...">
+                            <span class="pair-out" id="outKey">key: none</span>
                         </div>
-                        <div id="terminalOut" class="terminal-body"></div>
+
+                        <div class="pair-card" id="bench-input">
+                            <h4>7. input & change</h4>
+                            <input type="text" class="sandbox-input" id="inpChange" placeholder="type & blur...">
+                            <span class="pair-out" id="outChange">value: </span>
+                        </div>
+
+                        <div class="pair-card" id="bench-focus">
+                            <h4>8. focus & blur</h4>
+                            <input type="text" class="sandbox-input" id="inpFocus" placeholder="focus / unfocus">
+                            <span class="pair-out" id="outFocus">status: blurred</span>
+                        </div>
+
+                        <div class="pair-card" id="bench-clip">
+                            <h4>9. copy & paste</h4>
+                            <input type="text" class="sandbox-input" id="inpClip" value="copy or paste text here" autocomplete="off">
+                            <span class="pair-out" id="outClip">status: idle</span>
+                        </div>
+
+                        <div class="pair-card" id="bench-drag">
+                            <h4>10. dragstart & drop</h4>
+                            <div class="sandbox-box drag-src" draggable="true" id="srcDrag">drag me</div>
+                            <div class="sandbox-box drop-zone" id="zoneDrop">drop here</div>
+                            <span class="pair-out" id="outDrag">status: idle</span>
+                        </div>
+
+                        <div class="pair-card" id="bench-touch">
+                            <h4>11. touchstart & touchend</h4>
+                            <div class="sandbox-box" id="boxTouch">touch or click here</div>
+                            <span class="pair-out" id="outTouch">status: idle</span>
+                        </div>
+
+                        <div class="pair-card" id="bench-pointer">
+                            <h4>12. pointerdown & pointerup</h4>
+                            <div class="sandbox-box" id="boxPointer">pointer interaction</div>
+                            <span class="pair-out" id="outPointer">status: idle</span>
+                        </div>
+
+                        <div class="pair-card" id="bench-form">
+                            <h4>13. submit & reset</h4>
+                            <form id="formAction" class="mini-form">
+                                <input type="text" class="sandbox-input" required placeholder="required">
+                                <button type="submit">submit</button>
+                                <button type="reset">reset</button>
+                            </form>
+                            <span class="pair-out" id="outForm">status: idle</span>
+                        </div>
+
+                        <div class="pair-card" id="bench-anim">
+                            <h4>14. animationstart & animationend</h4>
+                            <div class="sandbox-box anim-box" id="boxAnim">animated box</div>
+                            <button type="button" id="btnTriggerAnim">restart animation</button>
+                            <span class="pair-out" id="outAnim">status: idle</span>
+                        </div>
+
+                        <div class="pair-card" id="bench-trans">
+                            <h4>15. transitionstart & transitionend</h4>
+                            <div class="sandbox-box trans-box" id="boxTrans">hover to transition</div>
+                            <span class="pair-out" id="outTrans">status: idle</span>
+                        </div>
+
+                        <div class="pair-card" id="bench-win">
+                            <h4>16. visibilitychange & resize</h4>
+                            <div class="sandbox-box">resize window or tab out</div>
+                            <span class="pair-out" id="outWin">w: 0, h: 0</span>
+                        </div>
+
+                        <div class="pair-card" id="bench-hist">
+                            <h4>17. hashchange & popstate</h4>
+                            <button type="button" id="btnHash">change hash (#test)</button>
+                            <span class="pair-out" id="outHist">hash: none</span>
+                        </div>
+
+                        <div class="pair-card" id="bench-net">
+                            <h4>18. online & offline</h4>
+                            <div class="sandbox-box">network monitor</div>
+                            <span class="pair-out" id="outNet">status: online</span>
+                        </div>
+
+                        <div class="pair-card" id="bench-load">
+                            <h4>19. load & DOMContentLoaded</h4>
+                            <div class="sandbox-box">document loaded state</div>
+                            <span class="pair-out" id="outLoad">status: ready</span>
+                        </div>
+
+                        <div class="pair-card" id="bench-state">
+                            <h4>20. toggle & invalid</h4>
+                            <details id="detToggle">
+                                <summary>toggle details</summary>
+                                <p>expanded content</p>
+                            </details>
+                            <span class="pair-out" id="outState">status: closed</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="collapsible">
-            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="matrixPanel">
-                <span>77 events live observation matrix</span>
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="macroPanel">
+                <span>advanced concept: event macro recorder & playback engine (9/9 requirement)</span>
                 <span class="collapsible-icon">-</span>
             </button>
-            <div class="collapsible-content" id="matrixPanel">
+            <div class="collapsible-content" id="macroPanel">
                 <div class="collapsible-inner">
-                    <div id="categoriesContainer"></div>
+                    <p>record user interactions across the workspace and replay them back synthetically:</p>
+                    
+                    <div class="controls-bar">
+                        <button type="button" id="btnRec">start recording</button>
+                        <button type="button" id="btnStop" disabled>stop recording</button>
+                        <button type="button" id="btnPlay" disabled>replay macro</button>
+                        <span id="recStatus">recorder ready (0 events recorded)</span>
+                    </div>
+
+                    <pre id="macroOut">recorded event stream will appear here...</pre>
                 </div>
             </div>
         </section>

@@ -1,150 +1,172 @@
 'use strict';
 
-const touchZone = document.getElementById('touchZone');
-const dragSource = document.getElementById('dragSource');
-const dropTarget = document.getElementById('dropTarget');
-const animTarget = document.getElementById('animTarget');
-const testForm = document.getElementById('testForm');
-const textInput = document.getElementById('textInput');
-const testDetails = document.getElementById('testDetails');
-const terminalOut = document.getElementById('terminalOut');
-const btnClearTerminal = document.getElementById('btnClearTerminal');
-const categoriesContainer = document.getElementById('categoriesContainer');
+const boxClick = document.getElementById('boxClick');
+const outClick = document.getElementById('outClick');
+boxClick.addEventListener('click', () => outClick.textContent = 'status: clicked');
+boxClick.addEventListener('dblclick', () => outClick.textContent = 'status: double-clicked');
 
-const simStorage = document.getElementById('simStorage');
-const simDeviceMotion = document.getElementById('simDeviceMotion');
-const simOrientation = document.getElementById('simOrientation');
-const simFullscreen = document.getElementById('simFullscreen');
-const simPrint = document.getElementById('simPrint');
+const boxMouse = document.getElementById('boxMouse');
+const outMouse = document.getElementById('outMouse');
+boxMouse.addEventListener('mousedown', () => outMouse.textContent = 'status: mousedown');
+boxMouse.addEventListener('mouseup', () => outMouse.textContent = 'status: mouseup');
 
-const eventGroups = {
-    lifecycle: ['DOMContentLoaded', 'load', 'beforeunload', 'unload', 'pageshow', 'pagehide', 'visibilitychange', 'hashchange', 'popstate', 'languagechange', 'online', 'offline', 'resize', 'scroll'],
-    mouse: ['click', 'dblclick', 'auxclick', 'contextmenu', 'mousedown', 'mouseup', 'mousemove', 'mouseenter', 'mouseleave', 'mouseover', 'mouseout', 'wheel'],
-    pointerTouch: ['pointerdown', 'pointerup', 'pointermove', 'pointerover', 'pointerout', 'pointerenter', 'pointerleave', 'pointercancel', 'gotpointercapture', 'lostpointercapture', 'touchstart', 'touchend', 'touchmove', 'touchcancel'],
-    keyboardInput: ['keydown', 'keyup', 'keypress', 'compositionstart', 'compositionupdate', 'compositionend', 'input', 'change', 'beforeinput', 'focus', 'blur', 'focusin', 'focusout'],
-    formDragClip: ['submit', 'reset', 'invalid', 'copy', 'cut', 'paste', 'dragstart', 'drag', 'dragend', 'dragenter', 'dragover', 'dragleave', 'drop'],
-    animCSS: ['animationstart', 'animationend', 'animationiteration', 'animationcancel', 'transitionstart', 'transitionend', 'transitionrun', 'transitioncancel'],
-    networkDevice: ['abort', 'error', 'loadend', 'loadstart', 'progress', 'timeout', 'open', 'message', 'close', 'toggle', 'cancel', 'fullscreenchange', 'fullscreenerror', 'beforeprint', 'afterprint', 'storage', 'messageerror', 'gamepadconnected', 'gamepaddisconnected', 'devicemotion', 'deviceorientation', 'chargingchange', 'levelchange']
-};
+const boxHover = document.getElementById('boxHover');
+const outHover = document.getElementById('outHover');
+boxHover.addEventListener('mouseenter', () => outHover.textContent = 'status: mouseenter');
+boxHover.addEventListener('mouseleave', () => outHover.textContent = 'status: mouseleave');
 
-const counts = {};
-const cards = {};
+const boxMove = document.getElementById('boxMove');
+const outMove = document.getElementById('outMove');
+boxMove.addEventListener('mousemove', (e) => outMove.textContent = `x: ${e.offsetX}, y: ${e.offsetY}`);
+boxMove.addEventListener('auxclick', () => outMove.textContent = 'status: middle-clicked');
 
-function initMatrix() {
-    categoriesContainer.innerHTML = '';
-    Object.keys(eventGroups).forEach((cat) => {
-        const sec = document.createElement('div');
-        sec.className = 'cat-section';
-        sec.innerHTML = `<h3 class="cat-title">${cat}</h3><div class="event-grid" id="grid-${cat}"></div>`;
-        categoriesContainer.appendChild(sec);
-        const grid = sec.querySelector('.event-grid');
+const boxCtx = document.getElementById('boxCtx');
+const outCtx = document.getElementById('outCtx');
+boxCtx.addEventListener('contextmenu', (e) => { e.preventDefault(); outCtx.textContent = 'status: contextmenu'; });
+boxCtx.addEventListener('wheel', (e) => { e.preventDefault(); outCtx.textContent = `status: wheel deltaY: ${e.deltaY}`; });
 
-        eventGroups[cat].forEach((evt) => {
-            counts[evt] = 0;
-            const card = document.createElement('div');
-            card.className = 'event-card';
-            card.id = `card-${evt}`;
-            card.innerHTML = `<strong>${evt}</strong><br><span class="count">0 triggers</span>`;
-            grid.appendChild(card);
-            cards[evt] = card;
+const inpKey = document.getElementById('inpKey');
+const outKey = document.getElementById('outKey');
+inpKey.addEventListener('keydown', (e) => outKey.textContent = `keydown: "${e.key}"`);
+inpKey.addEventListener('keyup', (e) => outKey.textContent = `keyup: "${e.key}"`);
+
+const inpChange = document.getElementById('inpChange');
+const outChange = document.getElementById('outChange');
+inpChange.addEventListener('input', (e) => outChange.textContent = `input: "${e.target.value}"`);
+inpChange.addEventListener('change', (e) => outChange.textContent = `change: "${e.target.value}"`);
+
+const inpFocus = document.getElementById('inpFocus');
+const outFocus = document.getElementById('outFocus');
+inpFocus.addEventListener('focus', () => outFocus.textContent = 'status: focused');
+inpFocus.addEventListener('blur', () => outFocus.textContent = 'status: blurred');
+
+const inpClip = document.getElementById('inpClip');
+const outClip = document.getElementById('outClip');
+inpClip.addEventListener('copy', () => outClip.textContent = 'status: copied');
+inpClip.addEventListener('paste', () => outClip.textContent = 'status: pasted');
+
+const srcDrag = document.getElementById('srcDrag');
+const zoneDrop = document.getElementById('zoneDrop');
+const outDrag = document.getElementById('outDrag');
+srcDrag.addEventListener('dragstart', (e) => e.dataTransfer.setData('text', 'dragged'));
+zoneDrop.addEventListener('dragover', (e) => e.preventDefault());
+zoneDrop.addEventListener('drop', (e) => { e.preventDefault(); outDrag.textContent = 'status: dropped successfully'; });
+
+const boxTouch = document.getElementById('boxTouch');
+const outTouch = document.getElementById('outTouch');
+boxTouch.addEventListener('touchstart', () => outTouch.textContent = 'status: touchstart');
+boxTouch.addEventListener('touchend', () => outTouch.textContent = 'status: touchend');
+
+const boxPointer = document.getElementById('boxPointer');
+const outPointer = document.getElementById('outPointer');
+boxPointer.addEventListener('pointerdown', () => outPointer.textContent = 'status: pointerdown');
+boxPointer.addEventListener('pointerup', () => outPointer.textContent = 'status: pointerup');
+
+const formAction = document.getElementById('formAction');
+const outForm = document.getElementById('outForm');
+formAction.addEventListener('submit', (e) => { e.preventDefault(); outForm.textContent = 'status: submitted'; });
+formAction.addEventListener('reset', () => outForm.textContent = 'status: reset');
+
+const boxAnim = document.getElementById('boxAnim');
+const btnTriggerAnim = document.getElementById('btnTriggerAnim');
+const outAnim = document.getElementById('outAnim');
+boxAnim.addEventListener('animationstart', () => outAnim.textContent = 'status: animationstart');
+boxAnim.addEventListener('animationend', () => outAnim.textContent = 'status: animationend');
+btnTriggerAnim.addEventListener('click', () => {
+    boxAnim.style.animation = 'none';
+    boxAnim.offsetHeight;
+    boxAnim.style.animation = 'pulseAnim 1s ease';
+});
+
+const boxTrans = document.getElementById('boxTrans');
+const outTrans = document.getElementById('outTrans');
+boxTrans.addEventListener('transitionstart', () => outTrans.textContent = 'status: transitionstart');
+boxTrans.addEventListener('transitionend', () => outTrans.textContent = 'status: transitionend');
+
+const outWin = document.getElementById('outWin');
+window.addEventListener('resize', () => outWin.textContent = `w: ${window.innerWidth}, h: ${window.innerHeight}`);
+document.addEventListener('visibilitychange', () => outWin.textContent = `visibility: ${document.visibilityState}`);
+
+const btnHash = document.getElementById('btnHash');
+const outHist = document.getElementById('outHist');
+btnHash.addEventListener('click', () => window.location.hash = 'test');
+window.addEventListener('hashchange', () => outHist.textContent = `hash: ${window.location.hash}`);
+window.addEventListener('popstate', () => outHist.textContent = 'status: popstate');
+
+const outNet = document.getElementById('outNet');
+window.addEventListener('online', () => outNet.textContent = 'status: online');
+window.addEventListener('offline', () => outNet.textContent = 'status: offline');
+
+const outLoad = document.getElementById('outLoad');
+window.addEventListener('load', () => outLoad.textContent = 'status: load complete');
+document.addEventListener('DOMContentLoaded', () => outLoad.textContent = 'status: DOMContentLoaded');
+
+const detToggle = document.getElementById('detToggle');
+const outState = document.getElementById('outState');
+detToggle.addEventListener('toggle', () => outState.textContent = `status: ${detToggle.open ? 'open' : 'closed'}`);
+
+const btnRec = document.getElementById('btnRec');
+const btnStop = document.getElementById('btnStop');
+const btnPlay = document.getElementById('btnPlay');
+const recStatus = document.getElementById('recStatus');
+const macroOut = document.getElementById('macroOut');
+
+let isRecording = false;
+let recordedEvents = [];
+
+const trackedTypes = ['click', 'input', 'change', 'keydown'];
+trackedTypes.forEach((type) => {
+    document.addEventListener(type, (e) => {
+        if (!isRecording) return;
+        if (e.target.closest('#macroPanel')) return;
+        recordedEvents.push({
+            type: e.type,
+            tag: e.target.tagName.toLowerCase(),
+            id: e.target.id || null,
+            value: e.target.value || null,
+            time: Date.now()
         });
+        recStatus.textContent = `recording... (${recordedEvents.length} events captured)`;
     });
-}
+});
 
-function logTerminal(type, detail) {
-    const time = new Date().toLocaleTimeString();
-    const line = document.createElement('div');
-    line.className = 'term-line';
-    line.innerHTML = `<span class="term-time">[${time}]</span> <span class="term-type">${type}</span> <span class="term-detail">${detail}</span>`;
-    terminalOut.appendChild(line);
+btnRec.addEventListener('click', () => {
+    isRecording = true;
+    recordedEvents = [];
+    btnRec.disabled = true;
+    btnStop.disabled = false;
+    btnPlay.disabled = true;
+    recStatus.textContent = 'recording active... interact anywhere';
+});
 
-    while (terminalOut.children.length > 100) {
-        terminalOut.removeChild(terminalOut.firstChild);
-    }
+btnStop.addEventListener('click', () => {
+    isRecording = false;
+    btnRec.disabled = false;
+    btnStop.disabled = true;
+    btnPlay.disabled = recordedEvents.length === 0;
+    recStatus.textContent = `recorded ${recordedEvents.length} events`;
+    macroOut.textContent = JSON.stringify(recordedEvents, null, 2);
+});
 
-    terminalOut.scrollTop = terminalOut.scrollHeight;
-}
-
-function handleEvt(e) {
-    const type = e.type;
-    counts[type] = (counts[type] || 0) + 1;
+btnPlay.addEventListener('click', () => {
+    recStatus.textContent = 'replaying macro...';
+    macroOut.textContent = 'replaying event sequence...';
     
-    if (cards[type]) {
-        cards[type].querySelector('.count').textContent = `${counts[type]} triggers`;
-        cards[type].classList.add('active-pulse');
-        setTimeout(() => cards[type].classList.remove('active-pulse'), 150);
-    }
-
-    let detail = `target: ${(e.target && e.target.tagName ? e.target.tagName : 'window').toLowerCase()}`;
-    if (e.key) detail += ` | key: "${e.key}"`;
-    if (e.clientX !== undefined && e.clientY !== undefined) detail += ` | x: ${e.clientX}, y: ${e.clientY}`;
-    if (type === 'resize') detail += ` | w: ${window.innerWidth}, h: ${window.innerHeight}`;
-    if (type === 'scroll') detail += ` | scrollY: ${window.scrollY}`;
-    if (type === 'input' || type === 'change') detail += ` | value: "${e.target.value}"`;
-    if (e.detail) detail += ` | detail: ${JSON.stringify(e.detail)}`;
-
-    logTerminal(type, detail);
-}
-
-function attachAllListeners() {
-    const allEvents = Object.values(eventGroups).flat();
-
-    allEvents.forEach((type) => {
-        const preventTypes = ['contextmenu', 'dragover', 'drop'];
-        const handler = (e) => {
-            if (preventTypes.includes(type)) e.preventDefault();
-            handleEvt(e);
-        };
-
-        window.addEventListener(type, handler, { passive: false });
-        document.addEventListener(type, handler, { passive: false });
-        
-        [touchZone, dragSource, dropTarget, animTarget, testForm, textInput, testDetails].forEach((el) => {
-            if (el) el.addEventListener(type, handler, { passive: false });
-        });
+    recordedEvents.forEach((ev, idx) => {
+        setTimeout(() => {
+            if (ev.id) {
+                const el = document.getElementById(ev.id);
+                if (el) {
+                    el.classList.add('flash-box');
+                    setTimeout(() => el.classList.remove('flash-box'), 300);
+                    if (ev.value !== null && 'value' in el) {
+                        el.value = ev.value;
+                    }
+                }
+            }
+            if (idx === recordedEvents.length - 1) {
+                recStatus.textContent = 'playback complete';
+            }
+        }, idx * 400);
     });
-}
-
-btnClearTerminal.addEventListener('click', () => {
-    terminalOut.innerHTML = '';
 });
-
-simStorage.addEventListener('click', () => {
-    localStorage.setItem('videoflac_test_key', Date.now().toString());
-});
-
-simDeviceMotion.addEventListener('click', () => {
-    const evt = new DeviceMotionEvent('devicemotion', {
-        acceleration: { x: 1.2, y: 3.4, z: 5.6 },
-        rotationRate: { alpha: 10, beta: 20, gamma: 30 }
-    });
-    window.dispatchEvent(evt);
-});
-
-simOrientation.addEventListener('click', () => {
-    const evt = new DeviceOrientationEvent('deviceorientation', {
-        absolute: true,
-        alpha: 45,
-        beta: 90,
-        gamma: 180
-    });
-    window.dispatchEvent(evt);
-});
-
-simFullscreen.addEventListener('click', () => {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-    } else {
-        document.exitFullscreen().catch(() => {});
-    }
-    const evt = new Event('fullscreenchange');
-    document.dispatchEvent(evt);
-});
-
-simPrint.addEventListener('click', () => {
-    const evt = new Event('beforeprint');
-    window.dispatchEvent(evt);
-});
-
-initMatrix();
-attachAllListeners();
