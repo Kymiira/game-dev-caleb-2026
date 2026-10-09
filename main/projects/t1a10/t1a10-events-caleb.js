@@ -7,10 +7,9 @@ const animTarget = document.getElementById('animTarget');
 const testForm = document.getElementById('testForm');
 const textInput = document.getElementById('textInput');
 const testDetails = document.getElementById('testDetails');
-const telemetryOut = document.getElementById('telemetryOut');
+const terminalOut = document.getElementById('terminalOut');
+const btnClearTerminal = document.getElementById('btnClearTerminal');
 const categoriesContainer = document.getElementById('categoriesContainer');
-const btnDispatchCustom = document.getElementById('btnDispatchCustom');
-const advOut = document.getElementById('advOut');
 
 const eventGroups = {
     lifecycle: ['DOMContentLoaded', 'load', 'beforeunload', 'unload', 'pageshow', 'pagehide', 'visibilitychange', 'hashchange', 'popstate', 'languagechange', 'online', 'offline', 'resize', 'scroll'],
@@ -46,6 +45,15 @@ function initMatrix() {
     });
 }
 
+function logTerminal(type, detail) {
+    const time = new Date().toLocaleTimeString();
+    const line = document.createElement('div');
+    line.className = 'term-line';
+    line.innerHTML = `<span class="term-time">[${time}]</span> <span class="term-type">${type}</span> <span class="term-detail">${detail}</span>`;
+    terminalOut.appendChild(line);
+    terminalOut.scrollTop = terminalOut.scrollHeight;
+}
+
 function handleEvt(e) {
     const type = e.type;
     counts[type] = (counts[type] || 0) + 1;
@@ -56,13 +64,14 @@ function handleEvt(e) {
         setTimeout(() => cards[type].classList.remove('active-pulse'), 150);
     }
 
-    const payload = {
-        type: type,
-        target: e.target ? (e.target.tagName || 'WINDOW').toLowerCase() : 'unknown',
-        timeStamp: Math.round(e.timeStamp),
-        bubbles: e.bubbles
-    };
-    telemetryOut.textContent = JSON.stringify(payload, null, 2);
+    let detail = `target: ${(e.target.tagName || 'WINDOW').toLowerCase()}`;
+    if (type.includes('key')) detail += ` | key: "${e.key}"`;
+    if (type.includes('mouse') || type.includes('pointer')) detail += ` | x: ${e.clientX}, y: ${e.clientY}`;
+    if (type === 'resize') detail += ` | width: ${window.innerWidth}, height: ${window.innerHeight}`;
+    if (type === 'scroll') detail += ` | scrollY: ${window.scrollY}`;
+    if (type === 'input' && e.target === textInput) detail += ` | value: "${e.target.value}"`;
+
+    logTerminal(type, detail);
 }
 
 function attachAllListeners() {
@@ -84,17 +93,8 @@ function attachAllListeners() {
     });
 }
 
-btnDispatchCustom.addEventListener('click', () => {
-    const customEvt = new CustomEvent('videoflac:action', {
-        detail: { timestamp: Date.now(), user: 'caleb', scope: '9/9-demo' },
-        bubbles: true
-    });
-    
-    document.dispatchEvent(customEvt);
-});
-
-document.addEventListener('videoflac:action', (e) => {
-    advOut.textContent = `received custom event 'videoflac:action':\n` + JSON.stringify(e.detail, null, 2);
+btnClearTerminal.addEventListener('click', () => {
+    terminalOut.innerHTML = '';
 });
 
 initMatrix();

@@ -20,44 +20,47 @@
     <main>
         <section class="collapsible">
             <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="labPanel">
-                <span>a lot of events</span>
+                <span>videoflac: live event visualizer & terminal</span>
                 <span class="collapsible-icon">-</span>
             </button>
             <div class="collapsible-content" id="labPanel">
                 <div class="collapsible-inner">
-                    <p>interact with these elements to trigger the 77 monitored browser events:</p>
+                    <p>interact below to stream live actions into the autoscrolling terminal:</p>
                     
                     <div class="test-row">
                         <div id="touchZone" tabindex="0" contenteditable="true" class="test-box">
-                            mouse / touch / pointer / keyboard / clipboard zone
+                            click, touch, type, or hover here
                         </div>
 
                         <div id="dragSource" draggable="true" class="test-box drag-item">
-                            drag me
+                            drag me (drag events)
                         </div>
 
                         <div id="dropTarget" class="test-box drop-item">
-                            drop here
+                            drop here (drop events)
                         </div>
 
-                        <div id="animTarget" class="test-box anim-item">
-                            css anim / transition zone
+                        <div id="animTarget" class="test-box anim-item" style="animation: pulseAnim 3s infinite;">
+                            css animation zone
                         </div>
                     </div>
 
                     <form id="testForm" onsubmit="return false;" class="test-form">
-                        <input type="text" id="textInput" placeholder="type here (input, change, focus)..." autocomplete="off">
+                        <input type="text" id="textInput" placeholder="type here to see live terminal echo..." autocomplete="off">
                         <button type="submit" id="subBtn">submit</button>
                         <button type="reset" id="rstBtn">reset</button>
                         <details id="testDetails">
                             <summary>toggle me (toggle event)</summary>
-                            <p>details content</p>
+                            <p>details expanded content</p>
                         </details>
                     </form>
 
-                    <div class="telemetry-bar">
-                        <label>latest event telemetry:</label>
-                        <pre id="telemetryOut">waiting for interaction...</pre>
+                    <div class="terminal-container">
+                        <div class="terminal-header">
+                            <span>live autoscrolling event terminal (77 active listeners)</span>
+                            <button type="button" id="btnClearTerminal">clear terminal</button>
+                        </div>
+                        <div id="terminalOut" class="terminal-body"></div>
                     </div>
                 </div>
             </div>
@@ -71,22 +74,6 @@
             <div class="collapsible-content" id="matrixPanel">
                 <div class="collapsible-inner">
                     <div id="categoriesContainer"></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="collapsible">
-            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="advPanel">
-                <span>advanced concept: custom event bus & synthetic dispatch (9/9 requirement)</span>
-                <span class="collapsible-icon">-</span>
-            </button>
-            <div class="collapsible-content" id="advPanel">
-                <div class="collapsible-inner">
-                    <p>javascript allows creating custom typed events with decoupled payloads via <strong>CustomEvent</strong>:</p>
-                    <div class="adv-row">
-                        <button type="button" id="btnDispatchCustom">dispatch 'videoflac:action'</button>
-                    </div>
-                    <pre id="advOut">click button above to fire synthetic custom event</pre>
                 </div>
             </div>
         </section>
