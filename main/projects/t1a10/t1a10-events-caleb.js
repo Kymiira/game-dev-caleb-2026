@@ -57,6 +57,11 @@ function logTerminal(type, detail) {
     line.className = 'term-line';
     line.innerHTML = `<span class="term-time">[${time}]</span> <span class="term-type">${type}</span> <span class="term-detail">${detail}</span>`;
     terminalOut.appendChild(line);
+
+    while (terminalOut.children.length > 100) {
+        terminalOut.removeChild(terminalOut.firstChild);
+    }
+
     terminalOut.scrollTop = terminalOut.scrollHeight;
 }
 
