@@ -3,107 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>t1a07-decisions-caleb</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Utility and Custom Styles -->
+    <title>decisions - comparison lab</title>
     <link rel="stylesheet" href="../../utils/styles.css">
     <link rel="stylesheet" href="t1a07-decisions-caleb.css">
-    <!-- Scripts -->
     <script src="t1a07-decisions-caleb.js" defer></script>
     <script src="../../utils/scripts.js" defer></script>
 </head>
 <body>
-
     <header>
-        <h1>t1a07-decisions-caleb (if, else if, switch)</h1>
+        <h1>t1a07-decisions-caleb</h1>
         <nav>
-            <a href="../../index-src/index.html">Index</a>
+            <a href="../../index-src/">index</a>
         </nav>
     </header>
 
     <main>
-        <div class="collapsible-row">
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="cmpPanel">
+                <span>if: comparison lab</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div class="collapsible-content" id="cmpPanel">
+                <div class="collapsible-inner">
+                    <p>
+                        <label for="presetSel">try a preset:</label>
+                        <select id="presetSel">
+                            <option value="">pick one...</option>
+                        </select>
+                    </p>
 
-            <!-- Section 1: if / else if / else -->
-            <section class="collapsible">
-                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="panel1">
-                    <span>multi-branch decisions (if / else if / else)</span>
-                    <span class="collapsible-icon">-</span>
-                </button>
-                <div class="collapsible-content" id="panel1">
-                    <div class="collapsible-inner">
-                        <fieldset>
-                            <legend>Arcade Ticket & Prize Tier Evaluator</legend>
-                            <p>
-                                <label for="ticketsInput">Tickets Won:</label>
-                                <input type="number" id="ticketsInput" min="0" max="1000" value="150">
-                                <button type="button" id="ticketButton">Check Prize Tier</button>
-                            </p>
-                            <p><output id="ticketOutput">Enter your tickets to see your reward...</output></p>
-                        </fieldset>
+                    <div class="cmp-row">
+                        <div class="cmp-col">
+                            <label for="typeA">type of a</label>
+                            <select id="typeA">
+                                <option value="int" selected>int</option>
+                                <option value="float">float</option>
+                                <option value="string">string</option>
+                                <option value="bool">bool</option>
+                                <option value="null">null</option>
+                                <option value="undefined">undefined</option>
+                                <option value="nan">nan</option>
+                                <option value="array">array</option>
+                            </select>
+                            <label for="valA">value of a</label>
+                            <input type="text" id="valA" value="5" autocomplete="off">
+                        </div>
+
+                        <div class="cmp-col op">
+                            <label for="opSel">operator</label>
+                            <select id="opSel">
+                                <option value="==">== loose</option>
+                                <option value="===">=== strict</option>
+                                <option value="!=">!= loose</option>
+                                <option value="!==">!== strict</option>
+                            </select>
+                        </div>
+
+                        <div class="cmp-col">
+                            <label for="typeB">type of b</label>
+                            <select id="typeB">
+                                <option value="int">int</option>
+                                <option value="float">float</option>
+                                <option value="string" selected>string</option>
+                                <option value="bool">bool</option>
+                                <option value="null">null</option>
+                                <option value="undefined">undefined</option>
+                                <option value="nan">nan</option>
+                                <option value="array">array</option>
+                            </select>
+                            <label for="valB">value of b</label>
+                            <input type="text" id="valB" value="5" autocomplete="off">
+                        </div>
                     </div>
-                </div>
-            </section>
 
-            <!-- Section 2: Switch Statement -->
-            <section class="collapsible">
-                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="panel2">
-                    <span>switch statement selector</span>
-                    <span class="collapsible-icon">-</span>
-                </button>
-                <div class="collapsible-content" id="panel2">
-                    <div class="collapsible-inner">
-                        <fieldset>
-                            <legend>RPG Character Class Setup</legend>
-                            <p>
-                                <label for="classSelect">Choose Class:</label>
-                                <select id="classSelect">
-                                    <option value="warrior">Warrior</option>
-                                    <option value="mage">Mage</option>
-                                    <option value="rogue">Rogue</option>
-                                    <option value="healer">Healer</option>
-                                </select>
-                                <button type="button" id="classButton">Select Class</button>
-                            </p>
-                            <p><output id="classOutput">Choose a class to view starting stats and gear...</output></p>
-                        </fieldset>
-                    </div>
-                </div>
-            </section>
+                    <pre id="codeOut"></pre>
 
-            <!-- Section 3: Nested Decisions & Ternary -->
-            <section class="collapsible">
-                <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="panel3">
-                    <span>nested logic & ternary operators</span>
-                    <span class="collapsible-icon">-</span>
-                </button>
-                <div class="collapsible-content" id="panel3">
-                    <div class="collapsible-inner">
-                        <fieldset>
-                            <legend>VIP Access Check (Nested If & Ternary)</legend>
-                            <p>
-                                <input type="checkbox" id="vipCheck">
-                                <label for="vipCheck">Has VIP Pass</label>
-                            </p>
-                            <p>
-                                <label for="levelInput">User Level:</label>
-                                <input type="number" id="levelInput" min="1" max="100" value="10">
-                                <button type="button" id="vipButton">Verify Access</button>
-                            </p>
-                            <p><output id="vipOutput">Check status above...</output></p>
-                        </fieldset>
-                    </div>
-                </div>
-            </section>
+                    <p><output id="resOut" for="typeA valA opSel typeB valB" aria-live="polite"></output></p>
 
-        </div>
+                    <p>types: <span id="typesOut">-</span></p>
+                    <p>why: <span id="whyOut">-</span></p>
+                    <p>errors: <span id="errOut">none</span></p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
-        <p><a href="../../index-src/index.html">Index</a></p>
+        <p><a href="../../index-src/index.html">index</a></p>
     </footer>
 </body>
 </html>
