@@ -10,8 +10,14 @@ const resOut = document.getElementById('resOut');
 const typesOut = document.getElementById('typesOut');
 const whyOut = document.getElementById('whyOut');
 const errOut = document.getElementById('errOut');
+const batchGrid = document.getElementById('batchGrid');
+const btnNan = document.getElementById('btnNan');
+const btnObjIs = document.getElementById('btnObjIs');
+const advOut = document.getElementById('advOut');
+
 const noInput = ['null', 'undefined', 'nan'];
 const hints = { int: 'whole number like 5', float: 'decimal like 5.5', string: 'any text', bool: 'true or false', array: 'json like [1,2]' };
+
 const presets = [
     ['5 == "5"', 'int', '5', '==', 'string', '5'],
     ['5 === "5"', 'int', '5', '===', 'string', '5'],
@@ -26,7 +32,13 @@ const presets = [
     ['[] == ""', 'array', '[]', '==', 'string', ''],
     ['[] == []', 'array', '[]', '==', 'array', '[]'],
     ['5 === 5.0', 'int', '5', '===', 'float', '5'],
-    ['"abc" !== "ABC"', 'string', 'abc', '!==', 'string', 'ABC']
+    ['"abc" !== "ABC"', 'string', 'abc', '!==', 'string', 'ABC'],
+    ['[1] == "1"', 'array', '[1]', '==', 'string', '1'],
+    ['[1] == true', 'array', '[1]', '==', 'bool', 'true'],
+    ['"0" == false', 'string', '0', '==', 'bool', 'false'],
+    ['"" == false', 'string', '', '==', 'bool', 'false'],
+    ['null == 5', 'null', '', '==', 'int', '5'],
+    ['undefined == 0', 'undefined', '', '==', 'int', '0']
 ];
 
 function parse(kind, text) {
@@ -56,14 +68,10 @@ function parse(kind, text) {
             if (!Array.isArray(arr)) throw new Error('that json is not an array');
             return JSON.stringify(arr);
         }
-        case 'null':
-            return 'null';
-        case 'undefined':
-            return 'undefined';
-        case 'nan':
-            return 'NaN';
-        default:
-            throw new Error(`unknown type ${kind}`);
+        case 'null': return 'null';
+        case 'undefined': return 'undefined';
+        case 'nan': return 'NaN';
+        default: throw new Error(`unknown type ${kind}`);
     }
 }
 
@@ -83,18 +91,17 @@ function why(op, va, vb) {
     const nullish = ['null', 'undefined'];
     let msg;
     if (ta === 'nan' || tb === 'nan') {
-        msg = 'nan is never equal to anything, not even itself. use Number.isNaN() to check for it';
+        msg = 'nan is never equal to anything, not even itself';
     } else if (ta === 'array' && tb === 'array') {
-        msg = 'two separate arrays are different objects so they never match, even with the same contents';
+        msg = 'two separate arrays are different objects so they never match';
     } else if (ta === tb) {
-        msg = `both are ${ta} so ${base} just compares the values`;
-        if (ta === 'number') msg += '. int and float are the same type in js';
+        msg = `both are ${ta} so ${base} compares values`;
     } else if (strict) {
-        msg = `${ta} and ${tb} are different types so === says no without converting anything`;
+        msg = `${ta} and ${tb} are different types so === says false immediately`;
     } else if (nullish.includes(ta) || nullish.includes(tb)) {
-        msg = 'null and undefined are only == to each other and nothing else';
+        msg = 'null and undefined are only loose equal to each other';
     } else {
-        msg = `${ta} and ${tb} are different types so == converts them first (usually to numbers) then compares`;
+        msg = `${ta} and ${tb} have different types so == coerces them first`;
     }
     return msg + flip;
 }
@@ -152,10 +159,41 @@ function usePreset() {
     run();
 }
 
+function renderBatchGrid() {
+    batchGrid.innerHTML = '';
+    presets.forEach((p, idx) => {
+        try {
+            const ca = parse(p[1], p[2]);
+            const cb = parse(p[4], p[5]);
+            const op = p[3];
+            const va = new Function(`return ${ca}`)();
+            const vb = new Function(`return ${cb}`)();
+            const res = new Function(`return (${va} ${op} ${vb}) ? "true" : "false";`)();
+            
+            const card = document.createElement('div');
+            card.className = `batch-card ${res === 'true' ? 'batch-true' : 'batch-false'}`;
+            card.innerHTML = `<strong>#${idx+1}:</strong> <code>if (${p[0]})</code><br><span>result: ${res}</span>`;
+            batchGrid.appendChild(card);
+        } catch (e) {
+            console.error(e);
+        }
+    });
+}
+
 presets.forEach((p, i) => presetSel.add(new Option(p[0], i)));
 [typeA, typeB, opSel].forEach((el) => el.addEventListener('change', edit));
 [valA, valB].forEach((el) => el.addEventListener('input', edit));
 presetSel.addEventListener('change', usePreset);
+
+btnNan.addEventListener('click', () => {
+    advOut.textContent = `let x = NaN;\nif (x === x) { "equal" } else { "not equal" }\n\nresult: ${NaN === NaN}`;
+});
+
+btnObjIs.addEventListener('click', () => {
+    advOut.textContent = `if (Object.is(NaN, NaN)) { "equal via Object.is" }\n\nresult: ${Object.is(NaN, NaN)}`;
+});
+
 sync(typeA, valA);
 sync(typeB, valB);
 run();
+renderBatchGrid();

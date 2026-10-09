@@ -20,7 +20,7 @@
     <main>
         <section class="collapsible">
             <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="cmpPanel">
-                <span>if: comparison lab</span>
+                <span>videoflac: decisions lab</span>
                 <span class="collapsible-icon">-</span>
             </button>
             <div class="collapsible-content" id="cmpPanel">
@@ -83,6 +83,36 @@
                     <p>types: <span id="typesOut">-</span></p>
                     <p>why: <span id="whyOut">-</span></p>
                     <p>errors: <span id="errOut">none</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="gridPanel">
+                <span>20 if examples grid (8/9 requirement)</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div class="collapsible-content" id="gridPanel">
+                <div class="collapsible-inner">
+                    <p>live evaluation of 20 distinct comparison test cases rendered in html:</p>
+                    <div id="batchGrid" class="batch-grid"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="advPanel">
+                <span>advanced concept: object.is() vs === (9/9 requirement)</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div class="collapsible-content" id="advPanel">
+                <div class="collapsible-inner">
+                    <p>did you know standard equality fails on <strong>NaN</strong> and <strong>-0</strong>? test it here:</p>
+                    <div class="adv-row">
+                        <button type="button" id="btnNan">NaN === NaN</button>
+                        <button type="button" id="btnObjIs">Object.is(NaN, NaN)</button>
+                    </div>
+                    <pre id="advOut">click a button above to test</pre>
                 </div>
             </div>
         </section>
