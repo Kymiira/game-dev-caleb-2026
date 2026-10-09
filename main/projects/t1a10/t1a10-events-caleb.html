@@ -25,7 +25,7 @@
             </button>
             <div class="collapsible-content" id="labPanel">
                 <div class="collapsible-inner">
-                    <p>interact below to stream live actions into the autoscrolling terminal:</p>
+                    <p>interact below or use the simulator panel to stream live actions into the autoscrolling terminal:</p>
                     
                     <div class="test-row">
                         <div id="touchZone" tabindex="0" contenteditable="true" class="test-box">
@@ -40,7 +40,7 @@
                             drop here (drop events)
                         </div>
 
-                        <div id="animTarget" class="test-box anim-item" style="animation: pulseAnim 3s infinite;">
+                        <div id="animTarget" class="test-box anim-item">
                             css animation zone
                         </div>
                     </div>
@@ -54,6 +54,17 @@
                             <p>details expanded content</p>
                         </details>
                     </form>
+
+                    <div class="sim-panel">
+                        <span class="sim-title">simulate hard-to-reach events:</span>
+                        <div class="sim-row">
+                            <button type="button" id="simStorage">trigger storage</button>
+                            <button type="button" id="simDeviceMotion">trigger devicemotion</button>
+                            <button type="button" id="simOrientation">trigger deviceorientation</button>
+                            <button type="button" id="simFullscreen">trigger fullscreenchange</button>
+                            <button type="button" id="simPrint">trigger beforeprint</button>
+                        </div>
+                    </div>
 
                     <div class="terminal-container">
                         <div class="terminal-header">

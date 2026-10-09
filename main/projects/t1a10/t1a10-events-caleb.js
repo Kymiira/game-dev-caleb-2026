@@ -11,6 +11,12 @@ const terminalOut = document.getElementById('terminalOut');
 const btnClearTerminal = document.getElementById('btnClearTerminal');
 const categoriesContainer = document.getElementById('categoriesContainer');
 
+const simStorage = document.getElementById('simStorage');
+const simDeviceMotion = document.getElementById('simDeviceMotion');
+const simOrientation = document.getElementById('simOrientation');
+const simFullscreen = document.getElementById('simFullscreen');
+const simPrint = document.getElementById('simPrint');
+
 const eventGroups = {
     lifecycle: ['DOMContentLoaded', 'load', 'beforeunload', 'unload', 'pageshow', 'pagehide', 'visibilitychange', 'hashchange', 'popstate', 'languagechange', 'online', 'offline', 'resize', 'scroll'],
     mouse: ['click', 'dblclick', 'auxclick', 'contextmenu', 'mousedown', 'mouseup', 'mousemove', 'mouseenter', 'mouseleave', 'mouseover', 'mouseout', 'wheel'],
@@ -38,7 +44,7 @@ function initMatrix() {
             const card = document.createElement('div');
             card.className = 'event-card';
             card.id = `card-${evt}`;
-            card.innerHTML = `<strong>${evt}</strong><br><span class="count">0</span>`;
+            card.innerHTML = `<strong>${evt}</strong><br><span class="count">0 triggers</span>`;
             grid.appendChild(card);
             cards[evt] = card;
         });
@@ -59,17 +65,18 @@ function handleEvt(e) {
     counts[type] = (counts[type] || 0) + 1;
     
     if (cards[type]) {
-        cards[type].querySelector('.count').textContent = counts[type];
+        cards[type].querySelector('.count').textContent = `${counts[type]} triggers`;
         cards[type].classList.add('active-pulse');
         setTimeout(() => cards[type].classList.remove('active-pulse'), 150);
     }
 
-    let detail = `target: ${(e.target.tagName || 'WINDOW').toLowerCase()}`;
-    if (type.includes('key')) detail += ` | key: "${e.key}"`;
-    if (type.includes('mouse') || type.includes('pointer')) detail += ` | x: ${e.clientX}, y: ${e.clientY}`;
-    if (type === 'resize') detail += ` | width: ${window.innerWidth}, height: ${window.innerHeight}`;
+    let detail = `target: ${(e.target && e.target.tagName ? e.target.tagName : 'window').toLowerCase()}`;
+    if (e.key) detail += ` | key: "${e.key}"`;
+    if (e.clientX !== undefined && e.clientY !== undefined) detail += ` | x: ${e.clientX}, y: ${e.clientY}`;
+    if (type === 'resize') detail += ` | w: ${window.innerWidth}, h: ${window.innerHeight}`;
     if (type === 'scroll') detail += ` | scrollY: ${window.scrollY}`;
-    if (type === 'input' && e.target === textInput) detail += ` | value: "${e.target.value}"`;
+    if (type === 'input' || type === 'change') detail += ` | value: "${e.target.value}"`;
+    if (e.detail) detail += ` | detail: ${JSON.stringify(e.detail)}`;
 
     logTerminal(type, detail);
 }
@@ -95,6 +102,43 @@ function attachAllListeners() {
 
 btnClearTerminal.addEventListener('click', () => {
     terminalOut.innerHTML = '';
+});
+
+simStorage.addEventListener('click', () => {
+    localStorage.setItem('videoflac_test_key', Date.now().toString());
+});
+
+simDeviceMotion.addEventListener('click', () => {
+    const evt = new DeviceMotionEvent('devicemotion', {
+        acceleration: { x: 1.2, y: 3.4, z: 5.6 },
+        rotationRate: { alpha: 10, beta: 20, gamma: 30 }
+    });
+    window.dispatchEvent(evt);
+});
+
+simOrientation.addEventListener('click', () => {
+    const evt = new DeviceOrientationEvent('deviceorientation', {
+        absolute: true,
+        alpha: 45,
+        beta: 90,
+        gamma: 180
+    });
+    window.dispatchEvent(evt);
+});
+
+simFullscreen.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+        document.exitFullscreen().catch(() => {});
+    }
+    const evt = new Event('fullscreenchange');
+    document.dispatchEvent(evt);
+});
+
+simPrint.addEventListener('click', () => {
+    const evt = new Event('beforeprint');
+    window.dispatchEvent(evt);
 });
 
 initMatrix();
