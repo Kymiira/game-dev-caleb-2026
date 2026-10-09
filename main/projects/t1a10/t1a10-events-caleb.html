@@ -1,122 +1,99 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="purple">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-wdith, initial-scale=1.0">
-        <title>events</title>
-        <link rel="stylesheet" href="../../utils/styles.css">
-        <script src="../../utils/scripts.js" defer></script>
-        <link rel="stylesheet" href="t1a10-events-caleb.css">
-        <script src="t1a10-events-caleb.js"></script>
-    </head>
-    <body>
-        <header>
-            <h1>events</h1>
-            <nav>
-                <a href="../../index-src/">Index</a>
-            </nav>
-        </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>events - videoflac lab</title>
+    <link rel="stylesheet" href="../../utils/styles.css">
+    <link rel="stylesheet" href="t1a10-events-caleb.css">
+    <script src="t1a10-events-caleb.js" defer></script>
+    <script src="../../utils/scripts.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>t1a10-events-caleb</h1>
+        <nav>
+            <a href="../../index-src/">index</a>
+        </nav>
+    </header>
 
-        <main>
-            <script>
-                // DOMContentLoaded
-                // load
-                // beforeunload
-                // unload
-                // pageshow
-                // pagehide
-                // visibilitychange
-                // hashchange
-                // popstate
-                // languagechange
-                // online
-                // offline
-                // resize
-                // scroll
-                // click
-                // dblclick
-                // auxclick
-                // contextmenu
-                // mousedown
-                // mouseup
-                // mousemove
-                // mouseenter
-                // mouseleave
-                // mouseover
-                // mouseout
-                // pointerdown
-                // pointerup
-                // pointermove
-                // pointerover
-                // pointerout
-                // pointerenter
-                // pointerleave
-                // pointercancel
-                // gotpointercapture
-                // lostpointercapture
-                // touchstart
-                // touchend
-                // touchmove
-                // touchcancel
-                // wheel
-                // keydown
-                // keyup
-                // keypress
-                // compositionstart
-                // compositionupdate
-                // compositionend
-                // submit
-                // reset
-                // invalid
-                // input
-                // change
-                // beforeinput
-                // focus
-                // blur
-                // focusin
-                // focusout
-                // copy
-                // cut
-                // paste
-                // dragstart
-                // drag
-                // dragend
-                // dragenter
-                // dragover
-                // dragleave
-                // drop
-                // animationstart
-                // animationend
-                // animationiteration
-                // animationcancel
-                // transitionstart
-                // transitionend
-                // transitionrun
-                // transitioncancel
-                // abort
-                // error
-                // loadend
-                // loadstart
-                // progress
-                // timeout
-                // open
-                // message
-                // close
-                // toggle
-                // cancel
-                // fullscreenchange
-                // fullscreenerror
-                // beforeprint
-                // afterprint
-                // storage
-                // messageerror
-                // gamepadconnected
-                // gamepaddisconnected
-                // devicemotion
-                // deviceorientation
-                // chargingchange
-                // levelchange
-            </script>
-        </main>
-    </body>
+    <main>
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="labPanel">
+                <span>a lot of events</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div class="collapsible-content" id="labPanel">
+                <div class="collapsible-inner">
+                    <p>interact with these elements to trigger the 77 monitored browser events:</p>
+                    
+                    <div class="test-row">
+                        <div id="touchZone" tabindex="0" contenteditable="true" class="test-box">
+                            mouse / touch / pointer / keyboard / clipboard zone
+                        </div>
+
+                        <div id="dragSource" draggable="true" class="test-box drag-item">
+                            drag me
+                        </div>
+
+                        <div id="dropTarget" class="test-box drop-item">
+                            drop here
+                        </div>
+
+                        <div id="animTarget" class="test-box anim-item">
+                            css anim / transition zone
+                        </div>
+                    </div>
+
+                    <form id="testForm" onsubmit="return false;" class="test-form">
+                        <input type="text" id="textInput" placeholder="type here (input, change, focus)..." autocomplete="off">
+                        <button type="submit" id="subBtn">submit</button>
+                        <button type="reset" id="rstBtn">reset</button>
+                        <details id="testDetails">
+                            <summary>toggle me (toggle event)</summary>
+                            <p>details content</p>
+                        </details>
+                    </form>
+
+                    <div class="telemetry-bar">
+                        <label>latest event telemetry:</label>
+                        <pre id="telemetryOut">waiting for interaction...</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="matrixPanel">
+                <span>77 events live observation matrix</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div class="collapsible-content" id="matrixPanel">
+                <div class="collapsible-inner">
+                    <div id="categoriesContainer"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="advPanel">
+                <span>advanced concept: custom event bus & synthetic dispatch (9/9 requirement)</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div class="collapsible-content" id="advPanel">
+                <div class="collapsible-inner">
+                    <p>javascript allows creating custom typed events with decoupled payloads via <strong>CustomEvent</strong>:</p>
+                    <div class="adv-row">
+                        <button type="button" id="btnDispatchCustom">dispatch 'videoflac:action'</button>
+                    </div>
+                    <pre id="advOut">click button above to fire synthetic custom event</pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><a href="../../index-src/index.html">index</a></p>
+    </footer>
+</body>
 </html>

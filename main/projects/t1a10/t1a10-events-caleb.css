@@ -1,0 +1,114 @@
+.test-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.test-box {
+    flex: 1 1 180px;
+    min-height: 90px;
+    background: var(--bg-color);
+    border: 2px dashed var(--accent-color);
+    border-radius: 8px;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color-2);
+    text-align: center;
+    font-size: 0.85rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.anim-item {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.anim-item:hover {
+    transform: scale(1.03);
+    background: var(--surf-color-2);
+}
+
+.test-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    background: var(--bg-color);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.test-form input[type="text"] {
+    flex: 1 1 200px;
+    background: var(--bg-color-2);
+    color: var(--text-color-2);
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+}
+
+.test-form button {
+    background: var(--prim-color);
+    color: var(--text-color-2);
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+}
+
+.telemetry-bar pre {
+    margin: 0;
+    height: 120px;
+    overflow-y: auto;
+}
+
+.cat-section {
+    margin-bottom: 1.5rem;
+}
+
+.cat-title {
+    color: var(--accent-color);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.5rem;
+}
+
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.5rem;
+}
+
+.event-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-color-2);
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.event-card.active-pulse {
+    background: var(--prim-color);
+    border-color: var(--accent-color);
+    transform: scale(1.04);
+}
+
+.adv-row button {
+    background: var(--prim-color);
+    color: var(--text-color-2);
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
