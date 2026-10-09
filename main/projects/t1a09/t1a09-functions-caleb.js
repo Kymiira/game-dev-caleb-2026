@@ -47,7 +47,7 @@ function buildDynamicFn(kind, va, vb) {
             };
         case 'arrow':
             return {
-                src: `const combine = (a, b) => `${va}${vb}`;\ncombine("${va}", "${vb}");`,
+                src: `const combine = (a, b) => \`${va}${vb}\`;\ncombine("${va}", "${vb}");`,
                 exec: () => { const combine = (a, b) => `${a} ${b}`; return combine(va, vb); },
                 explanation: 'concise ES6 arrow function with implicit return'
             };
@@ -59,7 +59,7 @@ function buildDynamicFn(kind, va, vb) {
             };
         case 'default':
             return {
-                src: `function greet(a = "guest", b = "welcome") {\n    return `${a} ->${b}`;\n}\ngreet("${va || 'guest'}", "${vb || 'welcome'}");`,
+                src: `function greet(a = "guest", b = "welcome") {\n    return \`\${a} -> \${b}\`;\n}\ngreet("${va || 'guest'}", "${vb || 'welcome'}");`,
                 exec: () => { function greet(a = "guest", b = "welcome") { return `${a} -> ${b}`; } return greet(va || undefined, vb || undefined); },
                 explanation: 'uses fallback default parameter values if arguments are omitted'
             };
