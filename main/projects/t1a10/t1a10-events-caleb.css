@@ -4,6 +4,47 @@
     100% { transform: scale(1); background: var(--bg-color); }
 }
 
+.macro-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    background: var(--accent-color);
+    border: 2px solid var(--text-color-2);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    opacity: 0;
+    transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1), top 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.2s ease;
+}
+
+.macro-cursor.active {
+    opacity: 1;
+}
+
+.cursor-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+}
+
+.macro-cursor.ripple .cursor-ring {
+    animation: rippleEffect 0.4s ease-out;
+}
+
+@keyframes rippleEffect {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
 .pairs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -18,6 +59,11 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    transition: border-color 0.2s ease;
+}
+
+.pair-card:hover {
+    border-color: var(--accent-color);
 }
 
 .pair-card h4 {
@@ -40,6 +86,7 @@
     cursor: pointer;
     user-select: none;
     padding: 0.25rem;
+    transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .sandbox-input {
@@ -50,6 +97,7 @@
     padding: 0.3rem 0.5rem;
     font-size: 0.8rem;
     width: 100%;
+    transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .pair-out {
@@ -59,6 +107,13 @@
     background: var(--bg-color-2);
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.pulse-out {
+    background: var(--accent-color) !important;
+    color: var(--bg-color) !important;
+    font-weight: 600;
 }
 
 .drag-src { border-color: var(--prim-color-2); }
@@ -113,6 +168,7 @@
     font: inherit;
     font-weight: 600;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .controls-bar button:disabled {
@@ -123,6 +179,13 @@
 .flash-box {
     background: var(--accent-color) !important;
     color: var(--bg-color) !important;
+    border-color: var(--text-color-2) !important;
+    transform: scale(1.02);
+}
+
+.glow-subtle {
+    border-color: var(--prim-color-2) !important;
+    background: var(--surf-color-2) !important;
 }
 
 #macroOut {
