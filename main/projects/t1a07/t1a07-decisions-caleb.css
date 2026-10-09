@@ -1,3 +1,104 @@
+.collapsible-inner p {
+    margin: 0 0 1rem;
+}
+
+.collapsible-inner label {
+    font-weight: 600;
+    color: var(--text-color-2);
+}
+
+.collapsible-inner input[type="text"],
+.collapsible-inner select {
+    background: var(--bg-color);
+    color: var(--text-color-2);
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    font: inherit;
+}
+
+.collapsible-inner input[type="text"] {
+    width: 100%;
+}
+
+.collapsible-inner input:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.collapsible-inner input:focus-visible,
+.collapsible-inner select:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.cmp-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+}
+
+.cmp-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1 1 180px;
+    max-width: 260px;
+}
+
+.cmp-col.op {
+    flex: 0 1 150px;
+}
+
+#codeOut {
+    margin: 0 0 1rem;
+    min-height: 11.5rem;
+    line-height: 1.6;
+}
+
+output {
+    color: var(--text-color-2);
+    font-weight: 600;
+}
+
+#resOut {
+    display: block;
+    padding: 0.75rem 1rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-align: center;
+}
+
+#resOut.hint-true {
+    background: var(--prim-color);
+    border-color: var(--accent-color);
+}
+
+#resOut.hint-false {
+    border-color: var(--accent-color);
+}
+
+#resOut.hint-err {
+    background: var(--surf-color-2);
+    border-style: dashed;
+    border-color: var(--accent-color);
+}
+
+#errOut,
+#typesOut,
+#whyOut {
+    color: var(--text-color-2);
+}
+
+#errOut.has-err {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
 .batch-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
