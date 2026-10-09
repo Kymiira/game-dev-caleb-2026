@@ -1,24 +1,105 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="purple">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-wdith, initial-scale=1.0">
-        <title>functions</title>
-        <link rel="stylesheet" href="../../utils/styles.css">
-        <script src="../../utils/scripts.js" defer></script>
-        <link rel="stylesheet" href="t1a09-functions-caleb.css">
-        <script src="t1a09-functions-caleb.js"></script>
-    </head>
-    <body>
-        <header>
-            <h1>functions</h1>
-            <nav>
-                <a href="../../index-src/">Index</a>
-            </nav>
-        </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>functions - videoflac lab</title>
+    <link rel="stylesheet" href="../../utils/styles.css">
+    <link rel="stylesheet" href="t1a09-functions-caleb.css">
+    <script src="t1a09-functions-caleb.js" defer></script>
+    <script src="../../utils/scripts.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>t1a09-functions-caleb</h1>
+        <nav>
+            <a href="../../index-src/">index</a>
+        </nav>
+    </header>
 
-        <main>
-            
-        </main>
-    </body>
+    <main>
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="fnPanel">
+                <span>videoflac: interactive function builder</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div class="collapsible-content" id="fnPanel">
+                <div class="collapsible-inner">
+                    <p>
+                        <label for="presetSel">try a preset:</label>
+                        <select id="presetSel">
+                            <option value="">pick one...</option>
+                        </select>
+                    </p>
+
+                    <div class="cmp-row">
+                        <div class="cmp-col">
+                            <label for="fnType">function style</label>
+                            <select id="fnType">
+                                <option value="declaration" selected>declaration</option>
+                                <option value="arrow">arrow function</option>
+                                <option value="expression">expression</option>
+                                <option value="default">default params</option>
+                                <option value="rest">rest params</option>
+                            </select>
+                        </div>
+
+                        <div class="cmp-col">
+                            <label for="argA">argument a</label>
+                            <input type="text" id="argA" value="5" autocomplete="off">
+                        </div>
+
+                        <div class="cmp-col">
+                            <label for="argB">argument b</label>
+                            <input type="text" id="argB" value="10" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <pre id="codeOut"></pre>
+
+                    <p><output id="resOut" for="fnType argA argB" aria-live="polite"></output></p>
+
+                    <p>return type: <span id="typesOut">-</span></p>
+                    <p>why: <span id="whyOut">-</span></p>
+                    <p>errors: <span id="errOut">none</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="gridPanel">
+                <span>20 function examples grid (8/9 requirement)</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div class="collapsible-content" id="gridPanel">
+                <div class="collapsible-inner">
+                    <p>live execution of 20 distinct function patterns rendered in html:</p>
+                    <div id="batchGrid" class="batch-grid"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="collapsible">
+            <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="advPanel">
+                <span>advanced concept: closures & private scope (9/9 requirement)</span>
+                <span class="collapsible-icon">-</span>
+            </button>
+            <div class="collapsible-content" id="advPanel">
+                <div class="collapsible-inner">
+                    <p>functions can return functions that hold <strong>private state</strong> via closures. test two isolated counter instances:</p>
+                    <div class="adv-row">
+                        <button type="button" id="btnCountA">counter a ++</button>
+                        <button type="button" id="btnCountB">counter b ++</button>
+                        <button type="button" id="btnReset">reset both</button>
+                    </div>
+                    <pre id="advOut">counter a state = 0 | counter b state = 0</pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><a href="../../index-src/index.html">index</a></p>
+    </footer>
+</body>
 </html>

@@ -1,0 +1,46 @@
+.batch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+}
+
+.batch-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-color-2);
+}
+
+.batch-card.batch-true {
+    border-color: var(--accent-color);
+    background: rgba(123, 44, 191, 0.25);
+}
+
+.batch-card code {
+    color: var(--accent-color);
+    font-family: monospace;
+}
+
+.adv-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.adv-row button {
+    background: var(--prim-color);
+    color: var(--text-color-2);
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.adv-row button:hover {
+    background: var(--prim-color-2);
+}
