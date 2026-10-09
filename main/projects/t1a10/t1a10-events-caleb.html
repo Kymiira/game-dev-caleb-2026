@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
     <title>events - videoflac lab</title>
     <link rel="stylesheet" href="../../utils/styles.css">
     <link rel="stylesheet" href="t1a10-events-caleb.css">
@@ -10,7 +11,7 @@
     <script src="../../utils/scripts.js" defer></script>
 </head>
 <body>
-    <div id="macroCursor" class="macro-cursor">
+    <div id="macroCursor" class="macro-cursor" aria-hidden="true">
         <div class="cursor-ring"></div>
     </div>
     <header>
@@ -23,85 +24,85 @@
     <main>
         <section class="collapsible">
             <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="pairsPanel">
-                <span>20 paired event groups & interactive test benches (8/9 requirement)</span>
+                <span>event group examples</span>
                 <span class="collapsible-icon">-</span>
             </button>
             <div class="collapsible-content" id="pairsPanel">
                 <div class="collapsible-inner">
-                    <p>test each paired event group in its own dedicated interactive sandbox with instant visual feedback:</p>
+                    <p>test each group isolated in its own sandbox w/ visual feedback</p>
                     
                     <div class="pairs-grid">
                         <div class="pair-card" id="bench-click">
                             <h4>1. click & dblclick</h4>
-                            <div class="sandbox-box" id="boxClick">single or double click here</div>
-                            <span class="pair-out" id="outClick">status: idle</span>
+                            <div class="sandbox-box" tabindex="0" id="boxClick">single or double click here</div>
+                            <span class="pair-out" aria-live="polite" id="outClick">status: idle</span>
                         </div>
 
                         <div class="pair-card" id="bench-mouse">
                             <h4>2. mousedown & mouseup</h4>
-                            <div class="sandbox-box" id="boxMouse">press and hold / release</div>
-                            <span class="pair-out" id="outMouse">status: idle</span>
+                            <div class="sandbox-box" tabindex="0" id="boxMouse">press and hold / release</div>
+                            <span class="pair-out" aria-live="polite" id="outMouse">status: idle</span>
                         </div>
 
                         <div class="pair-card" id="bench-hover">
                             <h4>3. mouseenter & mouseleave</h4>
-                            <div class="sandbox-box" id="boxHover">hover in and out here</div>
-                            <span class="pair-out" id="outHover">status: outside</span>
+                            <div class="sandbox-box" tabindex="0" id="boxHover">hover in and out here</div>
+                            <span class="pair-out" aria-live="polite" id="outHover">status: outside</span>
                         </div>
 
                         <div class="pair-card" id="bench-move">
                             <h4>4. mousemove & auxclick</h4>
-                            <div class="sandbox-box" id="boxMove">move mouse or middle-click</div>
-                            <span class="pair-out" id="outMove">x: 0, y: 0</span>
+                            <div class="sandbox-box" tabindex="0" id="boxMove">move mouse or middle-click</div>
+                            <span class="pair-out" aria-live="polite" id="outMove">x: 0, y: 0</span>
                         </div>
 
                         <div class="pair-card" id="bench-ctx">
                             <h4>5. contextmenu & wheel</h4>
-                            <div class="sandbox-box" id="boxCtx">right-click or scroll wheel</div>
-                            <span class="pair-out" id="outCtx">status: idle</span>
+                            <div class="sandbox-box" tabindex="0" id="boxCtx">right-click or scroll wheel</div>
+                            <span class="pair-out" aria-live="polite" id="outCtx">status: idle</span>
                         </div>
 
                         <div class="pair-card" id="bench-key">
                             <h4>6. keydown & keyup</h4>
                             <input type="text" class="sandbox-input" id="inpKey" placeholder="type here...">
-                            <span class="pair-out" id="outKey">key: none</span>
+                            <span class="pair-out" aria-live="polite" id="outKey">key: none</span>
                         </div>
 
                         <div class="pair-card" id="bench-input">
                             <h4>7. input & change</h4>
                             <input type="text" class="sandbox-input" id="inpChange" placeholder="type & blur...">
-                            <span class="pair-out" id="outChange">value: </span>
+                            <span class="pair-out" aria-live="polite" id="outChange">value: </span>
                         </div>
 
                         <div class="pair-card" id="bench-focus">
                             <h4>8. focus & blur</h4>
                             <input type="text" class="sandbox-input" id="inpFocus" placeholder="focus / unfocus">
-                            <span class="pair-out" id="outFocus">status: blurred</span>
+                            <span class="pair-out" aria-live="polite" id="outFocus">status: blurred</span>
                         </div>
 
                         <div class="pair-card" id="bench-clip">
                             <h4>9. copy & paste</h4>
                             <input type="text" class="sandbox-input" id="inpClip" value="copy or paste text here" autocomplete="off">
-                            <span class="pair-out" id="outClip">status: idle</span>
+                            <span class="pair-out" aria-live="polite" id="outClip">status: idle</span>
                         </div>
 
                         <div class="pair-card" id="bench-drag">
                             <h4>10. dragstart & drop</h4>
-                            <div class="sandbox-box drag-src" draggable="true" id="srcDrag">drag me</div>
+                            <div class="sandbox-box drag-src" tabindex="0" draggable="true" id="srcDrag">drag me</div>
                             <div class="sandbox-box drop-zone" id="zoneDrop">drop here</div>
-                            <span class="pair-out" id="outDrag">status: idle</span>
+                            <span class="pair-out" aria-live="polite" id="outDrag">status: idle</span>
                         </div>
 
                         <div class="pair-card" id="bench-touch">
                             <h4>11. touchstart & touchend</h4>
-                            <div class="sandbox-box" id="boxTouch">touch or click here</div>
-                            <span class="pair-out" id="outTouch">status: idle</span>
+                            <div class="sandbox-box" tabindex="0" id="boxTouch">touch or click here</div>
+                            <span class="pair-out" aria-live="polite" id="outTouch">status: idle</span>
                         </div>
 
                         <div class="pair-card" id="bench-pointer">
                             <h4>12. pointerdown & pointerup</h4>
-                            <div class="sandbox-box" id="boxPointer">pointer interaction</div>
-                            <span class="pair-out" id="outPointer">status: idle</span>
+                            <div class="sandbox-box" tabindex="0" id="boxPointer">pointer interaction</div>
+                            <span class="pair-out" aria-live="polite" id="outPointer">status: idle</span>
                         </div>
 
                         <div class="pair-card" id="bench-form">
@@ -111,44 +112,44 @@
                                 <button type="submit">submit</button>
                                 <button type="reset">reset</button>
                             </form>
-                            <span class="pair-out" id="outForm">status: idle</span>
+                            <span class="pair-out" aria-live="polite" id="outForm">status: idle</span>
                         </div>
 
                         <div class="pair-card" id="bench-anim">
                             <h4>14. animationstart & animationend</h4>
                             <div class="sandbox-box anim-box" id="boxAnim">animated box</div>
                             <button type="button" id="btnTriggerAnim">restart animation</button>
-                            <span class="pair-out" id="outAnim">status: idle</span>
+                            <span class="pair-out" aria-live="polite" id="outAnim">status: idle</span>
                         </div>
 
                         <div class="pair-card" id="bench-trans">
                             <h4>15. transitionstart & transitionend</h4>
                             <div class="sandbox-box trans-box" id="boxTrans">hover to transition</div>
-                            <span class="pair-out" id="outTrans">status: idle</span>
+                            <span class="pair-out" aria-live="polite" id="outTrans">status: idle</span>
                         </div>
 
                         <div class="pair-card" id="bench-win">
                             <h4>16. visibilitychange & resize</h4>
                             <div class="sandbox-box">resize window or tab out</div>
-                            <span class="pair-out" id="outWin">w: 0, h: 0</span>
+                            <span class="pair-out" aria-live="polite" id="outWin">w: 0, h: 0</span>
                         </div>
 
                         <div class="pair-card" id="bench-hist">
                             <h4>17. hashchange & popstate</h4>
                             <button type="button" id="btnHash">change hash (#test)</button>
-                            <span class="pair-out" id="outHist">hash: none</span>
+                            <span class="pair-out" aria-live="polite" id="outHist">hash: none</span>
                         </div>
 
                         <div class="pair-card" id="bench-net">
                             <h4>18. online & offline</h4>
                             <div class="sandbox-box">network monitor</div>
-                            <span class="pair-out" id="outNet">status: online</span>
+                            <span class="pair-out" aria-live="polite" id="outNet">status: online</span>
                         </div>
 
                         <div class="pair-card" id="bench-load">
                             <h4>19. load & DOMContentLoaded</h4>
                             <div class="sandbox-box">document loaded state</div>
-                            <span class="pair-out" id="outLoad">status: ready</span>
+                            <span class="pair-out" aria-live="polite" id="outLoad">status: ready</span>
                         </div>
 
                         <div class="pair-card" id="bench-state">
@@ -157,7 +158,7 @@
                                 <summary>toggle details</summary>
                                 <p>expanded content</p>
                             </details>
-                            <span class="pair-out" id="outState">status: closed</span>
+                            <span class="pair-out" aria-live="polite" id="outState">status: closed</span>
                         </div>
                     </div>
                 </div>
@@ -166,12 +167,12 @@
 
         <section class="collapsible">
             <button class="collapsible-toggle" type="button" aria-expanded="true" aria-controls="macroPanel">
-                <span>advanced concept: event macro recorder & playback engine (9/9 requirement)</span>
+                <span>event recorder and playback</span>
                 <span class="collapsible-icon">-</span>
             </button>
             <div class="collapsible-content" id="macroPanel">
                 <div class="collapsible-inner">
-                    <p>record user interactions across the workspace and replay them back with full visual feedback:</p>
+                    <p>record user input and play it back</p>
                     
                     <div class="controls-bar">
                         <button type="button" id="btnRec">start recording</button>
