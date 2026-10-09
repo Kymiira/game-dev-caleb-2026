@@ -166,16 +166,15 @@ function renderBatchGrid() {
             const ca = parse(p[1], p[2]);
             const cb = parse(p[4], p[5]);
             const op = p[3];
-            const va = new Function(`return ${ca}`)();
-            const vb = new Function(`return ${cb}`)();
-            const res = new Function(`return (${va} ${op} ${vb}) ? "true" : "false";`)();
+            const src = `let a = ${ca};\nlet b = ${cb};\nreturn (a ${op} b) ? "true" : "false";`;
+            const res = new Function(src)();
             
             const card = document.createElement('div');
             card.className = `batch-card ${res === 'true' ? 'batch-true' : 'batch-false'}`;
             card.innerHTML = `<strong>#${idx+1}:</strong> <code>if (${p[0]})</code><br><span>result: ${res}</span>`;
             batchGrid.appendChild(card);
         } catch (e) {
-            console.error(e);
+            console.error(`Error in preset ${idx}:`, e);
         }
     });
 }
