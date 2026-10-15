@@ -1,0 +1,12 @@
+<h2 align="center">t1a05-IO-caleb</h2>
+<a href="https://w3schools.com/jsref/prop_html_innerhml.asp">Good reference to IO javascript innerHTML value by Caleb</a>
+<h4>Example</h4>
+<pre>
+    myIn01 = document.getElementById('myNum01').value
+    document.getElementById('myDiv01').innerHTML = 'Hi'
+</pre>
+<h4> Example working</h4>
+<br>
+<input id="myNum01" type="number" value="4"><br>
+<input type="button" value="will square above value" onclick="{let myIn01=parseFloat(document.getElementById('myNum01').value);let myAnswer=myIn01 * myIn01;document.getElementById('myDiv01').innerHTML=myIn01+'squared='+myAnswer}"><br>
+<div id="myDiv01"></div>
