@@ -7,12 +7,25 @@
             b {color:blue;}
         </style>
         <script>
-            function hello(){myNum=3;myString='Hello';myFloat=17.5;myBool=true;myOut=document.getElementById('myDiv01');myOut.innerHTML=myNum+myString+','+myBool;if(myBool){myOut.innerHTML+=',WOW!';}}
+            function hello() {
+                myNum = 3;
+                myString = 'Hello';
+                myFloat = 17.5;
+                myBool = true;
+                myOut = document.getElementById('myDiv01');
+                myOut.innerHTML = myNum + myString + ',' + myBool;
+                if (myBool) {
+                    myOut.innerHTML += ',WOW!';
+                }
+            }
         </script>
     </head>
     <body>
-        <p>This is <b>bold</b> text.</p>
-        <button onclick="sayHello()">Click me.</button>
-        <div id="myDiv01">...</div>
+        <div>
+            <p>This is <b>bold</b> text.</p>
+            <button onclick="hello()">Click me.</button>
+            <div id="myDiv01">...</div>
+        </div>
     </body>
+    
 </html>

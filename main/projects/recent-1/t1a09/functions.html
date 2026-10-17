@@ -1,14 +1,25 @@
-<script>
-    document.getElementById('myIn02').addEventListener('click', document.getElementById('myDiv01').innerHTML = myExampleFunction());
-    function myExample(){
-        let myIn01 = parseInt(document.getElementByid('myText01').value)
-        let mySum = myIn01 + myIn01
-        let myReply = myIn01 + ' + ' + myIn01 + ' = ' + mySum
-        return myReply
-    }
-</script>
-<h2 align="center">t1a09-functions-caleb</h2>
-<h4>Exmaple working</h4>
-<input type="text" id="myText01" value="3"><br>
-<input type="button" value="Function Example" id="myIn02">
-<div id="myDiv01">...</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>t1a09-functions-caleb</title>
+</head>
+<body>
+    <div>
+        <script>
+            document.getElementById('myIn02').addEventListener('click', document.getElementById('myDiv01').innerHTML = myExampleFunction());
+            function myExample(){
+                let myIn01 = parseInt(document.getElementByid('myText01').value)
+                let mySum = myIn01 + myIn01
+                let myReply = myIn01 + ' + ' + myIn01 + ' = ' + mySum
+                return myReply
+            }
+        </script>
+        <h2 align="center">t1a09-functions-caleb</h2>
+        <h4>Exmaple working</h4>
+        <input type="text" id="myText01" value="3"><br>
+        <input type="button" value="Function Example" id="myIn02">
+        <div id="myDiv01">...</div>    
+    </div>
+</body>
+</html>

@@ -1,12 +1,23 @@
-<h2 align="center">t1a08-loops-caleb</h2>
-<h4>Example IO</h4>
-<pre>
-    for (let myLoop = 0; myLoop < myMax; myLoop++ ){
-        // code here
-    }
-</pre>
-<h4>Example working IO</h4>
-max Loops: <input id="myNum01" type="number" value="4"><br>
-<input type="button" value="basic for loop w/ decisions" onclick="{document.getElementById('myDiv01').innerHTML='';let myTemp='';let myMax = parseInt(document.GetElementById('myNum01').value);for(let myLoop=0;myLoop<myMax;myLoop++){if (myLoop*2 > myMax){ myTemp+=' cool'}myTemp+='Loop num: '+ myLoop + '<br>'}document.getElementById('myDiv01').innerHTML=myTemp}">
-<input type="button" value="Even number identifier" onclick="{document.getElementById('myDiv01').innerHTML='';let myTemp=''; letmymax = parseInt(document.getElementById('myNum01').value); for(let myLoop=0;myLoop<myMax;myLoop++){if (myLoop % 2 == 0){myTemp += 'Even number, '}myTemp += 'loop Number: ' + myLoop + '<br>'}document.getElementByid('myDiv01').innerHTML = myTemp}">
-<div id="myDiv01"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>t1a08-loops-caleb</title>
+</head>
+<body>
+    <div>
+        <h2 align="center">t1a08-loops-caleb</h2>
+        <h4>Example IO</h4>
+        <pre>
+            for (let myLoop = 0; myLoop < myMax; myLoop++ ){
+                // code here
+            }
+        </pre>
+        <h4>Example working IO</h4>
+        max Loops: <input id="myNum01" type="number" value="4"><br>
+        <input type="button" value="basic for loop w/ decisions" onclick="{document.getElementById('myDiv01').innerHTML='';let myTemp='';let myMax = parseInt(document.GetElementById('myNum01').value);for(let myLoop=0;myLoop<myMax;myLoop++){if (myLoop*2 > myMax){ myTemp+=' cool'}myTemp+='Loop num: '+ myLoop + '<br>'}document.getElementById('myDiv01').innerHTML=myTemp}">
+        <input type="button" value="Even number identifier" onclick="{document.getElementById('myDiv01').innerHTML='';let myTemp=''; letmymax = parseInt(document.getElementById('myNum01').value); for(let myLoop=0;myLoop<myMax;myLoop++){if (myLoop % 2 == 0){myTemp += 'Even number, '}myTemp += 'loop Number: ' + myLoop + '<br>'}document.getElementByid('myDiv01').innerHTML = myTemp}">
+        <div id="myDiv01"></div>    
+    </div>
+</body>
+</html>
