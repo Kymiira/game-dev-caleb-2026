@@ -4,11 +4,6 @@
             document.getElementById('trainPower').addEventListener('click', () => performAction(trainHero));
             document.getElementById('earnCash').addEventListener('click', () => performAction(earnCashHero));
             document.getElementById('buyPotion').addEventListener('click', () => performAction(buyHealthPotionHero));
-            document.getElementById('usePotion').addEventListener('click', () => healHero);
-            
-            document.getElementById('trainPower').addEventListener('click', () => performAction(trainHero));
-            document.getElementById('earnCash').addEventListener('click', () => performAction(earnCashHero));
-            document.getElementById('buyPotion').addEventListener('click', () => performAction(buyHealthPotionHero));
             document.getElementById('usePotion').addEventListener('click', () => performAction(healHero));
             document.getElementById('reset').addEventListener('click', resetGame);
 
@@ -89,7 +84,7 @@
                     pwr: (Math.floor(Math.random() * 10) + 1) * myHero.lvl
                 };
 
-.                let battleLog = `Wild Monster appeared (HP: ${monster.hp}, PWR: ${monster.pwr})! `;
+                let battleLog = `Wild Monster appeared! (HP: ${monster.hp}, PWR: ${monster.pwr})<br>`;
 
                 while (monster.hp > 0 && myHero.hp > 0) {
                     monster.hp -= myHero.pwr;
@@ -100,7 +95,8 @@
                 if (myHero.hp <= 0) {
                     myHero.hp = 0;
                     myHero.dead = true;
-                    myHero.comment = battleLog + "You were slain by the monster! Click Reset.";
+                    myHero.comment = "You died in battle!";
+                    document.getElementById('monsterDiv').innerHTML = battleLog + "<strong>You were slain by the monster! Click Reset.</strong>";
                 } else {
                     let xpReward = (Math.floor(Math.random() * (250 - 25 + 1)) + 25) * myHero.lvl;
                     let goldReward = (Math.floor(Math.random() * (100 - 10 + 1)) + 10) * myHero.lvl;
@@ -108,7 +104,7 @@
                     myHero.xp += xpReward;
                     myHero.g += goldReward;
                     
-                    myHero.comment = battleLog + `You won! Gained +${xpReward} XP and +${goldReward}g!`;
+                    document.getElementById('monsterDiv').innerHTML = battleLog + `<strong>Victory!</strong> Gained +${xpReward} XP and +${goldReward}g!`;
                 }
             }
 
@@ -158,12 +154,13 @@
         <h1 align="center">t1a16-powerup-caleb</h1>
     </header>
     <main>
-        <input type="button" value="Train Hero Power" id="trainPower">
-        <input type="button" value="Earn gold." id="earnCash">
-        <input type="button" value="Buy a potion." id="buyPotion">
-        <input type="button" value="Use a potion." id="usePotion">
-        <input type="button" value="Reset Button" id="reset"><br>
+        <input type="button" value="Train Hero power" id="trainPower">
+        <input type="button" value="Earn gold" id="earnCash">
+        <input type="button" value="Buy a potion" id="buyPotion">
+        <input type="button" value="Use a potion" id="usePotion">
+        <input type="button" value="Reset" id="reset"><br>
         <div id="statTracker">...</div>
         <div id="myDiv">...</div>
+        <div id="monsterDiv" style="color: darkred; font-weight: bold; margin-top: 10px;">No active monster.</div>
     </main>
 </body>
