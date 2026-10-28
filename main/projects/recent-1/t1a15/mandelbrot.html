@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibrant Mandelbrot Explorer</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            cursor: crosshair;
+        }
+        #myHintBox {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(20, 20, 25, 0.85);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            z-index: 10;
+            font-size: 14px;
+            font-weight: 500;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transition: background 0.2s, border-color 0.2s;
+        }
+        #myHintBox:hover {
+            background: rgba(40, 40, 50, 0.95);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        #myInfoModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.75);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            backdrop-filter: blur(4px);
+        }
+        .myModalContent {
+            background: #181820;
+            color: #f0f0f5;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            position: relative;
+        }
+        .myModalContent h2 {
+            margin-top: 0;
+            color: #ff79c6;
+            font-size: 22px;
+        }
+        .myModalContent p {
+            line-height: 1.6;
+            color: #a8a8b3;
+            font-size: 15px;
+        }
+        .myModalContent code {
+            background: #282a36;
+            padding: 3px 6px;
+            border-radius: 4px;
+            color: #50fa7b;
+            font-family: monospace;
+        }
+        #myCloseModal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #a8a8b3;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        #myCloseModal:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="myHintBox">💡 How it works (Click info)</div>
+
+    <div id="myInfoModal">
+        <div class="myModalContent">
+            <button id="myCloseModal">&times;</button>
+            <h2>The Mandelbrot Set</h2>
+            <p>The Mandelbrot set is defined by the iterative complex quadratic polynomial formula:</p>
+            <p style="text-align: center;"><code style="font-size: 16px;">Z<sub>n+1</sub> = Z<sub>n</sub><sup>2</sup> + C</code></p>
+            <p>For each pixel on the canvas representing a complex number <code>C</code>, we iterate starting from <code>Z<sub>0</sub> = 0</code>. If the magnitude of <code>Z</code> remains bounded as <code>n</code> goes to infinity, the point belongs to the Mandelbrot set (colored black).</p>
+            <p>If it escapes past a threshold radius, the rate of escape determines its vibrant color!</p>
+        </div>
+    </div>
+
+    <canvas id="myCanvas"></canvas>
+
+    <script>
+        const myCanvas = document.getElementById("myCanvas");
+        const myCtx = myCanvas.getContext("2d");
+        const myHintBox = document.getElementById("myHintBox");
+        const myInfoModal = document.getElementById("myInfoModal");
+        const myCloseModal = document.getElementById("myCloseModal");
+
+        // Fractal state variables
+        let myMinX = -2.0;
+        let myMaxX = 1.0;
+        let myMinY = -1.25;
+        let myMaxY = 1.25;
+        let myMaxIterations = 120;
+        let myColorOffset = 0;
+
+        // Mouse & Preview state
+        let myMouseX = 0;
+        let myMouseY = 0;
+        let myIsHovered = false;
+        let myZoomFactor = 0.5; // Preview box size relative to screen size (0.1 to 0.9)
+
+        function myResizeCanvas() {
+            myCanvas.width = window.innerWidth;
+            myCanvas.height = window.innerHeight;
+            // Maintain aspect ratio for Y bounds
+            const myAspect = myCanvas.width / myCanvas.height;
+            const myCenterX = (myMinX + myMaxX) / 2;
+            const myCenterY = (myMinY + myMaxY) / 2;
+            const myRangeX = myMaxX - myMinX;
+            const myRangeY = myRangeX / myAspect;
+            
+            myMinX = myCenterX - myRangeX / 2;
+            myMaxX = myCenterX + myRangeX / 2;
+            myMinY = myCenterY - myRangeY / 2;
+            myMaxY = myCenterY + myRangeY / 2;
+            
+            myDrawFractal();
+        }
+
+        async function myDrawFractal() {
+            const myWidth = myCanvas.width;
+            const myHeight = myCanvas.height;
+            const myImageData = myCtx.createImageData(myWidth, myHeight);
+            const myData = myImageData.data;
+
+            const myRangeX = myMaxX - myMinX;
+            const myRangeY = myMaxY - myMinY;
+
+            // Dynamically scale iterations based on zoom depth for vibrant detail
+            const myCurrentSpan = myMaxX - myMinX;
+            myMaxIterations = Math.min(600, Math.floor(120 - Math.log10(Math.max(myCurrentSpan, 1e-14)) * 40));
+
+            // Render loop row by row asynchronously to keep UI snappy
+            for (let myPy = 0; myPy < myHeight; myPy++) {
+                const myCi = myMinY + (myPy / myHeight) * myRangeY;
+                
+                for (let myPx = 0; myPx < myWidth; myPx++) {
+                    const myCr = myMinX + (myPx / myWidth) * myRangeX;
+                    
+                    let myZr = 0.0;
+                    let myZi = 0.0;
+                    let myIteration = 0;
+                    
+                    // Optimized Mandelbrot loop
+                    while (myIteration < myMaxIterations) {
+                        const myZr2 = myZr * myZr;
+                        const myZi2 = myZi * myZi;
+                        
+                        if (myZr2 + myZi2 > 16.0) break; // Escape radius squared = 16 for smooth coloring
+                        
+                        const myTemp = myZr2 - myZi2 + myCr;
+                        myZi = 2.0 * myZr * myZi + myCi;
+                        myZr = myTemp;
+                        myIteration++;
+                    }
+
+                    const myPixelIndex = (myPy * myWidth + myPx) * 4;
+
+                    if (myIteration === myMaxIterations) {
+                        // Interior (Black)
+                        myData[myPixelIndex] = 0;
+                        myData[myPixelIndex + 1] = 0;
+                        myData[myPixelIndex + 2] = 0;
+                    } else {
+                        // Smooth coloring algorithm (Renormalization)
+                        const myLogZn = Math.log(myZr * myZr + myZi * myZi) / 2;
+                        const myNu = Math.log(myLogZn / Math.LN2) / Math.LN2;
+                        const mySmoothIter = myIteration + 1 - myNu + myColorOffset;
+
+                        // Vibrant periodic color cycling using trigonometric palettes
+                        const myFrequency = 0.15;
+                        const myR = Math.floor(Math.sin(myFrequency * mySmoothIter + 0.0) * 127 + 128);
+                        const myG = Math.floor(Math.sin(myFrequency * mySmoothIter + 2.0) * 127 + 128);
+                        const myB = Math.floor(Math.sin(myFrequency * mySmoothIter + 4.0) * 127 + 128);
+
+                        myData[myPixelIndex] = myR;
+                        myData[myPixelIndex + 1] = myG;
+                        myData[myPixelIndex + 2] = myB;
+                    }
+                    myData[myPixelIndex + 3] = 255; // Alpha
+                }
+            }
+
+            myCtx.putImageData(myImageData, 0, 0);
+            
+            // Draw preview box on top if mouse is inside canvas
+            if (myIsHovered) {
+                myDrawPreviewBox();
+            }
+        }
+
+        function myDrawPreviewBox() {
+            const myBoxWidth = myCanvas.width * myZoomFactor;
+            const myBoxHeight = myCanvas.height * myZoomFactor;
+            const myBoxX = myMouseX - myBoxWidth / 2;
+            const myBoxY = myMouseY - myBoxHeight / 2;
+
+            myCtx.strokeStyle = "rgba(255, 255, 255, 0.9)";
+            myCtx.lineWidth = 2;
+            myCtx.setLineDash([6, 6]);
+            myCtx.strokeRect(myBoxX, myBoxY, myBoxWidth, myBoxHeight);
+
+            // Inner dark dashed border for high contrast visibility on bright backgrounds
+            myCtx.strokeStyle = "rgba(0, 0, 0, 0.7)";
+            myCtx.lineDashOffset = 6;
+            myCtx.strokeRect(myBoxX, myBoxY, myBoxWidth, myBoxHeight);
+            myCtx.setLineDash([]); // Reset line dash
+            myCtx.lineDashOffset = 0;
+        }
+
+        // Event Handlers via Direct Property Assignments
+        window.onresize = myResizeCanvas;
+
+        myCanvas.onmousemove = function(myEvent) {
+            myMouseX = myEvent.clientX;
+            myMouseY = myEvent.clientY;
+            myIsHovered = true;
+            myDrawFractal();
+        };
+
+        myCanvas.onmouseleave = function() {
+            myIsHovered = false;
+            myDrawFractal();
+        };
+
+        myCanvas.onwheel = function(myEvent) {
+            myEvent.preventDefault();
+            // Adjust preview zoom box factor with mouse wheel
+            if (myEvent.deltaY < 0) {
+                myZoomFactor = Math.max(0.1, myZoomFactor - 0.05);
+            } else {
+                myZoomFactor = Math.min(0.85, myZoomFactor + 0.05);
+            }
+            myDrawFractal();
+        };
+
+        myCanvas.onclick = function() {
+            const myWidth = myCanvas.width;
+            const myHeight = myCanvas.height;
+            const myRangeX = myMaxX - myMinX;
+            const myRangeY = myMaxY - myMinY;
+
+            // Compute complex coordinates of the clicked mouse center
+            const myClickReal = myMinX + (myMouseX / myWidth) * myRangeX;
+            const myClickImag = myMinY + (myMouseY / myHeight) * myRangeY;
+
+            // Apply preview zoom box scaling
+            const myNewRangeX = myRangeX * myZoomFactor;
+            const myNewRangeY = myRangeY * myZoomFactor;
+
+            myMinX = myClickReal - myNewRangeX / 2;
+            myMaxX = myClickReal + myNewRangeX / 2;
+            myMinY = myClickImag - myNewRangeY / 2;
+            myMaxY = myClickImag + myNewRangeY / 2;
+
+            myDrawFractal();
+        };
+
+        // Modal triggers
+        myHintBox.onclick = function() {
+            myInfoModal.style.display = "flex";
+        };
+
+        myCloseModal.onclick = function() {
+            myInfoModal.style.display = "none";
+        };
+
+        window.onclick = function(myEvent) {
+            if (myEvent.target === myInfoModal) {
+                myInfoModal.style.display = "none";
+            }
+        };
+
+        // Continuous slow color cycling animation loop for vibrant living visual experience
+        async function myColorAnimationLoop() {
+            while (true) {
+                myColorOffset += 0.4;
+                await myDrawFractal();
+                // Throttle animation frame rate slightly to balance CPU load and smoothness
+                await new Promise(myResolve => setTimeout(myResolve, 50));
+            }
+        }
+
+        // Initialize
+        myResizeCanvas();
+        myColorAnimationLoop();
+    </script>
+</body>
+</html>
