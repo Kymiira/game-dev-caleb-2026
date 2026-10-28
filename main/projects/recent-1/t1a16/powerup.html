@@ -1,112 +1,114 @@
 <head>
     <script defer>
-        document.getElementById('trainPower').addEventListener('click', trainHero)
-        document.getElementById('earnCash').addEventListener('click', earnCashHero)
-        document.getElementById('buyPotion').addEventListener('click', buyHealthPotionHero)
-        document.getElementById('usePotion').addEventListener('click', healHero)
-        document.getElementById('reset').addEventListener('click', resetGame)
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('trainPower').addEventListener('click', trainHero)
+            document.getElementById('earnCash').addEventListener('click', earnCashHero)
+            document.getElementById('buyPotion').addEventListener('click', buyHealthPotionHero)
+            document.getElementById('usePotion').addEventListener('click', healHero)
+            document.getElementById('reset').addEventListener('click', resetGame)
 
-        // add a gold variable, make train hero increase power, make earn gold cost power, add reset button for death, if pwr <= 0 then death, etc.
-        // train hero increases power but reduces health, buy health potion to heal 25% of health (+25 hp)
-        myHero = {
-            name: "Captain Code",
-            comment: "Ready to Train!",
-            pwr: 100,
-            pwrCap: 100,
-            g: 0,
-            hp: 100,
-            hpCap: 100,
-            potion: 0,
-            healCount: 0,
-            xp: 0,
-            lvl: 0,
-            dead: false
-        }
+            // add a gold variable, make train hero increase power, make earn gold cost power, add reset button for death, if pwr <= 0 then death, etc.
+            // train hero increases power but reduces health, buy health potion to heal 25% of health (+25 hp)
+            myHero = {
+                name: "Captain Code",
+                comment: "Ready to Train!",
+                pwr: 100,
+                pwrCap: 100,
+                g: 0,
+                hp: 100,
+                hpCap: 100,
+                potion: 0,
+                healCount: 0,
+                xp: 0,
+                lvl: 0,
+                dead: false
+            }
 
-        function trainHero() {
-            if (myHero.dead) {myHero.comment = "You're dead!"}
-            else {
-                myHero.pwr += 10;
-                myHero.hp -= 10;
-                myHero.comment = `You got stronger and are now at ${myHero.pwr} power!`
+            function trainHero() {
+                if (myHero.dead) {myHero.comment = "You're dead!"}
+                else {
+                    myHero.pwr += 10;
+                    myHero.hp -= 10;
+                    myHero.comment = `You got stronger and are now at ${myHero.pwr} power!`
+                }
             }
-        }
 
-        function earnCashHero() {
-            if (myHero.dead) {
-                myHero.comment = "You're dead! Press Reset.";
-                return;
+            function earnCashHero() {
+                if (myHero.dead) {
+                    myHero.comment = "You're dead! Press Reset.";
+                    return;
+                }
+                if (myHero.pwr < 10) {
+                    myHero.dead = true;
+                    return;
+                }
+                myHero.g += 10;
+                myHero.pwr -= 10;
+                myHero.comment = `You earned gold! Now you have ${myHero.g}g.`;
             }
-            if (myHero.pwr < 10) {
-                myHero.dead = true;
-                return;
-            }
-            myHero.g += 10;
-            myHero.pwr -= 10;
-            myHero.comment = `You earned gold! Now you have ${myHero.g}g.`;
-        }
 
-        function buyHealthPotionHero() {
-            if (myHero.g < 25) {
-                myHero.comment = "You don't have enough gold to buy this, you need 25g!"
+            function buyHealthPotionHero() {
+                if (myHero.g < 25) {
+                    myHero.comment = "You don't have enough gold to buy this, you need 25g!"
+                }
+                else {
+                    myHero.g -= 25;
+                    myHero.potion += 1;
+                    myHero.comment = `You bought a potion! You now have ${myHero.potion} potions, and ${myHero.g} gold!`
+                }
             }
-            else {
-                myHero.g -= 25;
-                myHero.potion += 1;
-                myHero.comment = `You bought a potion! You now have ${myHero.potion} potions, and ${myHero.g} gold!`
-            }
-        }
 
-        function healHero() {
-            if (myHero.potion <= 0) {
-                myHero.comment = `You can't heal, you have ${myHero.potion} potions!`
+            function healHero() {
+                if (myHero.potion <= 0) {
+                    myHero.comment = `You can't heal, you have ${myHero.potion} potions!`
+                }
+                else {
+                    myHero.potion -= 1;
+                    myHero.hp += 25;
+                    myHero.xp += 25;
+                    myHero.comment = `You healed and are now at ${myHero.hp} health!`
+                }
             }
-            else {
-                myHero.potion -= 1;
-                myHero.hp += 25;
-                myHero.xp += 25;
-                myHero.comment = `You healed and are now at ${myHero.hp} health!`
+
+            function levelHero() {
+                if (myHero.xp >= 100) {
+                    myHero.lvl += 1; 
+                    myHero.hpCap += 50; 
+                    myHero.pwrCap += 50;
+                    myHero.xp -= 100;
+                    myHero.comment = `Level Up! You are now Level ${myHero.lvl}.`;
+                }
             }
-        }
 
-        function levelHero() {
-            if (myHero.xp >= 100) {
-                myHero.lvl += 1; 
-                myHero.hpCap += 50; 
-                myHero.pwrCap += 50;
-                myHero.xp -= 100;
-                myHero.comment = `Level Up! You are now Level ${myHero.lvl}.`;
+            function resetGame() {
+                location.reload()
             }
-        }
 
-        function resetGame() {
-            location.reload()
-        }
-
-        function loop() {
-            if (myHero.dead) {
-                myHero.hp = 0
-                myHero.hpCap = 0
-                myHero.xp = 0
-                myHero.pwr = 0
-                myHero.pwrCap = 0
-                myHero.g = 0
-                myHero.potion = 0
-                myHero.healCount = 0
-                myHero.lvl = 0
-                myHero.dead = true
-            };
-            if (myHero.pwr > myHero.pwrCap) {myHero.pwr = myHero.pwrCap}
-            if (myHero.hp > myHero.hpCap) {myHero.hp = myHero.hpCap}
-            if (myHero.hp <= 0) {
-                myHero.dead = true
-            };
-            levelHero();
-            document.getElementById('myDiv').innerHTML = myHero.comment;
-            requestAnimationFrame(loop);
-            document.getElementById('statTracker').innerHTML = `lvl ${myHero.lvl}, ${myHero.hp}/${myHero.hpCap}hp, ${myHero.pwr}/${myHero.pwrCap}pwr, ${myHero.g}g, ${myHero.potion} potions, ${myHero.xp}/100xp`
-        }
-        loop();
+            function loop() {
+                if (myHero.dead) {
+                    myHero.hp = 0
+                    myHero.hpCap = 0
+                    myHero.xp = 0
+                    myHero.pwr = 0
+                    myHero.pwrCap = 0
+                    myHero.g = 0
+                    myHero.potion = 0
+                    myHero.healCount = 0
+                    myHero.lvl = 0
+                    myHero.dead = true
+                };
+                if (myHero.pwr > myHero.pwrCap) {myHero.pwr = myHero.pwrCap}
+                if (myHero.hp > myHero.hpCap) {myHero.hp = myHero.hpCap}
+                if (myHero.hp <= 0) {
+                    myHero.dead = true
+                };
+                levelHero();
+                document.getElementById('myDiv').innerHTML = myHero.comment;
+                requestAnimationFrame(loop);
+                document.getElementById('statTracker').innerHTML = `lvl ${myHero.lvl}, ${myHero.hp}/${myHero.hpCap}hp, ${myHero.pwr}/${myHero.pwrCap}pwr, ${myHero.g}g, ${myHero.potion} potions, ${myHero.xp}/100xp`
+            }
+            loop();
+        });
     </script>
 </head>
 <body>
