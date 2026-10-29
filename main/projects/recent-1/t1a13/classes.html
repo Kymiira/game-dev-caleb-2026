@@ -3,16 +3,34 @@
 <h4>exampled working classes</h4><br>
 nothing: <input type="text" id="myText01" value="useless at the moment"><br>
 <input type="button" value="example class set and show class animal" onclick="{
-    class myAnimal {
-        constructor(passName, passAge) {
-            this.myName = passName;
-            this.myAge = passAge;
-        }
-        myShow(){
-            document.getElementById('myDiv01').innerHTML = `Hello `+ this.myName + `. You are ` + this.myAge + ` years old<br>`
-        }
-    }
-    myDog = new myAnimal(`Snickers`, 5)
-    myDog.myShow()
+
 }">
 <div id="myDiv01">...</div>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+
+        </style>
+        <script defer>
+            class myClass {
+                constructor(name, age) {
+                    this.name = name;
+                    this.age = age;
+                }
+                myShow(divID, msg) {
+                    document.getElementById(divID).innerHTML = msg
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <header></header>
+        <main>
+            <input type="button" value="example class usage" onclick="{
+                let myEx01 = new myClass("Caleb", 17);
+            }">
+        </main>
+    </body>
+</html> <!-- UNFINISHED -->-->
