@@ -1,166 +1,266 @@
-<head>
-    <script defer>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('trainPower').addEventListener('click', () => performAction(trainHero));
-            document.getElementById('earnCash').addEventListener('click', () => performAction(earnCashHero));
-            document.getElementById('buyPotion').addEventListener('click', () => performAction(buyHealthPotionHero));
-            document.getElementById('usePotion').addEventListener('click', () => performAction(healHero));
-            document.getElementById('reset').addEventListener('click', resetGame);
-
-            let myHero = {
-                name: "Captain Code",
-                comment: "Ready to Train!",
-                pwr: 100,
-                pwrCap: 100,
-                g: 0,
-                hp: 100,
-                hpCap: 100,
-                potion: 0,
-                healCount: 0,
-                xp: 0,
-                lvl: 1,
-                clickCount: 0,
-                dead: false
-            };
-
-            function performAction(actionFunction) {
-                if (myHero.dead) {
-                    myHero.comment = "You're dead! Press Reset.";
-                    return;
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>t1a16-powerup-caleb</title>
+        <style>
+            :root {--bg: #0e1118;--panel: #151a24;--line: #262d3b;--text: #d6dae3;--dim: #7d8598;--hp: #d9534f;--pwr: #4a90d9;--xp: #4caf7a;--gold: #d9a441;--bad: #e0736f;--good: #6cc496;}
+            * {box-sizing:border-box;margin:0;padding:0;}
+            html, body {height:100%;}
+            body {font-family: "Courier New", Consolas, monospace;background: var(--bg);color: var(--text);display: flex;justify-content: center;}
+            .game {width: 100%;height: 100dvh;display: flex;flex-direction: column;gap: 10px;padding: 12px;}
+            h1 {font-size: 1rem;text-align: center;letter-spacing: 0.08em;font-weight: bold;color: var(--gold);padding-bottom: 8px;border-bottom: 1px solid var(--line);}
+            h1 a { font-size: 0.7rem; font-weight: normal; letter-spacing: 0; color: var(--dim); }
+            h1 a:hover { color: var(--text); }
+            .stats {background: var(--panel);border: 1px solid var(--line);padding: 10px;display: grid;gap: 8px;}
+            .stat-row {display: grid;grid-template-columns: 38px 1fr 72px;align-items: center;gap: 8px;font-size: 0.75rem;}
+            .stat-row .label { color: var(--dim); }
+            .stat-row .value { text-align: right; }
+            .track {height: 10px;background: var(--bg);border: 1px solid var(--line);}
+            .fill {height: 100%;width: 0;transition: width 0.15s linear;}
+            #hpBar  { background: var(--hp); }
+            #pwrBar { background: var(--pwr); }
+            #xpBar  { background: var(--xp); }
+            #statTracker {font-size: 0.72rem;color: var(--dim);text-align: center;padding: 6px;border: 1px solid var(--line);background: var(--panel);}
+            #console {flex: 1;min-height: 0;overflow-y: auto;background: #0a0d13;border: 1px solid var(--line);padding: 10px;font-size: 0.8rem;line-height: 1.5;}
+            #console p { margin-bottom: 4px; }
+            #console p::before { content: "> "; color: var(--dim); }
+            #console p.encounter { color: var(--gold); margin-top: 8px; }
+            #console p.win { color: var(--good); }
+            #console p.bad { color: var(--bad); }
+            #console p.level { color: var(--pwr); }
+            #console::-webkit-scrollbar { width: 6px; }
+            #console::-webkit-scrollbar-thumb { background: var(--line); }
+            .actions {display: grid;grid-template-columns: 1fr 1fr;gap: 8px;padding-bottom: 4px;}
+            button {font: inherit;font-size: 0.78rem;font-weight: bold;color: #fff;padding: 12px 6px;border: 0;border-radius: 3px;cursor: pointer;box-shadow: 0 3px 0 rgba(0, 0, 0, 0.55);transition: transform 0.08s, box-shadow 0.08s, filter 0.08s;}
+            button:hover { filter: brightness(1.12); }
+            button:active {transform: translateY(2px);box-shadow: 0 1px 0 rgba(0, 0, 0, 0.55);}
+            button:disabled {opacity: 0.35;cursor: not-allowed;filter: none;transform: none;}
+            #trainPower { background: #4f55c7; }
+            #earnCash   { background: #b9801f; }
+            #buyPotion  { background: #1f8a80; }
+            #usePotion  { background: #2f9461; }
+            #reset      { background: #a63a3a; grid-column: 1 / -1; }
+            @media (min-width: 800px) {.game {gap: 14px;padding: 20px 28px;}h1 { font-size: 1.15rem; padding-bottom: 12px; }.stats {grid-template-columns: repeat(3, 1fr);gap: 28px;padding: 16px 20px;}.stat-row {grid-template-columns: 38px 1fr 80px;font-size: 0.9rem;}.track { height: 14px; }#statTracker { font-size: 0.9rem; padding: 10px; }#console {font-size: 1rem;line-height: 1.6;padding: 16px 20px;}.actions {grid-template-columns: repeat(5, 1fr);gap: 12px;}#reset { grid-column: auto; }button { font-size: 0.9rem; padding: 18px 8px; }}
+        </style>
+        <script defer>
+            document.addEventListener('DOMContentLoaded', () => {
+                const console = document.getElementById('console');
+                const actionIds = ['trainPower', 'earnCash', 'buyPotion', 'usePotion'];
+                let myHero = {
+                    name: "Captain Code",
+                    pwr: 100,
+                    pwrCap: 100,
+                    g: 0,
+                    hp: 100,
+                    hpCap: 100,
+                    potion: 0,
+                    xp: 0,
+                    lvl: 1,
+                    clickCount: 0,
+                    dead: false
                 }
-                
-                actionFunction();
-                
-                if (!myHero.dead) {
-                    myHero.clickCount++;
-                    if (myHero.clickCount >= 10) {
-                        myHero.clickCount = 0;
-                        fightMonster();
+
+                function log(text, type) {
+                    const line = document.createElement('p');
+                    if (type) line.className = type;
+                    line.innerHTML = text;
+                    console.appendChild(line);
+                    while (console.children.length > 150) {
+                        console.removeChild(console.firstChild);
+                    }
+                    console.scrollTop = console.scrollHeight;
+                }
+
+                function performAction(actionFunction) {
+                    if (myHero.dead) {
+                        log("You're dead. Press Reset Game.", 'bad');
+                        return;
+                    }
+
+                    actionFunction();
+
+                    if (!myHero.dead) {
+                        myHero.clickCount++;
+                        if (myHero.clickCount >= 10) {
+                            myHero.clickCount = 0;
+                            fightMonster();
+                        }
+                    }
+
+                    checkState();
+                    render();
+                }
+
+                function trainHero() {
+                    myHero.pwr += 10;
+                    myHero.hp -= 10;
+                    log(`You trained hard. Power is now ${myHero.pwr}.`)
+                }
+
+                function earnCashHero() {
+                    if (myHero.pwr < 10) {
+                        myHero.dead = true;
+                        log("You didn't have enough strength to work, and collapsed from exhaustion.", 'bad');
+                        return;
+                    }
+                    myHero.g += 10;
+                    myHero.pwr -= 10;
+                    log(`You worked a shift. Gold: ${myHero.g}g.`);
+                }
+
+                function buyHealthPotionHero() {
+                    if (myHero.g < 25) {
+                        log("You need 25g to buy a potion.");
+                    } else {
+                        myHero.g -= 25;
+                        myHero.potion += 1;
+                        log(`Bought a potion. Potions: ${myHero.potion}, gold: ${myHero.g}.`);
                     }
                 }
-            }
 
-            function trainHero() {
-                myHero.pwr += 10;
-                myHero.hp -= 10;
-                myHero.comment = `You got stronger and are now at ${myHero.pwr} power!`;
-            }
-
-            function earnCashHero() {
-                if (myHero.pwr < 10) {
-                    myHero.dead = true;
-                    myHero.comment = "Not enough power to earn gold! You died.";
-                    return;
-                }
-                myHero.g += 10;
-                myHero.pwr -= 10;
-                myHero.comment = `You earned gold! Now you have ${myHero.g}g.`;
-            }
-
-            function buyHealthPotionHero() {
-                if (myHero.g < 25) {
-                    myHero.comment = "You don't have enough gold to buy this, you need 25g!";
-                } else {
-                    myHero.g -= 25;
-                    myHero.potion += 1;
-                    myHero.comment = `You bought a potion! You now have ${myHero.potion} potions, and ${myHero.g} gold!`;
-                }
-            }
-
-            function healHero() {
-                if (myHero.potion <= 0) {
-                    myHero.comment = `You can't heal, you have ${myHero.potion} potions!`;
-                } else {
-                    myHero.potion -= 1;
-                    myHero.hp += 25;
-                    myHero.xp += 25;
-                    myHero.comment = `You healed and are now at ${myHero.hp} health!`;
-                }
-            }
-
-            function fightMonster() {
-                let monster = {
-                    hp: (Math.floor(Math.random() * 100) + 1) * myHero.lvl,
-                    pwr: (Math.floor(Math.random() * 10) + 1) * myHero.lvl
-                };
-
-                let battleLog = `Wild Monster appeared! (HP: ${monster.hp}, PWR: ${monster.pwr})<br>`;
-
-                while (monster.hp > 0 && myHero.hp > 0) {
-                    monster.hp -= myHero.pwr;
-                    if (monster.hp <= 0) break;
-                    myHero.hp -= monster.pwr;
+                function healHero() {
+                    if (myHero.potion <= 0) {
+                        log("No potions left. Buy one first.");
+                    } else {
+                        myHero.potion -= 1;
+                        myHero.hp = Math.min(myHero.hp + 25, myHero.hpCap);
+                        myHero.xp += 25;
+                        log(`You drink a potion. HP is now ${myHero.hp}.`);
+                    }
                 }
 
-                if (myHero.hp <= 0) {
-                    myHero.hp = 0;
-                    myHero.dead = true;
-                    myHero.comment = "You died in battle!";
-                    document.getElementById('monsterDiv').innerHTML = battleLog + "<strong>You were slain by the monster! Click Reset.</strong>";
-                } else {
-                    let xpReward = (Math.floor(Math.random() * (250 - 25 + 1)) + 25) * myHero.lvl;
-                    let goldReward = (Math.floor(Math.random() * (100 - 10 + 1)) + 10) * myHero.lvl;
-                    
-                    myHero.xp += xpReward;
-                    myHero.g += goldReward;
-                    
-                    document.getElementById('monsterDiv').innerHTML = battleLog + `<strong>Victory!</strong> Gained +${xpReward} XP and +${goldReward}g!`;
-                }
-            }
-
-            function levelHero() {
-                let xpNeeded = Math.pow(myHero.lvl, 2) * 100;
-                
-                if (myHero.xp >= xpNeeded) {
-                    myHero.xp -= xpNeeded;
-                    myHero.lvl += 1; 
-                    myHero.hpCap += 50; 
-                    myHero.pwrCap += 50;
-                    myHero.comment = `Level Up! You are now Level ${myHero.lvl}.`;
-                }
-            }
-
-            function resetGame() {
-                location.reload();
-            }
-
-            function loop() {
-                if (!myHero.dead) {
-                    if (myHero.pwr > myHero.pwrCap) { myHero.pwr = myHero.pwrCap; }
-                    if (myHero.hp > myHero.hpCap) { myHero.hp = myHero.hpCap; }
-                    
+                function fightMonster() {
+                    const monster = {
+                        hp: (Math.floor(Math.random() * 80) + 20) * myHero.lvl,
+                        pwr: (Math.floor(Math.random() * 8) + 2) * myHero.lvl
+                    };
+    
+                    log(`A wild monster appears! (HP ${monster.hp}, PWR ${monster.pwr})`, 'encounter');
+    
+                    while (monster.hp > 0 && myHero.hp > 0) {
+                        monster.hp -= myHero.pwr;
+                        if (monster.hp <= 0) break;
+                        myHero.hp -= monster.pwr;
+                    }
+    
                     if (myHero.hp <= 0) {
                         myHero.hp = 0;
                         myHero.dead = true;
-                        myHero.comment = "You have died! Click 'Reset if dead'.";
+                        log("The monster slays you. Press Reset Game.", 'bad');
                     } else {
-                        levelHero();
+                        const xpReward = (Math.floor(Math.random() * 30) + 20) * myHero.lvl;
+                        const goldReward = (Math.floor(Math.random() * 15) + 10) * myHero.lvl;
+                        myHero.xp += xpReward;
+                        myHero.g += goldReward;
+                        log(`Victory! +${xpReward} XP, +${goldReward}g.`, 'win');
                     }
                 }
+
+                function xpNeeded() {
+                    return Math.pow(myHero.lvl, 2) * 100;
+                }
+
+                function checkState() {
+                    if (myHero.dead) return;
+    
+                    if (myHero.pwr > myHero.pwrCap) myHero.pwr = myHero.pwrCap;
+                    if (myHero.hp > myHero.hpCap) myHero.hp = myHero.hpCap;
+    
+                    if (myHero.hp <= 0) {
+                        myHero.hp = 0;
+                        myHero.dead = true;
+                        log("You succumb to your injuries.", 'bad');
+                        return;
+                    }
+    
+                    while (myHero.xp >= xpNeeded()) {
+                        myHero.xp -= xpNeeded();
+                        myHero.lvl += 1;
+                        myHero.hpCap += 50;
+                        myHero.pwrCap += 50;
+                        myHero.hp = myHero.hpCap;
+                        myHero.pwr = myHero.pwrCap;
+                        log(`Level up! You are now level ${myHero.lvl}. HP and power restored.`, 'level');
+                    }
+                }
+
+                function render() {
+                    const need = xpNeeded();
+                    const toBattle = 10 - myHero.clickCount;
+    
+                    document.getElementById('statTracker').innerText =
+                        `Lvl ${myHero.lvl} | Gold: ${myHero.g}g | Potions: ${myHero.potion} | Encounter in: ${toBattle} click${toBattle === 1 ? '' : 's'}`;
+    
+                    document.getElementById('hpText').innerText = `${myHero.hp}/${myHero.hpCap}`;
+                    document.getElementById('pwrText').innerText = `${myHero.pwr}/${myHero.pwrCap}`;
+                    document.getElementById('xpText').innerText = `${myHero.xp}/${need}`;
+    
+                    const pct = (v, max) => `${Math.max(0, Math.min(100, (v / max) * 100))}%`;
+                    document.getElementById('hpBar').style.width = pct(myHero.hp, myHero.hpCap);
+                    document.getElementById('pwrBar').style.width = pct(myHero.pwr, myHero.pwrCap);
+                    document.getElementById('xpBar').style.width = pct(myHero.xp, need);
+    
+                    actionIds.forEach(id => {
+                        document.getElementById(id).disabled = myHero.dead;
+                    });
+                }
+    
+                function resetGame() {
+                    location.reload();
+                }
+    
+                document.getElementById('trainPower').addEventListener('click', () => performAction(trainHero));
+                document.getElementById('earnCash').addEventListener('click', () => performAction(earnCashHero));
+                document.getElementById('buyPotion').addEventListener('click', () => performAction(buyHealthPotionHero));
+                document.getElementById('usePotion').addEventListener('click', () => performAction(healHero));
+                document.getElementById('reset').addEventListener('click', resetGame);
                 
-                let xpNeeded = Math.pow(myHero.lvl, 2) * 100;
-                document.getElementById('myDiv').innerHTML = myHero.comment;
-                document.getElementById('statTracker').innerHTML = `lvl ${myHero.lvl}, ${myHero.hp}/${myHero.hpCap}hp, ${myHero.pwr}/${myHero.pwrCap}pwr, ${myHero.g}g, ${myHero.potion} potions, ${myHero.xp}/${xpNeeded}xp (Battle in: ${10 - myHero.clickCount})`;
-                
-                requestAnimationFrame(loop);
-            }
-            
-            loop();
-        });
-    </script>
-</head>
-<body>
-    <header>
-        <h1 align="center">t1a16-powerup-caleb</h1>
-    </header>
-    <main>
-        <input type="button" value="Train Hero power" id="trainPower">
-        <input type="button" value="Earn gold" id="earnCash">
-        <input type="button" value="Buy a potion" id="buyPotion">
-        <input type="button" value="Use a potion" id="usePotion">
-        <input type="button" value="Reset" id="reset"><br>
-        <div id="statTracker">...</div>
-        <div id="myDiv">...</div>
-        <div id="monsterDiv" style="color: darkred; font-weight: bold; margin-top: 10px;">No active monster.</div>
-    </main>
-</body>
+                function init() {
+                    log("Ready to train!");
+                    render();
+                }
+
+                init();
+            })
+        </script>
+    </head>
+    <body>
+        <div class="game">
+            <h1>t1a16-powerup-caleb
+                <br>
+                <a href="powerup_old.html">Old Version Click Here</a>
+            </h1>
+            <section class="stats">
+                <div class="stat-row">
+                    <span class="label">HP</span>
+                    <div class="track"><div class="fill" id="hpBar"></div></div>
+                    <span class="value" id="hpText"></span>
+                </div>
+                <div class="stat-row">
+                    <span class="label">PWR</span>
+                    <div class="track"><div class="fill" id="pwrBar"></div></div>
+                    <span class="value" id="pwrText"></span>
+                </div>
+                <div class="stat-row">
+                    <span class="label">XP</span>
+                    <div class="track"><div class="fill" id="xpBar"></div></div>
+                    <span class="value" id="xpText"></span>
+                </div>
+            </section>
+
+            <div id="statTracker"></div>
+    
+            <div id="console" aria-live="polite"></div>
+    
+            <section class="actions">
+                <button id="trainPower">Train Power (+10)</button>
+                <button id="earnCash">Earn Gold (+10g)</button>
+                <button id="buyPotion">Buy Potion (25g)</button>
+                <button id="usePotion">Use Potion (+25 HP)</button>
+                <button id="reset">Reset Game</button>
+            </section>
+        </div>
+    </body>
+</html>

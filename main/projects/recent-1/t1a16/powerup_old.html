@@ -1,0 +1,169 @@
+<head>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('trainPower').addEventListener('click', () => performAction(trainHero));
+            document.getElementById('earnCash').addEventListener('click', () => performAction(earnCashHero));
+            document.getElementById('buyPotion').addEventListener('click', () => performAction(buyHealthPotionHero));
+            document.getElementById('usePotion').addEventListener('click', () => performAction(healHero));
+            document.getElementById('reset').addEventListener('click', resetGame);
+
+            let myHero = {
+                name: "Captain Code",
+                comment: "Ready to Train!",
+                pwr: 100,
+                pwrCap: 100,
+                g: 0,
+                hp: 100,
+                hpCap: 100,
+                potion: 0,
+                healCount: 0,
+                xp: 0,
+                lvl: 1,
+                clickCount: 0,
+                dead: false
+            };
+
+            function performAction(actionFunction) {
+                if (myHero.dead) {
+                    myHero.comment = "You're dead! Press Reset.";
+                    return;
+                }
+                
+                actionFunction();
+                
+                if (!myHero.dead) {
+                    myHero.clickCount++;
+                    if (myHero.clickCount >= 10) {
+                        myHero.clickCount = 0;
+                        fightMonster();
+                    }
+                }
+            }
+
+            function trainHero() {
+                myHero.pwr += 10;
+                myHero.hp -= 10;
+                myHero.comment = `You got stronger and are now at ${myHero.pwr} power!`;
+            }
+
+            function earnCashHero() {
+                if (myHero.pwr < 10) {
+                    myHero.dead = true;
+                    myHero.comment = "Not enough power to earn gold! You died.";
+                    return;
+                }
+                myHero.g += 10;
+                myHero.pwr -= 10;
+                myHero.comment = `You earned gold! Now you have ${myHero.g}g.`;
+            }
+
+            function buyHealthPotionHero() {
+                if (myHero.g < 25) {
+                    myHero.comment = "You don't have enough gold to buy this, you need 25g!";
+                } else {
+                    myHero.g -= 25;
+                    myHero.potion += 1;
+                    myHero.comment = `You bought a potion! You now have ${myHero.potion} potions, and ${myHero.g} gold!`;
+                }
+            }
+
+            function healHero() {
+                if (myHero.potion <= 0) {
+                    myHero.comment = `You can't heal, you have ${myHero.potion} potions!`;
+                } else {
+                    myHero.potion -= 1;
+                    myHero.hp += 25;
+                    myHero.xp += 25;
+                    myHero.comment = `You healed and are now at ${myHero.hp} health!`;
+                }
+            }
+
+            function fightMonster() {
+                let monster = {
+                    hp: (Math.floor(Math.random() * 100) + 1) * myHero.lvl,
+                    pwr: (Math.floor(Math.random() * 10) + 1) * myHero.lvl
+                };
+
+                let battleLog = `Wild Monster appeared! (HP: ${monster.hp}, PWR: ${monster.pwr})<br>`;
+
+                while (monster.hp > 0 && myHero.hp > 0) {
+                    monster.hp -= myHero.pwr;
+                    if (monster.hp <= 0) break;
+                    myHero.hp -= monster.pwr;
+                }
+
+                if (myHero.hp <= 0) {
+                    myHero.hp = 0;
+                    myHero.dead = true;
+                    myHero.comment = "You died in battle!";
+                    document.getElementById('monsterDiv').innerHTML = battleLog + "<strong>You were slain by the monster! Click Reset.</strong>";
+                } else {
+                    let xpReward = (Math.floor(Math.random() * (250 - 25 + 1)) + 25) * myHero.lvl;
+                    let goldReward = (Math.floor(Math.random() * (100 - 10 + 1)) + 10) * myHero.lvl;
+                    
+                    myHero.xp += xpReward;
+                    myHero.g += goldReward;
+                    
+                    document.getElementById('monsterDiv').innerHTML = battleLog + `<strong>Victory!</strong> Gained +${xpReward} XP and +${goldReward}g!`;
+                }
+            }
+
+            function levelHero() {
+                let xpNeeded = Math.pow(myHero.lvl, 2) * 100;
+                
+                if (myHero.xp >= xpNeeded) {
+                    myHero.xp -= xpNeeded;
+                    myHero.lvl += 1; 
+                    myHero.hpCap += 50; 
+                    myHero.pwrCap += 50;
+                    myHero.comment = `Level Up! You are now Level ${myHero.lvl}.`;
+                }
+            }
+
+            function resetGame() {
+                location.reload();
+            }
+
+            function loop() {
+                if (!myHero.dead) {
+                    if (myHero.pwr > myHero.pwrCap) { myHero.pwr = myHero.pwrCap; }
+                    if (myHero.hp > myHero.hpCap) { myHero.hp = myHero.hpCap; }
+                    
+                    if (myHero.hp <= 0) {
+                        myHero.hp = 0;
+                        myHero.dead = true;
+                        myHero.comment = "You have died! Click 'Reset if dead'.";
+                    } else {
+                        levelHero();
+                    }
+                }
+                
+                let xpNeeded = Math.pow(myHero.lvl, 2) * 100;
+                document.getElementById('myDiv').innerHTML = myHero.comment;
+                document.getElementById('statTracker').innerHTML = `lvl ${myHero.lvl}, ${myHero.hp}/${myHero.hpCap}hp, ${myHero.pwr}/${myHero.pwrCap}pwr, ${myHero.g}g, ${myHero.potion} potions, ${myHero.xp}/${xpNeeded}xp (Battle in: ${10 - myHero.clickCount})`;
+                
+                requestAnimationFrame(loop);
+            }
+            
+            loop();
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1 align="center">t1a16-powerup-caleb</h1>
+    </header>
+    <main>
+        <input type="button" value="Train Hero power" id="trainPower">
+        <input type="button" value="Earn gold" id="earnCash">
+        <input type="button" value="Buy a potion" id="buyPotion">
+        <input type="button" value="Use a potion" id="usePotion">
+        <input type="button" value="Reset" id="reset"><br>
+        <div id="statTracker">...</div>
+        <div id="myDiv">...</div>
+        <div id="monsterDiv" style="color: darkred; font-weight: bold; margin-top: 10px;">No active monster.</div>
+        <div>
+            <a href="powerup.html">Back to Modern version</a>
+        </div>
+    </main>
+</body>
